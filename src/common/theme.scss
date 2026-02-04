@@ -1,0 +1,51 @@
+.primary,
+.secondary {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.primary {
+  font-family: "MyFont";
+  font-weight: bold;
+  background-color: $lightgold;
+  color: $orange;
+  border: 4px solid $gold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  text-decoration: none;
+}
+.secondary {
+  font-family: "MyFont";
+  font-weight: bold;
+  background-color: $orange;
+  opacity: 0.8;
+  color: $lightgold;
+  border: 4px solid $gold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  text-decoration: none;
+}
+.bareTitle {
+  font-family: "MyFont";
+  background: linear-gradient(0deg, $orange, $orangered);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 48px;
+  font-weight: bold;
+}
+.clearA {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}

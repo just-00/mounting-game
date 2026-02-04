@@ -1,0 +1,92 @@
+@import "../../common/theme.scss";
+
+
+.homePage {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: -2;
+  background: linear-gradient(0deg, $orange, $gold);
+  .bk {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: url("https://raw.githubusercontent.com/just-00/game-image-cdn/main/moutain_bak8.png")
+      right bottom / 100% 100% no-repeat;
+    animation: flash 0.5s ease-in-out infinite alternate, opacity 0.5s ease-in-out forwards;
+    transition: opacity 5s ease;
+    z-index: -1;
+  }
+
+  @keyframes opacity {
+    from {
+      filter: opacity(0);
+    }
+    to {
+      filter: opacity(1);
+    }
+  }
+
+  @keyframes flash {
+    from {
+      filter: brightness(1);
+    }
+    to {
+      filter: brightness(1.25);
+    }
+  }
+  .title {
+    @extend .primary;
+    position: absolute;
+    top: 60px;
+    font-size: 48px;
+    width: 240px;
+    height: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .start {
+    @extend .secondary;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 60px;
+    font-size: 32px;
+    width: 160px;
+    height: 50px;
+    filter: brightness(1.1) saturate(2.3);
+  }
+  .start::after {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    top: 20px;
+    bottom: 20px;
+    content: "";
+    display: block;
+  }
+  .achivement-wrapper {
+    position: absolute;
+    bottom: 120px;
+    right: 24px;
+    .achivement {
+      height: 34px;
+      @extend .clearA;
+      font-size: 30px;
+      width: 80px;
+      font-family: "MyFont";
+      color: goldenrod;
+      font-weight: bold;
+    }
+  }
+
+  .birdWrapper {
+    position: absolute;
+    top: 200px;
+    z-index: -1;
+  }
+}

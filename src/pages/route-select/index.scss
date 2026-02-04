@@ -1,0 +1,42 @@
+@import "../../common/theme.scss";
+
+.routeSelectPage {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background: url("https://raw.githubusercontent.com/just-00/game-image-cdn/main/5137ede1b7cb4b55b457db812dc52d31.jpeg%7Etplv-a9rns2rl98-image_pre_watermark_1_5b.png")
+    right bottom / 100% 100% no-repeat;
+  .buttonWrapper {
+    position: absolute;
+    top: 200px;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .button {
+    @extend .secondary;
+    width: 200px;
+    height: 50px;
+    margin-bottom: 32px;
+  }
+  .title{
+    @extend .bareTitle;
+    margin-bottom: 60px;
+  }
+  .birdWrapper{
+    position: absolute;
+    bottom: 296px;
+    right: 0;
+    transform: scaleX(-1) rotate(-10deg);
+  }
+  .bearWrapper{
+    position: absolute;
+    right: 200px;
+    bottom: 280px;
+  }
+}
+
