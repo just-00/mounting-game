@@ -3,6 +3,8 @@ $fontcolor: rgba(0, 0, 0, 0.6);
 
 .selectEquipment {
   position: fixed;
+  display: flex;
+  flex-direction: column;
   left: 0;
   right: 0;
   bottom: 0;
@@ -31,7 +33,9 @@ $fontcolor: rgba(0, 0, 0, 0.6);
     color: $fontcolor;
   }
   .detaiWrapper {
+    flex:1;
     margin-top: 12px;
+    padding-bottom: 12px;
     display: flex;
     flex-wrap: wrap;
     font-size: 18px;
@@ -57,9 +61,12 @@ $fontcolor: rgba(0, 0, 0, 0.6);
         }
       }
     }
+    .detailItemWrapper{
+      width: 100%;
+      height: 400px;
+    }
     .detailItem {
       display: flex;
-      width: 100%;
       color: $fontcolor;
       font-weight: bold;
       padding: 8px 24px;
@@ -76,7 +83,23 @@ $fontcolor: rgba(0, 0, 0, 0.6);
       }
       .step{
         margin-left: auto;
+        &>button:not(.rv-stepper__minus--disabled){
+          background:$gold;
+          color: $orange;
+        }
+        &>input{
+          color: $orange;
+          font-family: "MyFont";
+        }
+
       }
+    }
+    .submitButton{
+          @extend .secondary;
+          height: 48px;
+          width: 160px;
+          margin: 8px auto 0 auto;
+          font-size: 24px;
     }
   }
 }

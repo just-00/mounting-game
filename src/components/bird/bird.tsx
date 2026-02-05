@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import './index.scss'
 import { Like } from '@react-vant/icons'
-import { IMG_URL } from '@/const/ResourceUrl'
+import { HOME_PRELOAD } from '@/const/ResourceUrl'
 
 const COLOR_ONE_CLICK = 'deeppink'
 const COLOR_DOUBLE_CLICK = 'gold'
@@ -63,7 +63,7 @@ export const Bird = (props: Props) => {
         left: position.left,
         top: position.top
     }} >
-    <img className='body'src={IMG_URL.BIRD}/>
+    <img className='body'src={HOME_PRELOAD.BIRD}/>
     {
         showLike&& <Like className='like' color={color} />
     }

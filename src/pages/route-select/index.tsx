@@ -2,9 +2,17 @@ import { useNavigate } from "react-router-dom";
 import "./index.scss";
 import { BEAR } from "@/components/bear";
 import { Bird } from "@/components/bird/bird";
+import usePreloadImages from "@/hooks/usePreloadImg";
+import { useEffect } from "react";
+import { SELECT_EQUIPMENT_PRELOAD } from "@/const/ResourceUrl";
 
 export const RouteSelect = () => {
   const navigate = useNavigate();
+  const {preloadImages} = usePreloadImages()
+
+  useEffect(() => {
+    preloadImages(Object.values(SELECT_EQUIPMENT_PRELOAD))
+  }, [])
 
   const toPage = () => {
     navigate("/select-equipment");
