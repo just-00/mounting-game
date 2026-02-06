@@ -7,9 +7,13 @@ import "./index.scss";
 import { useState } from "react";
 import { Stepper } from "react-vant";
 import { useEquipmentStore } from "@/store/equipment/store";
+import { useNavigate } from "react-router-dom";
 
-export const SelectEquipment = () => {
+const SelectEquipment = () => {
   const [page, setPage] = useState(1);
+
+  const navigate = useNavigate();
+
   const onPage = (p: number) => {
     setPage(p);
   };
@@ -19,7 +23,18 @@ export const SelectEquipment = () => {
   const onValueChange = (key: string, count?: number | null) => {
     setEquipmentsCount(key, count ?? 0);
   };
-  const submit = () => {};
+  const submit = () => {
+    navigate("/main")
+  };
+
+  const isBigSize = totalSize > EQUIPMENT_MAX_SIZE;
+  const isSmallSize = totalSize < EQUIPMENT_MAX_SIZE / 2;
+
+  const isHeavy = totalWeight > EQUIPMENT_MAX_WEIGHT;
+  const isLight = totalWeight < EQUIPMENT_MAX_WEIGHT / 2;
+
+  const sizeColor = isBigSize ? "red" : isSmallSize ? "green" : "inherit";
+  const weightColor = isHeavy ? "red" : isLight ? "green" : "inherit";
 
   return (
     <div className="selectEquipment">
@@ -33,7 +48,7 @@ export const SelectEquipment = () => {
           <span className="space" />
           <span
             style={{
-              color: totalSize > EQUIPMENT_MAX_SIZE ? "red" : "inherit",
+              color: sizeColor,
             }}
           >
             {totalSize}
@@ -48,7 +63,7 @@ export const SelectEquipment = () => {
           <span className="space" />
           <span
             style={{
-              color: totalWeight > EQUIPMENT_MAX_WEIGHT ? "red" : "inherit",
+              color: weightColor,
             }}
           >
             {totalWeight}
@@ -118,3 +133,5 @@ export const SelectEquipment = () => {
     </div>
   );
 };
+
+export default SelectEquipment;

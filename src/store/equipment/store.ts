@@ -1,6 +1,7 @@
 import { create } from "zustand";
-import { EQUIPMENTS, type Equipment } from "./config";
+import { EQUIPMENTS } from "./config";
 import { add, mul } from "@/utils/number";
+import type { Equipment } from "./type";
 
 interface EquipmentStore {
   equipments: Equipment[];

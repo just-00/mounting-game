@@ -8,7 +8,6 @@ $fontcolor: rgba(0, 0, 0, 0.6);
   left: 0;
   right: 0;
   bottom: 0;
-  font-family: "MyFont";
   top: 0;
   background: url("https://raw.githubusercontent.com/just-00/game-image-cdn/main/0c72a9ddbb1a407997383021a90a19c1.jpeg%7Etplv-a9rns2rl98-image_raw_b%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1).png")
     right bottom / 100% 100% no-repeat;
@@ -89,7 +88,6 @@ $fontcolor: rgba(0, 0, 0, 0.6);
         }
         &>input{
           color: $orange;
-          font-family: "MyFont";
         }
 
       }

@@ -8,7 +8,6 @@
   cursor: pointer;
 }
 .primary {
-  font-family: "MyFont";
   font-weight: bold;
   background-color: $lightgold;
   color: $orange;
@@ -20,7 +19,6 @@
   text-decoration: none;
 }
 .secondary {
-  font-family: "MyFont";
   font-weight: bold;
   background-color: $orange;
   opacity: 0.8;
@@ -33,7 +31,6 @@
   text-decoration: none;
 }
 .bareTitle {
-  font-family: "MyFont";
   background: linear-gradient(0deg, $orange, $orangered);
   -webkit-background-clip: text;
   background-clip: text;
@@ -48,4 +45,21 @@
   margin: 0;
   padding: 0;
   cursor: pointer;
+}
+@keyframes opacity {
+  from {
+    filter: opacity(0);
+  }
+  to {
+    filter: opacity(1);
+  }
+}
+
+@keyframes flash {
+  from {
+    filter: brightness(0/9) ;
+  }
+  to {
+    filter: brightness(1.1);
+  }
 }

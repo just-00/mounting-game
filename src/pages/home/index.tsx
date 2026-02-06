@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import usePreloadImages from "@/hooks/usePreloadImg";
 import { ROUTE_SELECT_PRELOAD } from "@/const/ResourceUrl";
+import { preloadOtherRoutes } from "@/routes";
 
 export const HomePage = () => {
   const navigate = useNavigate();
@@ -16,6 +17,13 @@ export const HomePage = () => {
 
   useEffect(() => {
     preloadImages(Object.values(ROUTE_SELECT_PRELOAD));
+  }, []);
+
+  useEffect(() => {
+    const idleCallback = requestIdleCallback(() => {
+      preloadOtherRoutes();
+    });
+    return () => cancelIdleCallback(idleCallback);
   }, []);
 
   return (

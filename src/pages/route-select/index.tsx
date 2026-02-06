@@ -6,7 +6,7 @@ import usePreloadImages from "@/hooks/usePreloadImg";
 import { useEffect } from "react";
 import { SELECT_EQUIPMENT_PRELOAD } from "@/const/ResourceUrl";
 
-export const RouteSelect = () => {
+const RouteSelect = () => {
   const navigate = useNavigate();
   const {preloadImages} = usePreloadImages()
 
@@ -34,3 +34,5 @@ export const RouteSelect = () => {
     </div>
   );
 };
+
+export default RouteSelect

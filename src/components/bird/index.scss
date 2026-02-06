@@ -10,16 +10,15 @@
   .body {
     width: 60px;
     height: 60px;
-    opacity: 0.8;
-    animation: flash 0.5s ease-in-out infinite alternate;
+    animation: birdFlash 0.5s ease-in-out infinite alternate;
     z-index: -1;
 
-    @keyframes flash {
+    @keyframes birdFlash {
       from {
-        filter: opacity(0.8);
+        filter: brightness(0.9);
       }
       to {
-        filter: opacity(1);
+        filter: brightness(1.1);
       }
     }
   }

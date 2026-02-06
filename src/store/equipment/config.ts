@@ -1,113 +1,117 @@
 import { SELECT_EQUIPMENT_PRELOAD } from "@/const/ResourceUrl";
+import type { Equipment } from "./type";
 
 export const EQUIPMENT_MAX_SIZE = 55
 export const EQUIPMENT_MAX_WEIGHT = 20
 
-export interface Equipment{
-    key: string;
-    size: number;
-    weight: number;
-    name: string;
-    src: string;
-    tips?: string;
-    count?: number
-}
-
 export const EQUIPMENTS: Equipment[] = [
-    // 生存保障类
-    {
-        key: 'lightTent',
-        name: '轻便帐篷',
-        weight: 1.2,
-        size: 8,
-        src: SELECT_EQUIPMENT_PRELOAD.LIGHT_TENT
-    },
-    {
-        key: 'warmTent',
-        name: '保暖帐篷',
-        weight: 3.5,
-        size: 15,
-        src: SELECT_EQUIPMENT_PRELOAD.WARM_TENT
-    },
-    {
-        key: 'sleepingBag',
-        name: '睡袋',
-        weight: 1.8,
-        size: 7,
-        src: SELECT_EQUIPMENT_PRELOAD.SLEEPING_BAG
-    },
-    {
-        key: 'firstAidKit',
-        name: '急救包',
-        weight: 0.8,
-        size: 2,
-        src: SELECT_EQUIPMENT_PRELOAD.FIRST_AID_KIT
-    },
-    {
-        key: 'survivalBlanket',
-        name: '救生毯',
-        weight: 0.1,
-        size: 0.5,
-        src: SELECT_EQUIPMENT_PRELOAD.SURVIAL_BLANKET
-    },
-    // 食物类
-    {
-        key: 'sportsDrink',
-        name: '运动饮料',
-        weight: 0.55,
-        size: 0.5,
-        src: SELECT_EQUIPMENT_PRELOAD.SPORTS_DRINK
-    },
-    {
-        key: 'compressedBiscuit',
-        name: '压缩饼干',
-        weight: 0.3,
-        size: 0.3,
-        src: SELECT_EQUIPMENT_PRELOAD.COMPRESSED_BISCUIT
-    },
-    {
-        key: 'selfHeatingPot',
-        name: '自热锅',
-        weight: 1.2,
-        size: 2,
-        tips: '幸福感up',
-        src: SELECT_EQUIPMENT_PRELOAD.SELF_HEATING_POT
-    },
-    // 登山器材类
-    {
-        key: 'hikingPole',
-        name: '登山杖',
-        weight: 0.3,
-        size: 0, // 拿在手上，体积忽略
-        src: SELECT_EQUIPMENT_PRELOAD.HIKING_POLE
-    },
-    {
-        key: 'crampons',
-        name: '冰爪',
-        weight: 0.8,
-        size: 2,
-        src: SELECT_EQUIPMENT_PRELOAD.CRAMPONS
-    },
-    // 特殊用品
-    {
-        key: 'powerBank',
-        name: '充电宝',
-        weight: 0.3,
-        size: 0.4,
-        src: SELECT_EQUIPMENT_PRELOAD.POWER_BANK
-    },
-    {
-        key: 'bearBell',
-        name: '熊铃',
-        weight: 0.05,
-        size: 0, // 体积极小忽略
-        src: SELECT_EQUIPMENT_PRELOAD.BEAR_BELL
-    },
-    {
-        key: 'headlamp',
-        name: '头灯',
-        weight: 0.2,
-        size: 0.2,
-        src: SELECT_EQUIPMENT_PRELOAD.HEAD_LAMP
-    },
-]
+  // 生存保障类
+  {
+    key: 'lightTent',
+    name: '轻便帐篷',
+    weight: 1.2, 
+    size: 8,
+    src: SELECT_EQUIPMENT_PRELOAD.LIGHT_TENT,
+    useTime: 15, 
+    warm: 5, 
+  },
+  {
+    key: 'warmTent',
+    name: '保暖帐篷',
+    weight: 3, 
+    size: 12, 
+    src: SELECT_EQUIPMENT_PRELOAD.WARM_TENT,
+    useTime: 30, 
+    warm: 8,
+  },
+  {
+    key: 'sleepingBag',
+    name: '睡袋',
+    weight: 1.8, 
+    size: 7,
+    src: SELECT_EQUIPMENT_PRELOAD.SLEEPING_BAG,
+    warm: 5, 
+  },
+  {
+    key: 'firstAidKit',
+    name: '急救包',
+    weight: 0.8, 
+    size: 2,
+    src: SELECT_EQUIPMENT_PRELOAD.FIRST_AID_KIT,
+    useTime: 10, 
+    disposable: true,
+  },
+  {
+    key: 'survivalBlanket',
+    name: '救生毯',
+    weight: 0.1, 
+    size: 0.5, 
+    src: SELECT_EQUIPMENT_PRELOAD.SURVIAL_BLANKET,
+    disposable: true, 
+    warm: 20, 
+  },
+  // 食物类
+  {
+    key: 'sportsDrink',
+    name: '运动饮料',
+    weight: 0.55, 
+    size: 0.5, 
+    src: SELECT_EQUIPMENT_PRELOAD.SPORTS_DRINK,
+    disposable: true,
+  },
+  {
+    key: 'compressedBiscuit',
+    name: '压缩饼干',
+    weight: 0.3, 
+    size: 0.3, 
+    src: SELECT_EQUIPMENT_PRELOAD.COMPRESSED_BISCUIT,
+    disposable: true, 
+  },
+  {
+    key: 'selfHeatingPot',
+    name: '自热锅',
+    weight: 1.2,
+    size: 2, 
+    src: SELECT_EQUIPMENT_PRELOAD.SELF_HEATING_POT,
+    useTime: 10, 
+    disposable: true, 
+    warm: 10, 
+  },
+  // 登山器材类
+  {
+    key: 'hikingPole',
+    name: '登山杖',
+    weight: 0.3,
+    size: 0, 
+    src: SELECT_EQUIPMENT_PRELOAD.HIKING_POLE,
+  },
+  {
+    key: 'crampons',
+    name: '冰爪',
+    weight: 0.8, 
+    size: 2,
+    src: SELECT_EQUIPMENT_PRELOAD.CRAMPONS,
+  },
+  // 特殊用品
+  {
+    key: 'powerBank',
+    name: '充电宝',
+    weight: 0.3, 
+    size: 0.4, 
+    src: SELECT_EQUIPMENT_PRELOAD.POWER_BANK,
+  },
+  {
+    key: 'bearBell',
+    name: '熊铃',
+    weight: 0.05,
+    size: 0, // 体积极小忽略
+    src: SELECT_EQUIPMENT_PRELOAD.BEAR_BELL,
+  },
+  {
+    key: 'headlamp',
+    name: '头灯',
+    weight: 0.2, 
+    size: 0.2,
+    src: SELECT_EQUIPMENT_PRELOAD.HEAD_LAMP,
+  },
+];
