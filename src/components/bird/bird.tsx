@@ -35,7 +35,6 @@ export const Bird = (props: Props) => {
         setShowLike(true)
     }
     useEffect(() => {
-        console.log(isFlying)
         if(!isFlying) return
         const inter = setInterval(() => {
             if(times.current<0){

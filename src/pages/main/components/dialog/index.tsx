@@ -1,15 +1,23 @@
-import type { Event } from "@/store/event/config";
+import type { GameEvent } from "@/store/event/type";
 import "./index.scss";
 
-export const Dialog = ({
-    title
-}: Event) => {
+export const GameDialog = ({
+  currentEvent,
+}: {
+  currentEvent: GameEvent | null;
+}) => {
+  if (!currentEvent) return null;
   return (
     <div className="pixel-dialog">
-      <div className="title">碰到一只熊</div>
+      <div className="title">{currentEvent.title}</div>
       <section className="buttonWrapper">
-        <div className="button">揍他</div>
-        <div className="button">摸他</div>
+        {currentEvent.options?.map((item) => {
+          return (
+            <div className="button" key={item.title}>
+              {item.title}
+            </div>
+          );
+        })}
       </section>
     </div>
   );

@@ -4,10 +4,26 @@ import type { Equipment } from "./type";
 export const EQUIPMENT_MAX_SIZE = 55
 export const EQUIPMENT_MAX_WEIGHT = 20
 
+export enum EquipmentKey {
+  LightTent = 'lightTent',
+  WarmTent = 'warmTent',
+  SleepingBag = 'sleepingBag',
+  FirstAidKit = 'firstAidKit',
+  SurvivalBlanket = 'survivalBlanket',
+  SportsDrink = 'sportsDrink',
+  CompressedBiscuit = 'compressedBiscuit',
+  SelfHeatingPot = 'selfHeatingPot',
+  HikingPole = 'hikingPole',
+  Crampons = 'crampons',
+  PowerBank = 'powerBank',
+  BearBell = 'bearBell',
+  Headlamp = 'headlamp'
+}
+
 export const EQUIPMENTS: Equipment[] = [
   // 生存保障类
   {
-    key: 'lightTent',
+    key: EquipmentKey.LightTent,
     name: '轻便帐篷',
     weight: 1.2, 
     size: 8,
@@ -16,7 +32,7 @@ export const EQUIPMENTS: Equipment[] = [
     warm: 5, 
   },
   {
-    key: 'warmTent',
+    key: EquipmentKey.WarmTent,
     name: '保暖帐篷',
     weight: 3, 
     size: 12, 
@@ -25,7 +41,7 @@ export const EQUIPMENTS: Equipment[] = [
     warm: 8,
   },
   {
-    key: 'sleepingBag',
+    key: EquipmentKey.SleepingBag,
     name: '睡袋',
     weight: 1.8, 
     size: 7,
@@ -33,7 +49,7 @@ export const EQUIPMENTS: Equipment[] = [
     warm: 5, 
   },
   {
-    key: 'firstAidKit',
+    key: EquipmentKey.FirstAidKit,
     name: '急救包',
     weight: 0.8, 
     size: 2,
@@ -42,7 +58,7 @@ export const EQUIPMENTS: Equipment[] = [
     disposable: true,
   },
   {
-    key: 'survivalBlanket',
+    key: EquipmentKey.SurvivalBlanket,
     name: '救生毯',
     weight: 0.1, 
     size: 0.5, 
@@ -52,7 +68,7 @@ export const EQUIPMENTS: Equipment[] = [
   },
   // 食物类
   {
-    key: 'sportsDrink',
+    key: EquipmentKey.SportsDrink,
     name: '运动饮料',
     weight: 0.55, 
     size: 0.5, 
@@ -60,7 +76,7 @@ export const EQUIPMENTS: Equipment[] = [
     disposable: true,
   },
   {
-    key: 'compressedBiscuit',
+    key: EquipmentKey.CompressedBiscuit,
     name: '压缩饼干',
     weight: 0.3, 
     size: 0.3, 
@@ -68,7 +84,7 @@ export const EQUIPMENTS: Equipment[] = [
     disposable: true, 
   },
   {
-    key: 'selfHeatingPot',
+    key: EquipmentKey.SelfHeatingPot,
     name: '自热锅',
     weight: 1.2,
     size: 2, 
@@ -79,14 +95,14 @@ export const EQUIPMENTS: Equipment[] = [
   },
   // 登山器材类
   {
-    key: 'hikingPole',
+    key: EquipmentKey.HikingPole,
     name: '登山杖',
     weight: 0.3,
     size: 0, 
     src: SELECT_EQUIPMENT_PRELOAD.HIKING_POLE,
   },
   {
-    key: 'crampons',
+    key: EquipmentKey.Crampons,
     name: '冰爪',
     weight: 0.8, 
     size: 2,
@@ -94,21 +110,21 @@ export const EQUIPMENTS: Equipment[] = [
   },
   // 特殊用品
   {
-    key: 'powerBank',
+    key: EquipmentKey.PowerBank,
     name: '充电宝',
     weight: 0.3, 
     size: 0.4, 
     src: SELECT_EQUIPMENT_PRELOAD.POWER_BANK,
   },
   {
-    key: 'bearBell',
+    key: EquipmentKey.BearBell,
     name: '熊铃',
     weight: 0.05,
-    size: 0, // 体积极小忽略
+    size: 0,
     src: SELECT_EQUIPMENT_PRELOAD.BEAR_BELL,
   },
   {
-    key: 'headlamp',
+    key: EquipmentKey.Headlamp,
     name: '头灯',
     weight: 0.2, 
     size: 0.2,

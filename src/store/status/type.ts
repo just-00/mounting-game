@@ -1,11 +1,17 @@
 export enum Speed {
-    fast = 0,
-    normal = 1,
-    slow = 2
+  Fast = "Fast",
+  Normal = "Normal",
+  Slow = "Slow",
 }
 
-export interface Status {
-    size: number,
-    speed: Speed,
-    temperature: number,
+export enum San {
+  Fracture = "Fracture",
+  Unstable = "Unstable",
+  Normal = "Normal",
+}
+
+export enum Temperature {
+  Hypothermia = 'Hypothermia',
+  Low = 'Low',
+  Normal = 'Normal',
 }

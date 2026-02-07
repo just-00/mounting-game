@@ -1,4 +1,4 @@
-.pixel-dialog {
+.pixel-toast {
   color: rgba(0, 0, 0, 0.6);
   font-weight: bold;
   width: 240px;
@@ -28,23 +28,17 @@
   align-items: center;
   .title{
     font-size: 24px;
-    padding: 18px 8px;
+    padding: 12px 8px;
     line-height: 28px;
   }
-  .buttonWrapper{
-    display: flex;
-    width: 100%;
-    align-items: center;
-    .button{
-      flex: 1;
-      font-size: 18px;
-      text-align: center;
-      padding: 16px 0;
-      color: rgba(255,255,255,0.7);
-      background: #7a522a;
-    }
-    .button:first-child{
-      border-right: 4px solid #8b5a2b; 
+  .desc{
+    position: relative;
+    .icon{
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: flash 0.2s ease-in-out infinite alternate;
     }
   }
 }

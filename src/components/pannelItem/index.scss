@@ -1,0 +1,45 @@
+@font-face {
+  font-family: "iconfont logo";
+  src: url("https://raw.githubusercontent.com/just-00/game-image-cdn/main/iconfont34.ttf")
+    format("truetype");
+}
+.speedTime {
+  font-size: 16px;
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.6);
+}
+
+.speedIconWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .icon {
+    font-family: "iconfont logo";
+    font-size: 28px;
+    animation: flash 0.5s ease-in-out infinite alternate;
+  }
+  .tip {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 2px;
+  }
+}
+.mainPannel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border-radius: 8px;
+  padding: 4px 16px;
+  background: rgba(255, 255, 255, 0.6);
+  .leftWrapper{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .rightWrapper{
+    display: flex;
+    gap: 8px;
+  }
+}
