@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
     "target": "ES2022",
     "useDefineForClassFields": true,
@@ -27,6 +29,5 @@
       "@/*": ["./src/*"] // 将@/*映射为src/*（*是通配符，匹配子目录/文件）
     }
   },
-  
   "include": ["src"]
 }

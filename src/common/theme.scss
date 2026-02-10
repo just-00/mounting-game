@@ -8,7 +8,6 @@
   cursor: pointer;
 }
 .primary {
-  font-weight: bold;
   background-color: $lightgold;
   color: $orange;
   border: 4px solid $gold;
@@ -19,7 +18,6 @@
   text-decoration: none;
 }
 .secondary {
-  font-weight: bold;
   background-color: $orange;
   opacity: 0.8;
   color: $lightgold;
@@ -36,7 +34,6 @@
   background-clip: text;
   color: transparent;
   font-size: 48px;
-  font-weight: bold;
 }
 .clearA {
   text-decoration: none;
@@ -57,7 +54,7 @@
 
 @keyframes flash {
   from {
-    filter: brightness(0/9) ;
+    filter: brightness(0.9) ;
   }
   to {
     filter: brightness(1.1);

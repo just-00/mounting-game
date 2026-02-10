@@ -12,8 +12,8 @@ import { useEnvironmenStore } from "@/store/environment/store";
 const RouteSelect = () => {
   const navigate = useNavigate();
   const { preloadImages } = usePreloadImages();
-  const { setRouteId } = useEventStore()
-  const { setDistance } = useEnvironmenStore()
+  const { setRouteId } = useEventStore();
+  const { setDistance, setAverageDistancePerHour } = useEnvironmenStore();
 
   useEffect(() => {
     preloadImages(Object.values(SELECT_EQUIPMENT_PRELOAD));
@@ -21,8 +21,12 @@ const RouteSelect = () => {
 
   const toPage = (routeId: Route) => {
     navigate("/select-equipment");
-    setRouteId(routeId)
-    setDistance(ROUTES.find(item => item.key === routeId)!.distance)
+    // 设置当前路线
+    setRouteId(routeId);
+    const currentRoute = ROUTES.find((item) => item.key === routeId);
+    // 设置 初始走了0km 以及 基准值的每小时走多少距离
+    setDistance(0);
+    setAverageDistancePerHour(currentRoute!.averageDistancePerHour);
   };
 
   return (
@@ -30,7 +34,11 @@ const RouteSelect = () => {
       <section className="buttonWrapper">
         <div className="title">去哪条路线呢</div>
         {ROUTES.map((item) => (
-          <div className="button" key={item.key} onClick={() => toPage(item.key)} >
+          <div
+            className="button"
+            key={item.key}
+            onClick={() => toPage(item.key)}
+          >
             {item.title}
           </div>
         ))}

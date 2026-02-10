@@ -1,0 +1,23 @@
+.toast {
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  padding: 16px 20px;
+  background-color: #3a473e;
+  border: 4px solid #c4c4c4;
+  outline: 2px solid #1e2521;
+  border-radius: 6px;
+  box-shadow: 0 0 0 2px #6a786e;
+  text-align: center;
+  color: #ffffff;
+  z-index: 4;
+  line-height: 40px;
+}
+
+.toast-text {
+  font-size: 14px;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 0 #1e2521;
+}

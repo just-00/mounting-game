@@ -1,10 +1,13 @@
 import { San, Speed, Temperature } from "@/store/status/type";
 import "./index.scss";
-import { DEFAULT_DISTANCE, Direction, Weather } from "@/store/environment/type";
+import { Weather } from "@/store/environment/type";
 import { useStatusStore } from "@/store/status/store";
 import { useEnvironmenStore } from "@/store/environment/store";
 import dayjs from "dayjs";
-import { div } from "@/utils/number";
+import { useEventStore } from "@/store/event/store";
+import { ROUTES } from "@/store/event/config";
+import { div, sub } from "@/utils/number";
+import { useNavigate } from "react-router-dom";
 
 const iconMap: {
   [key: string]: {
@@ -20,15 +23,54 @@ const iconMap: {
     color: "#7BA05B",
   },
   [`Speed${[Speed.Fast]}`]: { icon: "&#xe627;", tip: "快速", color: "#E67E22" },
-  [`Weather${[Weather.Sun]}`]: { icon: "&#xe610;", tip: "晴天", color: "#E69F22" },
-  [`Weather${[Weather.Rain]}`]: { icon: "&#xe60e;", tip: "下雨", color: "#4A90E2" },
-  [`Weather${[Weather.Snow]}`]: { icon: "&#xe643;", tip: "下雪", color: "#4A90E2" },
+  [`Weather${[Weather.Sun]}`]: {
+    icon: "&#xe610;",
+    tip: "晴天",
+    color: "#E69F22",
+  },
+  [`Weather${[Weather.Rain]}`]: {
+    icon: "&#xe60e;",
+    tip: "下雨",
+    color: "#4A90E2",
+  },
+  [`Weather${[Weather.Snow]}`]: {
+    icon: "&#xe643;",
+    tip: "下雪",
+    color: "#4A90E2",
+  },
   [`San${[San.Normal]}`]: { icon: "&#xe7ba;", tip: "神常", color: "#16A085" },
   [`San${[San.Unstable]}`]: { icon: "&#xe7ba;", tip: "神迷", color: "#FFCC80" },
   [`San${[San.Fracture]}`]: { icon: "&#xe7ba;", tip: "神乱", color: "#E53935" },
-  [`Temprature${[Temperature.Hypothermia]}`]: { icon: "&#xe51f;", tip: "失温", color: "#F4D03F" },
-  [`Temprature${[Temperature.Low]}`]: { icon: "&#xe51f;", tip: "低温", color: "#76D7C4" },
-  [`Temprature${[Temperature.Normal]}`]: { icon: "&#xe51f;", tip: "常温", color: "#48C9B0" },
+  [`Temprature${[Temperature.Hypothermia]}`]: {
+    icon: "&#xe51f;",
+    tip: "失温",
+    color: "#F4D03F",
+  },
+  [`Temprature${[Temperature.Low]}`]: {
+    icon: "&#xe51f;",
+    tip: "低温",
+    color: "#76D7C4",
+  },
+  [`Temprature${[Temperature.Normal]}`]: {
+    icon: "&#xe51f;",
+    tip: "常温",
+    color: "#34B59C",
+  },
+};
+
+export const BagCom = () => {
+  const navigate = useNavigate()
+  const onClick = () => {
+    navigate("/bag-manage")
+  }
+  return (
+    <img
+      className="bagWrapper"
+      onClick={onClick}
+      src="https://raw.githubusercontent.com/just-00/game-image-cdn/main/e016fe0ccc334a97a5f6dfa5213f91ff.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png"
+      width={48}
+    />
+  );
 };
 
 export const TimeCom = () => {
@@ -38,19 +80,25 @@ export const TimeCom = () => {
 
 export const DistanceCom = () => {
   const distance = useEnvironmenStore((state) => state.distance);
-  const direction = useEnvironmenStore((state) => state.direction);
+  const routeId = useEventStore((state) => state.routeId);
+  const currentRoute = ROUTES.find((item) => item.key === routeId);
+  const HALF = div(currentRoute!.distance, 2);
+  const isDown = distance > HALF;
+  const remaining = isDown
+    ? sub(currentRoute!.distance, distance)
+    : sub(HALF, distance);
+
   return (
     <div className="speedTime">
-      距{direction === Direction.Down ? "底" : "顶"}
-      {div(distance || DEFAULT_DISTANCE, 2)}km
+      距{isDown ? "底" : "顶"}
+      {remaining}km
     </div>
   );
 };
 
-
 export const WeatherCom = () => {
   const weather = useEnvironmenStore((state) => state.weather);
-  const map = iconMap[`Weather${weather}`]
+  const map = iconMap[`Weather${weather}`];
   return (
     <section
       className="speedIconWrapper"
@@ -59,7 +107,7 @@ export const WeatherCom = () => {
       }}
     >
       <div
-        className="icon iconfont"
+        className="fontIcon iconfont"
         dangerouslySetInnerHTML={{ __html: map.icon }}
       ></div>
       {<div className="tip">{map.tip}</div>}
@@ -69,7 +117,7 @@ export const WeatherCom = () => {
 
 export const SpeedCom = () => {
   const speed = useStatusStore((state) => state.speed);
-  const map = iconMap[`Speed${speed}`]
+  const map = iconMap[`Speed${speed}`];
   return (
     <section
       className="speedIconWrapper"
@@ -78,7 +126,7 @@ export const SpeedCom = () => {
       }}
     >
       <div
-        className="icon iconfont"
+        className="fontIcon iconfont"
         dangerouslySetInnerHTML={{ __html: map.icon }}
       ></div>
       {<div className="tip">{map.tip}</div>}
@@ -88,7 +136,7 @@ export const SpeedCom = () => {
 
 export const SanCom = () => {
   const san = useStatusStore((state) => state.san);
-  const map = iconMap[`San${san}`]
+  const map = iconMap[`San${san}`];
   return (
     <section
       className="speedIconWrapper"
@@ -97,7 +145,7 @@ export const SanCom = () => {
       }}
     >
       <div
-        className="icon iconfont"
+        className="fontIcon iconfont"
         dangerouslySetInnerHTML={{ __html: map.icon }}
       ></div>
       {<div className="tip">{map.tip}</div>}
@@ -107,7 +155,7 @@ export const SanCom = () => {
 
 export const TempratureCom = () => {
   const temperature = useStatusStore((state) => state.temperature);
-  const map = iconMap[`Temprature${temperature}`]
+  const map = iconMap[`Temprature${temperature}`];
   return (
     <section
       className="speedIconWrapper"
@@ -116,7 +164,7 @@ export const TempratureCom = () => {
       }}
     >
       <div
-        className="icon iconfont"
+        className="fontIcon iconfont"
         dangerouslySetInnerHTML={{ __html: map.icon }}
       ></div>
       {<div className="tip">{map.tip}</div>}
@@ -126,7 +174,7 @@ export const TempratureCom = () => {
 
 export const TiredCom = () => {
   const temperature = useStatusStore((state) => state.temperature);
-  const map = iconMap[`Temprature${temperature}`]
+  const map = iconMap[`Temprature${temperature}`];
   return (
     <section
       className="speedIconWrapper"
@@ -135,7 +183,7 @@ export const TiredCom = () => {
       }}
     >
       <div
-        className="icon iconfont"
+        className="fontIcon iconfont"
         dangerouslySetInnerHTML={{ __html: map.icon }}
       ></div>
       {<div className="tip">{map.tip}</div>}
@@ -145,17 +193,26 @@ export const TiredCom = () => {
 
 export const MainPannel = () => {
   return (
-    <section className="mainPannel">
-      <section className="leftWrapper">
-        <TimeCom />
-        <DistanceCom />
-        <WeatherCom />
+    <section className="pannelRow">
+      <section className="mainPannel">
+        <section className="leftWrapper">
+          <section className="timeAndDistance">
+            <TimeCom />
+            <DistanceCom />
+          </section>
+        </section>
+        <section className="rightWrapper">
+          <section className="rightWeatherWrapper">
+            <WeatherCom />
+          </section>
+          <section className="rightMainWrapper">
+            <SanCom />
+            <SpeedCom />
+            <TempratureCom />
+          </section>
+        </section>
       </section>
-      <section className="rightWrapper">
-        <SanCom />
-        <SpeedCom />
-        <TempratureCom />
-      </section>
+      <BagCom />
     </section>
   );
 };

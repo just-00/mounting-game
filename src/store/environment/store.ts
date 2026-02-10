@@ -1,36 +1,30 @@
 import { create } from "zustand";
-import { DEFAULT_DISTANCE, Direction, START_TIME, Time, Weather } from "./type";
+import { DEFAULT_DISTANCE, getRandomWeather, getTimeByTimestamp, START_TIME, Time, Weather } from "./type";
 import type { Dayjs } from "dayjs";
+import { div } from "@/utils/number";
 
 interface EnvironmentStore {
   weather: Weather;
   time: Time;
   timestamp: Dayjs;
-  distance: number | null;
-  direction: Direction;
+  distance: number;
+  // 每小时预定可以爬多少distance
+  averageDistancePerHour: number;
   setWeather: (weather: Weather) => void;
   setNewRandomWeather: () => void;
   setDistance: (d: number) => void;
-  setDirection: (direction: Direction) => void
   setTimestamp: (timestamp: Dayjs) => void;
+  setAverageDistancePerHour: (averageDistancePerHour: number) => void;
 }
-
-const getRandomWeather = () => {
-  const ran = Math.random();
-  if (ran < 0.8) {
-    return Weather.Sun;
-  } else if (ran < 0.95) {
-    return Weather.Rain;
-  } else {
-    return Weather.Snow;
-  }
-};
 
 export const useEnvironmenStore = create<EnvironmentStore>((set) => ({
   weather: getRandomWeather(),
+  // 无初始距离，在选取路线后初始
+  // WIP 测试方便
+  distance: div(DEFAULT_DISTANCE, 2),
+  // WIP 测试方便
+  averageDistancePerHour: 2.5,
   time: Time.Day,
-  distance: DEFAULT_DISTANCE,
-  direction: Direction.Up,
   timestamp: START_TIME,
   setWeather: (weather: Weather) => {
     set((state) => ({
@@ -50,16 +44,18 @@ export const useEnvironmenStore = create<EnvironmentStore>((set) => ({
       distance,
     }));
   },
-  setDirection: (direction: Direction ) => {
-    set((state) => ({
-      ...state,
-      direction,
-    }));
-  },
   setTimestamp: (timestamp: Dayjs) => {
     set((state) => ({
       ...state,
+      // 根据timestamp计算当前的time（白天 / 黄昏 / 夜晚..）
+      time: getTimeByTimestamp(timestamp),
       timestamp,
+    }));
+  },
+  setAverageDistancePerHour: (averageDistancePerHour: number) => {
+    set((state) => ({
+      ...state,
+      averageDistancePerHour,
     }));
   },
 }));

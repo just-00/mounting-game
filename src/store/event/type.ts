@@ -1,5 +1,5 @@
 import type { Time, Weather } from "../environment/type";
-import type { EquipmentKey } from "../equipment/config";
+import type { EquipmentKey } from "../equipment/type";
 
 export enum EventType {
   // 主线相关
@@ -25,10 +25,38 @@ export const EVENT_PRIORITY: Partial<Record<EventType, number>> = {
 };
 
 export interface Option {
+  // 唯一标识
+  key: string;
   title: string;
+  // 触发选项后的副作用
+  effect?: {
+    // 装备的增减
+    equipment?: {
+      add?: {
+        [key in EquipmentKey]?: number;
+      };
+      sub?: {
+        [key in EquipmentKey]?: number;
+      };
+    };
+    // 精神值
+    san?: {
+      add?: number;
+      sub?: number;
+    };
+    // 体温
+    temperature?: {
+      add?: number;
+      sub?: number;
+    };
+    // 时间（s）
+    timestamp?: number;
+  };
 }
 
 export interface GameEvent {
+  // 唯一标识
+  key: string;
   // 事件标题
   title: string;
   // 事件类型
@@ -36,10 +64,12 @@ export interface GameEvent {
   // 事件选项
   options?: Option[];
   // 需要满足触发的前置事件id
-  preEventIds?: number[];
+  preEventKeys?: number[];
   // 必会触发的后置事件id
   afterEventIds?: number[];
 
+  // 需要满足的公里数后触发
+  distance?: number;
   // 需要满足的装备key
   equipmentKey?: EquipmentKey[];
   // 需要满足的天气key

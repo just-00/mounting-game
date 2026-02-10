@@ -1,45 +1,81 @@
 @font-face {
   font-family: "iconfont logo";
-  src: url("https://raw.githubusercontent.com/just-00/game-image-cdn/main/iconfont34.ttf")
+  src: url("https://raw.githubusercontent.com/just-00/game-image-cdn/main/iconfont50.ttf")
     format("truetype");
 }
-.speedTime {
-  font-size: 16px;
-  font-weight: bold;
-  color: rgba(0, 0, 0, 0.6);
-}
-
-.speedIconWrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  .icon {
-    font-family: "iconfont logo";
-    font-size: 28px;
-    animation: flash 0.5s ease-in-out infinite alternate;
-  }
-  .tip {
-    font-size: 12px;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 2px;
-  }
-}
-.mainPannel {
+.pannelRow {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  border-radius: 8px;
-  padding: 4px 16px;
-  background: rgba(255, 255, 255, 0.6);
-  .leftWrapper{
+  justify-content: center;
+  gap: 8px;
+  .speedTime {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.6);
+  }
+  .fontIcon {
+    font-family: "iconfont logo";
+    font-size: 28px;
+  }
+  .speedIconWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .tip {
+      font-size: 12px;
+      text-align: center;
+      margin-top: 2px;
+    }
+  }
+  .bagWrapper {
+    width: 48px;
+    height: 48px;
+    animation: bagFlash 0.3s ease-in-out infinite alternate;
+  }
+  .mainPannel {
+    flex: 1;
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    gap: 12px;
+    border-radius: 8px;
+    padding: 4px 8px;
+    background: rgba(255, 255, 255, 0.6);
+    .leftWrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      .timeAndDistance {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+    .rightWrapper {
+      display: flex;
+      .rightWeatherWrapper {
+        display: flex;
+        padding: 8px;
+        gap: 8px;
+        margin-right: 4px;
+      }
+      .rightMainWrapper {
+        padding: 0 8px;
+        border: 2px solid rgba(135, 206, 235, 0.3);
+        background: rgba(135, 206, 235, 0.6);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+    }
   }
-  .rightWrapper{
-    display: flex;
-    gap: 8px;
+
+  @keyframes bagFlash {
+    from {
+      filter: brightness(0.9) blur(0.3px);
+    }
+    to {
+      filter: brightness(1.1) blur(0.3px);
+    }
   }
 }

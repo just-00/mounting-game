@@ -1,0 +1,67 @@
+.bagManagePage {
+  position: relative;
+  background: linear-gradient(to bottom, #1a5f7a, #147d73);
+  //   background: radial-gradient(circle, #1a5f7a 0%, #0f4a5e 100%);
+  height: 100vh;
+  .headerWrapper {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0;
+    color: rgba(255, 255, 255, 0.7);
+  }
+  .mainWrapper {
+    display: flex;
+    gap: 4px;
+    row-gap: 16px;
+    flex-wrap: wrap;
+    padding: 0 18px;
+    margin-top: 8px;
+    .itemWrapper {
+      border: 4px solid transparent;
+      border-radius: 8px;
+      width: calc((100vw - 80px) / 4);
+      .img {
+        width: 100%;
+        display: block;
+        border-radius: 4px 4px 0 0;
+      }
+      .itemTitle {
+        font-size: 13px;
+        color: white;
+        background: #2e8b57;
+        padding: 6px 0;
+        text-align: center;
+        border-radius: 0 0 4px 4px;
+
+      }
+    }
+    .itemWrapper.isSelected {
+      filter: brightness(1.05) contrast(1.1) saturate(1.2);
+      border-color: #FDB931;
+    }
+  }
+  .buttonWrapper {
+    display: flex;
+    position: absolute;
+    bottom: 24px;
+    left: 0;
+    right: 0;
+    justify-content: space-around;
+    .button {
+      font-size: 24px;
+      width: 120px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+    }
+    .confirm {
+      background: #2e8b57;
+      color: white;
+    }
+    .distory {
+      background: #f8f5e6;
+    }
+  }
+}

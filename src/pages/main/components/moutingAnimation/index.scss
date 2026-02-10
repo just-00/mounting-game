@@ -1,6 +1,5 @@
 .pixel-toast {
   color: rgba(0, 0, 0, 0.6);
-  font-weight: bold;
   width: 240px;
   position: fixed;
   z-index: 2;
@@ -33,6 +32,7 @@
   }
   .desc{
     position: relative;
+    height: 70px;
     .icon{
       position: absolute;
       top: -40px;
