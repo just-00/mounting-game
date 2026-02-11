@@ -32,7 +32,9 @@
     position: relative;
     display: flex;
     justify-content: center;
-    .icon {
+    .warningFont {
+      font-size: 36px;
+      color: #e69a17;
       position: absolute;
       top: -40px;
       left: 50%;

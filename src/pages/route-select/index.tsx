@@ -2,22 +2,14 @@ import { useNavigate } from "react-router-dom";
 import "./index.scss";
 import { BEAR } from "@/components/bear";
 import { Bird } from "@/components/bird/bird";
-import usePreloadImages from "@/hooks/usePreloadImg";
-import { useEffect } from "react";
-import { SELECT_EQUIPMENT_PRELOAD } from "@/const/ResourceUrl";
 import { Route, ROUTES } from "@/store/event/config";
 import { useEventStore } from "@/store/event/store";
 import { useEnvironmenStore } from "@/store/environment/store";
 
 const RouteSelect = () => {
   const navigate = useNavigate();
-  const { preloadImages } = usePreloadImages();
   const { setRouteId } = useEventStore();
   const { setDistance, setAverageDistancePerHour } = useEnvironmenStore();
-
-  useEffect(() => {
-    preloadImages(Object.values(SELECT_EQUIPMENT_PRELOAD));
-  }, []);
 
   const toPage = (routeId: Route) => {
     navigate("/select-equipment");

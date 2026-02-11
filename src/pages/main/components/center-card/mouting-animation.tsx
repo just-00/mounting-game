@@ -88,11 +88,10 @@ export const MoutingAnimationCom = ({
       </div>
       <div className="desc">
         {isWarning && (
-          <img
-            src="https://raw.githubusercontent.com/just-00/game-image-cdn/main/warning.png"
-            width={36}
-            className="icon"
-          />
+          <div
+            className="fontIcon warningFont"
+            dangerouslySetInnerHTML={{ __html: "&#xe640;"}}
+          ></div>
         )}
         <img
           src={

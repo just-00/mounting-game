@@ -10,6 +10,7 @@ interface EventStore {
   doneEventKeys: string[];
   setRouteId: (routeId: Route) => void;
   reset: () => void;
+  setCurrentEventByKey: (key: string) => void;
   setCurrentEventByCompute: () => void;
 }
 
@@ -38,6 +39,21 @@ export const useEventStore = create<EventStore>((set, get) => ({
       doneEventKeys: [],
     }));
   },
+  // 通过key设置当前事件
+  setCurrentEventByKey: (afterEventKey: string) => {
+    set((state) => {
+      const { routeId, doneEventKeys } = get();
+      const currentRoute = ROUTES.find((item) => item.key === routeId);
+      const afterEvent = currentRoute!.otherEvents.find(
+        (item) => item.key === afterEventKey,
+      );
+      return {
+        ...state,
+        doneEventKeys: doneEventKeys.concat(afterEventKey),
+        currentEvent: afterEvent,
+      };
+    });
+  },
   // 计算设置当前事件
   setCurrentEventByCompute: () => {
     set((state) => {
@@ -45,9 +61,7 @@ export const useEventStore = create<EventStore>((set, get) => ({
       const distance = useEnvironmenStore.getState().distance;
       const { routeId, eventPriority, doneEventKeys } = get();
       const currentRoute = ROUTES.find((item) => item.key === routeId);
-      // WIP 先看有无状态低导致的必发事件
-
-      // WIP 再看有无后置的必发事件
+      // 先看有无状态低导致的必发事件
 
       // 再看distance check导致的必发事件
       const originMain = currentRoute!.mainEvents.filter(
@@ -56,10 +70,11 @@ export const useEventStore = create<EventStore>((set, get) => ({
       if (
         originMain &&
         typeof originMain.distance === "number" &&
-        originMain.distance > distance
+        distance > originMain.distance
       ) {
         return {
           ...state,
+          doneEventKeys: doneEventKeys.concat(originMain.key),
           currentEvent: originMain,
         };
       }
@@ -67,7 +82,8 @@ export const useEventStore = create<EventStore>((set, get) => ({
       // 根据优先级和事件库随机出一个事件
       // 找出没有做过的事件
       const originOtherEvents = currentRoute!.otherEvents.filter(
-        (item) => !doneEventKeys.includes(item.key),
+        (item) =>
+          !doneEventKeys.includes(item.key) && !item.isForcedTriggerAfterKey,
       );
 
       // 计算出当前事件按eventType的分类
@@ -109,10 +125,10 @@ export const useEventStore = create<EventStore>((set, get) => ({
         return temp >= eventTypeRandom;
       })?.[0] as EventType;
 
-      if(!eventTypeKey){
+      if (!eventTypeKey) {
         // 理论上不会发生
-        console.warn("已经没有剩余事件了")
-        return state
+        console.warn("已经没有剩余事件了");
+        return state;
       }
 
       // 这种eventType优先级减1

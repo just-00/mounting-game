@@ -1,18 +1,13 @@
 import { MainPannel } from "@/components/pannelItem";
 import "./index.scss";
-import { useEventStore } from "@/store/event/store";
 import { Bird } from "@/components/bird/bird";
 import { GameDialog } from "./components/dialog";
 
 const Main = () => {
-  const { currentEvent } = useEventStore();
-
   return (
     <section className="mainPage">
       <div className="snow-overlay"></div>
-      <GameDialog
-        currentEvent={currentEvent}
-      />
+      <GameDialog />
 
       <section className="pannel">
         <MainPannel />

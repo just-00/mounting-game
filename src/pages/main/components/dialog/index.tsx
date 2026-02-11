@@ -1,4 +1,4 @@
-import type { GameEvent, Option } from "@/store/event/type";
+import type { Option } from "@/store/event/type";
 import "./index.scss";
 import { useEffect, useState } from "react";
 import { CenterCard } from "../center-card";
@@ -23,14 +23,12 @@ const TOAST_SHOW_TIME = 2500;
 //   选项点击后 计算toast，展示toast
 //   选项点击后 toast结束后，展示mounting动画
 
-export const GameDialog = ({
-  currentEvent,
-}: {
-  currentEvent: GameEvent | null;
-}) => {
+export const GameDialog = () => {
   const [toast, setToast] = useState<string | undefined>();
+  const [pic, setPic] = useState<string>();
   const [mouting, setMounting] = useState<boolean>();
-  const { setCurrentEventByCompute } = useEventStore();
+  const { currentEvent, setCurrentEventByCompute, setCurrentEventByKey } =
+    useEventStore();
   const { computeEffect } = useGameEffect();
 
   useEffect(() => {
@@ -52,20 +50,37 @@ export const GameDialog = ({
     }
     // 一定时间后，toast变为空
     setTimeout(() => {
-      setToast(undefined)
+      setToast(undefined);
     }, TOAST_SHOW_TIME);
   }, [toast]);
 
-  const onClick = (option: Option) => {
+  const onClick = async (option: Option) => {
+    // 通过当前选项计算出toast
     const toast = computeEffect(option as Option & Equipment);
-    setToast(toast);
+    if (option.pics?.length) {
+      for (let i = 0; i < option.pics.length; i++) {
+        setPic(option.pics[i]);
+        await timeoutPromise();
+      }
+      setPic(undefined);
+    }
+
+    if (toast) {
+      setToast(toast);
+    } else {
+      if (option?.mustTriggerAfterKey) {
+        setCurrentEventByKey(option?.mustTriggerAfterKey);
+      } else {
+        setMounting(true);
+      }
+    }
   };
 
   // 出现card的时机：mounting动画 和 点击选项后的toast
   const isShowCenterCard = mouting || toast;
 
   return (
-    <>
+    <section className="gameDialog">
       {!isShowCenterCard && currentEvent && (
         <div className="pixel-dialog">
           <div className="title">
@@ -74,12 +89,12 @@ export const GameDialog = ({
           <section className="desc">
             {currentEvent.options?.map((item) => {
               return (
-                <section className="buttonWrapper" key={item.key}>
-                  <div
-                    className="button"
-                    key={item.title}
-                    onClick={() => onClick(item)}
-                  ></div>
+                <section
+                  className="buttonWrapper"
+                  key={item.key}
+                  onClick={() => onClick(item)}
+                >
+                  <div className="button" key={item.title}></div>
                   <div className="text">{item.title}</div>
                 </section>
               );
@@ -108,6 +123,18 @@ export const GameDialog = ({
           }
         />
       )}
-    </>
+      {pic && (
+        <div className="optionPicWrapper">
+          <img src={pic} width="80%" className="optionPic" />
+        </div>
+      )}
+    </section>
   );
 };
+
+const timeoutPromise = () =>
+  new Promise((resolve) =>
+    setTimeout(() => {
+      resolve(true);
+    }, 2000),
+  );

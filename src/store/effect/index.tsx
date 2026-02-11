@@ -1,28 +1,51 @@
+import { mul } from "@/utils/number";
 import { useEnvironmenStore } from "../environment/store";
 import type { Weather } from "../environment/type";
 import { useEquipmentStore } from "../equipment/store";
 import type { Equipment } from "../equipment/type";
 import type { Option } from "../event/type";
 import { useStatusStore } from "../status/store";
+import { EQUIPMENTS } from "../equipment/config";
 
-export type SelectedEquipmentKeys = "warm" | "san" | "useTime" | "weather";
-type EquipmentValueType = number | Weather;
+export type SelectedEquipmentKeys =
+  | "warm"
+  | "san"
+  | "useTime"
+  | "weather"
+  | "equipment";
+
+type EquipmentValueType =
+  | number
+  | Weather
+  | {
+      [key: string]: number;
+    };
 
 type ToastTextMap = {
   useTime: number;
   warm: number;
   san: number;
   weather: Weather;
+  equipment: {
+    [key: string]: number;
+  };
 };
 
 // toast中各项对应的计算函数
 export const ToastText: {
   [K in SelectedEquipmentKeys]: (val: ToastTextMap[K]) => string;
 } = {
-  useTime: (val: number) => `使用了${val}分钟`,
+  useTime: (val: number) => `使用了${mul(val, 60)}分钟`,
   weather: (val: Weather) => `天气变成${val}了`,
   warm: (val: number) => `体温${val > 0 ? "升高" : "降低"}了${val}°`,
   san: (val: number) => `精神值${val > 0 ? "升高" : "降低"}了${val}`,
+  equipment: (val: { [key: string]: number }) => {
+    return Object.entries(val)
+      .map(([key, value]) => {
+        return `${EQUIPMENTS.find((item) => item.key === key)?.name}${value > 0 ? "增加" : "减少"}了${value}个`;
+      })
+      .join("<br/>");
+  },
 };
 
 // 获取装备使用的toast文案
@@ -34,7 +57,9 @@ export const getToast = (eq: Option & Equipment) => {
       const value = eq[item];
       if (value === undefined) return "";
       // 产出toast
-      const text = (ToastText[item] as (val: EquipmentValueType) => string)(value);
+      const text = (ToastText[item] as (val: EquipmentValueType) => string)(
+        value,
+      );
       return text;
     })
     .filter((item) => !!item)
@@ -50,9 +75,10 @@ export const useGameEffect = () => {
   const computeEffect = (obj: Option & Equipment) => {
     // 通过选项 获得或减少装备
     if (
-      obj.equipment as {
+      obj.equipment &&
+      (obj.equipment as {
         [key: string]: number;
-      }
+      })
     ) {
       Object.entries(obj.equipment).forEach(([key, value]) => {
         setEquipmentsCount(key, value);

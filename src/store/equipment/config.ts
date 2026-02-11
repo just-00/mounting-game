@@ -103,6 +103,17 @@ export const EQUIPMENTS: Equipment[] = [
     type: EquipmentType.Food,
     isSelectEquipmentShow: true,
   },
+   {
+    key: EquipmentKey.Egg,
+    name: "鸡蛋",
+    weight: 0.2,
+    size: 1,
+    src: SELECT_EQUIPMENT_PRELOAD.SELF_HEATING_POT,
+    useTime: 10,
+    disposable: true,
+    warm: 10,
+    type: EquipmentType.Food,
+  },
   {
     key: EquipmentKey.Spear,
     name: "长矛",

@@ -23,3 +23,18 @@ export const SELECT_EQUIPMENT_PRELOAD = {
     BEAR_BELL: 'https://raw.githubusercontent.com/just-00/game-image-cdn/main/e5cd0abe1e0042a48178066b5e8d7c24.jpeg%7Etplv-a9rns2rl98-image_raw_b.png',
     HEAD_LAMP: 'https://raw.githubusercontent.com/just-00/game-image-cdn/main/5f5e831e03f54acda4f83438d5d5c9d8.jpeg%7Etplv-a9rns2rl98-image_raw_b.png',
 }
+
+export const DIALOG_PROLOAD = {
+    TITLE: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/17d6855282c74cac8e71d134becee04b.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+    BUTTON: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/image-removebg-preview.png"
+}
+
+export const MOUNTING_ANIMATION = {
+    TITLE: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/17d6855282c74cac8e71d134becee04b.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+    BUTTON: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/image-removebg-preview.png"
+}
+
+export const MAIN_PROLOAD = {
+    ICE_FALL: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0b636189b054471abb08f630f6af15db.jpeg%7Etplv-a9rns2rl98-image_raw_b%20(1).png",
+    MAIN_BK: 'https://raw.githubusercontent.com/just-00/game-image-cdn/main/0255557287c44c29b93f9f5c0d7812f8.jpeg%7Etplv-a9rns2rl98-image_raw_b.png'
+}

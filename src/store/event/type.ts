@@ -34,12 +34,16 @@ export interface Option {
   san?: number;
   // 用一次要多少分钟
   useTime?: number;
+  // 会出什么图片
+  pics?: string[]
   // 天气
   weather?: Weather;
   // 装备相关
-  equipment: {
+  equipment?: {
     [key: string]: number;
   };
+  // 下一个必会触发的后置事件key
+  mustTriggerAfterKey?: string;
 }
 
 export interface GameEvent {
@@ -51,10 +55,13 @@ export interface GameEvent {
   eventType: EventType;
   // 事件选项
   options?: Option[];
-  // 需要满足触发的前置事件id
-  preEventKeys?: number[];
-  // 必会触发的后置事件id
-  afterEventIds?: number[];
+
+  // 需要满足触发的前置事件key
+  preEventKeys?: string[];
+  // 需要满足触发的前置选项key
+  preOptionKeys?: string[];
+  // true的话，只能通过mustTriggerAfterKey触发
+  isForcedTriggerAfterKey?: boolean;
 
   // 需要满足的公里数后触发
   distance?: number;

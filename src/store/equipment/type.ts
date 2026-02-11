@@ -32,6 +32,7 @@ export enum EquipmentKey {
   FirstAidKit = "firstAidKit",
   SurvivalBlanket = "survivalBlanket",
   Mushroom = "mushroom",
+  Egg = 'egg',
   Spear = "Spear",
   SportsDrink = "sportsDrink",
   CompressedBiscuit = "compressedBiscuit",

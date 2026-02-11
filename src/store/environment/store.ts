@@ -1,7 +1,6 @@
 import { create } from "zustand";
-import { DEFAULT_DISTANCE, getRandomWeather, getTimeByTimestamp, START_TIME, Time, Weather } from "./type";
+import { getRandomWeather, getTimeByTimestamp, START_TIME, Time, Weather } from "./type";
 import type { Dayjs } from "dayjs";
-import { div } from "@/utils/number";
 
 interface EnvironmentStore {
   weather: Weather;
@@ -21,7 +20,7 @@ export const useEnvironmenStore = create<EnvironmentStore>((set) => ({
   weather: getRandomWeather(),
   // 无初始距离，在选取路线后初始
   // WIP 测试方便
-  distance: div(DEFAULT_DISTANCE, 2),
+  distance: 0,
   // WIP 测试方便
   averageDistancePerHour: 2.5,
   time: Time.Day,
