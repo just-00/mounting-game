@@ -36,7 +36,7 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         // 自动导入变量文件，注意：末尾必须加 ; 分号
-        additionalData: '@import "@/common/varaiable.scss";'
+        additionalData: '@import "@/common/varaiable.scss";@import "@/common/theme.scss";'
       }
     }
   },

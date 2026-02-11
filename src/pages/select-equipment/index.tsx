@@ -24,7 +24,7 @@ const SelectEquipment = () => {
     setEquipmentsCount(key, count ?? 0);
   };
   const submit = () => {
-    navigate("/main")
+    navigate("/main");
   };
 
   const isBigSize = totalSize > EQUIPMENT_MAX_SIZE;

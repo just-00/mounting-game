@@ -1,11 +1,20 @@
 import { EQUIPMENT_MAX_SIZE, EQUIPMENT_MAX_WEIGHT } from "../equipment/config";
 
+// 速度
 export enum Speed {
   Fast = "Fast",
   Normal = "Normal",
   Slow = "Slow",
 }
 
+// 每种Speed对应的速度
+export const SpeedValue = {
+  [Speed.Fast]: 1.2,
+  [Speed.Normal]: 1,
+  [Speed.Slow]: 0.8,
+};
+
+// 计算速度类型
 export const getSpeed = ({
   totalSize,
   totalWeight,
@@ -25,6 +34,7 @@ export const getSpeed = ({
   return Speed.Normal;
 };
 
+// 精神值
 export enum San {
   // 癫狂
   Fracture = "Fracture",
@@ -33,9 +43,46 @@ export enum San {
   Normal = "Normal",
 }
 
-export enum Temperature {
+// 每种精神值对应的数值
+export const SanValue = {
+  [San.Normal]: 0,
+  [San.Unstable]: 10,
+  [San.Fracture]: 20,
+};
+
+// 计算精神类型
+export const getSan = (san: number) => {
+  if (san < SanValue[San.Unstable]) {
+    return San.Normal;
+  }
+  if (san < SanValue[San.Fracture]) {
+    return San.Unstable;
+  }
+  return San.Fracture;
+};
+
+// 体温
+export enum Warm {
   // 失温
   Hypothermia = "Hypothermia",
   Low = "Low",
   Normal = "Normal",
 }
+
+// 每种体温对应的数值
+export const WarmValue = {
+  [Warm.Normal]: 30,
+  [Warm.Low]: 20,
+  [Warm.Hypothermia]: 10,
+};
+
+// 计算体温类型
+export const getWarm = (warm: number) => {
+  if (warm < WarmValue[Warm.Hypothermia]) {
+    return Warm.Hypothermia;
+  }
+  if (warm < WarmValue[Warm.Low]) {
+    return Warm.Low;
+  }
+  return Warm.Normal;
+};

@@ -9,7 +9,7 @@ interface EventStore {
   eventPriority: Partial<Record<EventType, number>>;
   doneEventKeys: string[];
   setRouteId: (routeId: Route) => void;
-  resetCurrentEvent: () => void;
+  reset: () => void;
   setCurrentEventByCompute: () => void;
 }
 
@@ -30,10 +30,12 @@ export const useEventStore = create<EventStore>((set, get) => ({
     }));
   },
   // 设置当前事件
-  resetCurrentEvent: () => {
+  reset: () => {
     set((state) => ({
       ...state,
       currentEvent: null,
+      eventPriority: EVENT_PRIORITY,
+      doneEventKeys: [],
     }));
   },
   // 计算设置当前事件
@@ -106,6 +108,12 @@ export const useEventStore = create<EventStore>((set, get) => ({
         temp += value;
         return temp >= eventTypeRandom;
       })?.[0] as EventType;
+
+      if(!eventTypeKey){
+        // 理论上不会发生
+        console.warn("已经没有剩余事件了")
+        return state
+      }
 
       // 这种eventType优先级减1
       if (eventPriority[eventTypeKey]) {

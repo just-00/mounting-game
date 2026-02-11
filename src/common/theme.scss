@@ -43,6 +43,17 @@
   padding: 0;
   cursor: pointer;
 }
+
+@font-face {
+  font-family: "iconfont logo";
+  src: url("https://raw.githubusercontent.com/just-00/game-image-cdn/main/iconfont111.ttf")
+    format("truetype");
+}
+.fontIcon {
+  font-family: "iconfont logo";
+  font-size: 28px;
+}
+
 @keyframes opacity {
   from {
     filter: opacity(0);
@@ -54,7 +65,7 @@
 
 @keyframes flash {
   from {
-    filter: brightness(0.9) ;
+    filter: brightness(0.9);
   }
   to {
     filter: brightness(1.1);

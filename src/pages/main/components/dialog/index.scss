@@ -33,7 +33,7 @@
   .desc {
     margin-top: 12px;
     width: calc(100% - 60px);
-    .buttonWrapper{
+    .buttonWrapper {
       position: relative;
     }
     .button {
@@ -46,7 +46,7 @@
       align-items: center;
       justify-content: center;
     }
-    .text{
+    .text {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -59,4 +59,10 @@
       margin-top: 12px;
     }
   }
+}
+.dialogToastText {
+  font-size: 18px;
+  padding-top: 12px;
+  padding-left: 8px;
+  line-height: 32px;
 }

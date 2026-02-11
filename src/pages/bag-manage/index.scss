@@ -9,6 +9,23 @@
     padding: 12px 0;
     color: rgba(255, 255, 255, 0.7);
   }
+  .placeholderWrapper {
+    margin-top: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .emptyIcon {
+      font-size: 48px;
+      color: #fff;
+    }
+    .placeholder {
+      text-align: center;
+      width: 100%;
+      margin-top: 24px;
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 24px;
+    }
+  }
   .mainWrapper {
     display: flex;
     gap: 4px;
@@ -32,12 +49,11 @@
         padding: 6px 0;
         text-align: center;
         border-radius: 0 0 4px 4px;
-
       }
     }
     .itemWrapper.isSelected {
       filter: brightness(1.05) contrast(1.1) saturate(1.2);
-      border-color: #FDB931;
+      border-color: #fdb931;
     }
   }
   .buttonWrapper {

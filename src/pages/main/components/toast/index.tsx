@@ -1,9 +1,23 @@
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 import "./index.scss";
-export const GameToast = ({ content }: { content: ReactNode | string }) => {
+export const GameToast = ({
+  content,
+  position,
+  width,
+}: {
+  content: ReactNode | string;
+  position: "top" | "center";
+  width: number;
+}) => {
   return (
-    <div className="toast">
-      <span className="toast-text">{content}</span>
+    <div
+      className="gameToast"
+      style={{
+        top: position === "top" ? "100px" : "calc((100vh - 100px) / 2)",
+        width: `${width}px`,
+      }}
+    >
+      <span className="gameToastText">{content}</span>
     </div>
   );
 };

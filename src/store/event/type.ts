@@ -28,29 +28,17 @@ export interface Option {
   // 唯一标识
   key: string;
   title: string;
-  // 触发选项后的副作用
-  effect?: {
-    // 装备的增减
-    equipment?: {
-      add?: {
-        [key in EquipmentKey]?: number;
-      };
-      sub?: {
-        [key in EquipmentKey]?: number;
-      };
-    };
-    // 精神值
-    san?: {
-      add?: number;
-      sub?: number;
-    };
-    // 体温
-    temperature?: {
-      add?: number;
-      sub?: number;
-    };
-    // 时间（s）
-    timestamp?: number;
+  // 升高体温
+  warm?: number;
+  // 精神
+  san?: number;
+  // 用一次要多少分钟
+  useTime?: number;
+  // 天气
+  weather?: Weather;
+  // 装备相关
+  equipment: {
+    [key: string]: number;
   };
 }
 

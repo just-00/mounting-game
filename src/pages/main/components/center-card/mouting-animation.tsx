@@ -4,10 +4,10 @@ import { useEnvironmenStore } from "@/store/environment/store";
 import { add, div, mul } from "@/utils/number";
 
 // 在动画期间会走多长时间（h）
-// 30分钟
+// 设定0.5小时
 const ANIMATION_RUN_TIME = 0.5;
 
-export const MoutingAnimation = ({
+export const MoutingAnimationCom = ({
   onClose,
   showWarningTime,
   closeTime,
@@ -16,6 +16,7 @@ export const MoutingAnimation = ({
   showWarningTime: number;
   closeTime: number;
 }) => {
+  // 出现感叹号
   const [isWarning, setIsWarning] = useState<boolean>(false);
   const {
     distance,
@@ -26,12 +27,16 @@ export const MoutingAnimation = ({
   } = useEnvironmenStore();
   const distanceRef = useRef(distance);
   const timestampRef = useRef(timestamp);
+  const hasClose = useRef<boolean>(false);
 
   useEffect(() => {
+    if (hasClose.current) return;
+    hasClose.current = true;
     // 小人头上出现感叹号，表示有事件
     setTimeout(() => {
       setIsWarning(true);
     }, showWarningTime);
+
     // 关闭动画，计算下一个事件
     setTimeout(() => {
       onClose();
@@ -65,7 +70,9 @@ export const MoutingAnimation = ({
         clearInterval(inter);
         return;
       }
+      // 爬的距离增加
       setDistance(add(distanceRef.current, interDistance));
+      // 消耗时间增多
       setTimestamp(timestampRef.current.add(interTimestamp, "seconds"));
       totalDistance = add(interDistance, totalDistance);
     }, intervalTime);
@@ -75,7 +82,7 @@ export const MoutingAnimation = ({
   }, []);
 
   return (
-    <div className="pixel-toast">
+    <section className="mountingAnimationWrapper">
       <div className="title">
         {!isWarning ? "爬山中..." : <span>&nbsp;</span>}
       </div>
@@ -96,6 +103,6 @@ export const MoutingAnimation = ({
           width={64}
         />
       </div>
-    </div>
+    </section>
   );
 };

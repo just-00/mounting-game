@@ -1,44 +1,48 @@
-.pixel-toast {
+.pixelToast {
   color: rgba(0, 0, 0, 0.6);
   width: 240px;
+  height: 125px;
   position: fixed;
   z-index: 2;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  
+
   background: linear-gradient(
     90deg,
-    #e8ca9a 0%,  
-    #d6b27c 20%, 
+    #e8ca9a 0%,
+    #d6b27c 20%,
     #e8ca9a 40%,
     #d6b27c 60%,
     #e8ca9a 80%,
     #d6b27c 100%
   );
-  
-  border: 4px solid #8b5a2b; 
+
+  border: 4px solid #8b5a2b;
   border-radius: 4px;
-  box-shadow: 
-    inset -2px -2px 0 #7a522a;
-  
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  .title{
+  box-shadow: inset -2px -2px 0 #7a522a;
+
+  .title {
     font-size: 24px;
     padding: 12px 8px;
     line-height: 28px;
   }
-  .desc{
+  .desc {
+    margin-top: 2px;
     position: relative;
-    height: 70px;
-    .icon{
+    display: flex;
+    justify-content: center;
+    .icon {
       position: absolute;
       top: -40px;
       left: 50%;
       transform: translateX(-50%);
       animation: flash 0.2s ease-in-out infinite alternate;
     }
+  }
+  .mountingAnimationWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 }

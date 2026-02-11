@@ -104,6 +104,15 @@ export const EQUIPMENTS: Equipment[] = [
     isSelectEquipmentShow: true,
   },
   {
+    key: EquipmentKey.Spear,
+    name: "长矛",
+    weight: 0.2,
+    size: 0.2,
+    // WIP
+    src: SELECT_EQUIPMENT_PRELOAD.SPORTS_DRINK,
+    type: EquipmentType.Tool,
+  },
+  {
     key: EquipmentKey.HikingPole,
     name: "登山杖",
     weight: 0.3,

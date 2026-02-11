@@ -1,4 +1,4 @@
-import { San, Speed, Temperature } from "@/store/status/type";
+import { getSan, getWarm, San, Speed, Warm } from "@/store/status/type";
 import "./index.scss";
 import { Weather } from "@/store/environment/type";
 import { useStatusStore } from "@/store/status/store";
@@ -41,17 +41,17 @@ const iconMap: {
   [`San${[San.Normal]}`]: { icon: "&#xe7ba;", tip: "神常", color: "#16A085" },
   [`San${[San.Unstable]}`]: { icon: "&#xe7ba;", tip: "神迷", color: "#FFCC80" },
   [`San${[San.Fracture]}`]: { icon: "&#xe7ba;", tip: "神乱", color: "#E53935" },
-  [`Temprature${[Temperature.Hypothermia]}`]: {
+  [`Warm${[Warm.Hypothermia]}`]: {
     icon: "&#xe51f;",
     tip: "失温",
     color: "#F4D03F",
   },
-  [`Temprature${[Temperature.Low]}`]: {
+  [`Warm${[Warm.Low]}`]: {
     icon: "&#xe51f;",
     tip: "低温",
     color: "#76D7C4",
   },
-  [`Temprature${[Temperature.Normal]}`]: {
+  [`Warm${[Warm.Normal]}`]: {
     icon: "&#xe51f;",
     tip: "常温",
     color: "#34B59C",
@@ -59,10 +59,10 @@ const iconMap: {
 };
 
 export const BagCom = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const onClick = () => {
-    navigate("/bag-manage")
-  }
+    navigate("/bag-manage");
+  };
   return (
     <img
       className="bagWrapper"
@@ -107,7 +107,7 @@ export const WeatherCom = () => {
       }}
     >
       <div
-        className="fontIcon iconfont"
+        className="fontIcon"
         dangerouslySetInnerHTML={{ __html: map.icon }}
       ></div>
       {<div className="tip">{map.tip}</div>}
@@ -126,7 +126,7 @@ export const SpeedCom = () => {
       }}
     >
       <div
-        className="fontIcon iconfont"
+        className="fontIcon"
         dangerouslySetInnerHTML={{ __html: map.icon }}
       ></div>
       {<div className="tip">{map.tip}</div>}
@@ -136,7 +136,7 @@ export const SpeedCom = () => {
 
 export const SanCom = () => {
   const san = useStatusStore((state) => state.san);
-  const map = iconMap[`San${san}`];
+  const map = iconMap[`San${getSan(san)}`];
   return (
     <section
       className="speedIconWrapper"
@@ -145,7 +145,7 @@ export const SanCom = () => {
       }}
     >
       <div
-        className="fontIcon iconfont"
+        className="fontIcon"
         dangerouslySetInnerHTML={{ __html: map.icon }}
       ></div>
       {<div className="tip">{map.tip}</div>}
@@ -153,9 +153,9 @@ export const SanCom = () => {
   );
 };
 
-export const TempratureCom = () => {
-  const temperature = useStatusStore((state) => state.temperature);
-  const map = iconMap[`Temprature${temperature}`];
+export const WarmCom = () => {
+  const warm = useStatusStore((state) => state.warm);
+  const map = iconMap[`Warm${getWarm(warm)}`];
   return (
     <section
       className="speedIconWrapper"
@@ -164,7 +164,7 @@ export const TempratureCom = () => {
       }}
     >
       <div
-        className="fontIcon iconfont"
+        className="fontIcon"
         dangerouslySetInnerHTML={{ __html: map.icon }}
       ></div>
       {<div className="tip">{map.tip}</div>}
@@ -173,8 +173,8 @@ export const TempratureCom = () => {
 };
 
 export const TiredCom = () => {
-  const temperature = useStatusStore((state) => state.temperature);
-  const map = iconMap[`Temprature${temperature}`];
+  const warm = useStatusStore((state) => state.warm);
+  const map = iconMap[`Warm${getWarm(warm)}`];
   return (
     <section
       className="speedIconWrapper"
@@ -183,7 +183,7 @@ export const TiredCom = () => {
       }}
     >
       <div
-        className="fontIcon iconfont"
+        className="fontIcon"
         dangerouslySetInnerHTML={{ __html: map.icon }}
       ></div>
       {<div className="tip">{map.tip}</div>}
@@ -208,7 +208,7 @@ export const MainPannel = () => {
           <section className="rightMainWrapper">
             <SanCom />
             <SpeedCom />
-            <TempratureCom />
+            <WarmCom />
           </section>
         </section>
       </section>

@@ -1,8 +1,3 @@
-@font-face {
-  font-family: "iconfont logo";
-  src: url("https://raw.githubusercontent.com/just-00/game-image-cdn/main/iconfont50.ttf")
-    format("truetype");
-}
 .pannelRow {
   display: flex;
   align-items: center;
@@ -11,10 +6,6 @@
   .speedTime {
     font-size: 16px;
     color: rgba(0, 0, 0, 0.6);
-  }
-  .fontIcon {
-    font-family: "iconfont logo";
-    font-size: 28px;
   }
   .speedIconWrapper {
     display: flex;

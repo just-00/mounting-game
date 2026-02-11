@@ -1,4 +1,3 @@
-@import "../../common/theme.scss";
 $fontcolor: rgba(0, 0, 0, 0.6);
 
 .selectEquipment {
@@ -32,10 +31,8 @@ $fontcolor: rgba(0, 0, 0, 0.6);
   }
   .detaiWrapper {
     flex:1;
-    margin-top: 12px;
+    margin-top: 24px;
     padding-bottom: 12px;
-    display: flex;
-    flex-wrap: wrap;
     font-size: 18px;
     background: rgba(255, 222, 173, 0.8);
     .pageWrapper {
@@ -61,6 +58,7 @@ $fontcolor: rgba(0, 0, 0, 0.6);
     .detailItemWrapper{
       width: 100%;
       height: 400px;
+      margin-top: 12px;
     }
     .detailItem {
       display: flex;
@@ -93,7 +91,7 @@ $fontcolor: rgba(0, 0, 0, 0.6);
           @extend .secondary;
           height: 48px;
           width: 160px;
-          margin: 8px auto 0 auto;
+          margin: 16px auto 0 auto;
           font-size: 24px;
     }
   }
