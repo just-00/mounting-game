@@ -12,11 +12,13 @@ export type SelectedEquipmentKeys =
   | "san"
   | "useTime"
   | "weather"
-  | "equipment";
+  | "equipment"
+  | "injuried";
 
 type EquipmentValueType =
   | number
   | Weather
+  | boolean
   | {
       [key: string]: number;
     };
@@ -29,6 +31,18 @@ type ToastTextMap = {
   equipment: {
     [key: string]: number;
   };
+  injuried: boolean;
+};
+
+export type Effect = {
+  useTime?: number;
+  warm?: number;
+  san?: number;
+  weather?: Weather;
+  equipment?: {
+    [key: string]: number;
+  };
+  injuried?: boolean;
 };
 
 // toast中各项对应的计算函数
@@ -46,10 +60,11 @@ export const ToastText: {
       })
       .join("<br/>");
   },
+  injuried: (injuried: boolean) => (injuried ? `你受伤了` : ""),
 };
 
 // 获取装备使用的toast文案
-export const getToast = (eq: Option & Equipment) => {
+export const getToast = (eq: Effect) => {
   const keys = Object.keys(ToastText) as SelectedEquipmentKeys[];
   return keys
     .map((item) => {
@@ -68,46 +83,71 @@ export const getToast = (eq: Option & Equipment) => {
 
 // 使用装备、点击选项时，计算效果和产出toast
 export const useGameEffect = () => {
-  const { warm, san, setSan, setWarm } = useStatusStore();
+  const { warm, san, setSan, setWarm, setInjuried } = useStatusStore();
   const { timestamp, setTimestamp, setWeather } = useEnvironmenStore();
-  const { setEquipmentsCount } = useEquipmentStore();
+  const { equipments, setEquipmentsCount } = useEquipmentStore();
 
-  const computeEffect = (obj: Option & Equipment) => {
+  const computeEffect = (
+    obj: Option & Equipment,
+  ): {
+    toast?: string;
+    endKey?: string;
+  } => {
+    let result;
+    // 选项有result项，进行计算
+    if (obj.result) {
+      result = obj.result(equipments);
+    }
+
+    const effect = result?.effect || obj;
+
     // 通过选项 获得或减少装备
     if (
-      obj.equipment &&
-      (obj.equipment as {
+      effect.equipment &&
+      (effect.equipment as {
         [key: string]: number;
       })
     ) {
-      Object.entries(obj.equipment).forEach(([key, value]) => {
+      Object.entries(effect.equipment).forEach(([key, value]) => {
         setEquipmentsCount(key, value);
       });
     }
 
     // 通过选项或装备 增加或减少精神值
-    if (obj.san) {
-      setSan(san + obj.san);
+    if (effect.san) {
+      setSan(san + effect.san);
     }
 
     // 通过选项或装备，升高或降低体温
-    if (obj.warm) {
-      setWarm(warm + obj.warm);
+    if (effect.warm) {
+      setWarm(warm + effect.warm);
     }
 
     // 通过选项或装备，消耗使用时间
-    if (obj.useTime) {
-      setTimestamp(timestamp.add(obj.useTime, "minutes"));
+    if (effect.useTime) {
+      setTimestamp(timestamp.add(effect.useTime, "minutes"));
     }
 
     // 通过选项或装备，改变天气
-    if (obj.weather) {
-      setWeather(obj.weather);
+    if (effect.weather) {
+      setWeather(effect.weather);
+    }
+
+    if (effect.injuried) {
+      setInjuried(true);
+    }
+
+    // 如果有result，优先返回result
+    if (result) {
+      if (result.endKey) {
+        return { endKey: result.endKey, toast: result.toast };
+      }
+      return { toast: result.toast };
     }
 
     // 返回toast供给
-    const toast = getToast(obj);
-    return toast;
+    const toast = getToast(effect);
+    return { toast };
   };
 
   return { computeEffect };

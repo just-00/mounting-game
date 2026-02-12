@@ -86,3 +86,26 @@ export const getWarm = (warm: number) => {
   }
   return Warm.Normal;
 };
+
+// 饥饿
+// 体温
+export enum Hunger {
+  // 饱腹
+  Full = "Full",
+  // 饥饿
+  Starved = "Starved",
+}
+
+// 每种饥饿对应的数值
+export const HungerValue = {
+  [Hunger.Full]: 100,
+  [Hunger.Starved]: 50,
+};
+
+// 计算饥饿类型
+export const getHunger = (hunger: number) => {
+  if (hunger > HungerValue[Hunger.Starved]) {
+    return Hunger.Full;
+  }
+  return Hunger.Starved;
+};

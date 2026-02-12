@@ -52,11 +52,11 @@ export const GameDialog = () => {
     setTimeout(() => {
       setToast(undefined);
     }, TOAST_SHOW_TIME);
-  }, [toast]);
+  }, [toast, ]);
 
   const onClick = async (option: Option) => {
     // 通过当前选项计算出toast
-    const toast = computeEffect(option as Option & Equipment);
+    const { toast, endKey } = computeEffect(option as Option & Equipment);
     if (option.pics?.length) {
       for (let i = 0; i < option.pics.length; i++) {
         setPic(option.pics[i]);
@@ -67,21 +67,49 @@ export const GameDialog = () => {
 
     if (toast) {
       setToast(toast);
+    } else if (endKey) {
+      setCurrentEventByKey(endKey);
+    } else if (option?.mustTriggerAfterKey) {
+      setCurrentEventByKey(option?.mustTriggerAfterKey);
     } else {
-      if (option?.mustTriggerAfterKey) {
-        setCurrentEventByKey(option?.mustTriggerAfterKey);
-      } else {
-        setMounting(true);
-      }
+      setMounting(true);
     }
   };
 
-  // 出现card的时机：mounting动画 和 点击选项后的toast
-  const isShowCenterCard = mouting || toast;
+  // 出现card的时机：mounting动画 和 点击选项后的toast 和 到结局
+  let CenterCardDefined = null;
+  if (mouting) {
+    CenterCardDefined = (
+      <MoutingAnimationCom
+        showWarningTime={MOUNTING_ANIMATION_SHOW_WARNING_TIME}
+        closeTime={MOUNTING_ANIMATION_CLOSE_TIME}
+        onClose={() => {
+          setMounting(false);
+        }}
+      />
+    );
+  } else if (currentEvent?.isEnd) {
+    CenterCardDefined = (
+      <section className="endWrapper">
+        <div
+          dangerouslySetInnerHTML={{ __html: currentEvent.title }}
+          className="title"
+        ></div>
+        <img src={currentEvent.pic} width={60} />
+      </section>
+    );
+  } else if (toast) {
+    CenterCardDefined = (
+      <div
+        className="dialogToastText"
+        dangerouslySetInnerHTML={{ __html: toast }}
+      ></div>
+    );
+  }
 
   return (
     <section className="gameDialog">
-      {!isShowCenterCard && currentEvent && (
+      {!CenterCardDefined && currentEvent && (
         <div className="pixel-dialog">
           <div className="title">
             <div className="text">{currentEvent.title}</div>
@@ -103,26 +131,8 @@ export const GameDialog = () => {
         </div>
       )}
 
-      {isShowCenterCard && (
-        <CenterCard
-          content={
-            mouting ? (
-              <MoutingAnimationCom
-                showWarningTime={MOUNTING_ANIMATION_SHOW_WARNING_TIME}
-                closeTime={MOUNTING_ANIMATION_CLOSE_TIME}
-                onClose={() => {
-                  setMounting(false);
-                }}
-              />
-            ) : toast ? (
-              <div
-                className="dialogToastText"
-                dangerouslySetInnerHTML={{ __html: toast }}
-              ></div>
-            ) : null
-          }
-        />
-      )}
+      {CenterCardDefined && <CenterCard content={CenterCardDefined} />}
+
       {pic && (
         <div className="optionPicWrapper">
           <img src={pic} width="80%" className="optionPic" />

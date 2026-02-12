@@ -1,4 +1,12 @@
-import { getSan, getWarm, San, Speed, Warm } from "@/store/status/type";
+import {
+  getHunger,
+  getSan,
+  getWarm,
+  Hunger,
+  San,
+  Speed,
+  Warm,
+} from "@/store/status/type";
 import "./index.scss";
 import { Weather } from "@/store/environment/type";
 import { useStatusStore } from "@/store/status/store";
@@ -38,7 +46,7 @@ const iconMap: {
     tip: "下雪",
     color: "#4A90E2",
   },
-  [`San${[San.Normal]}`]: { icon: "&#xe7ba;", tip: "神常", color: "#16A085" },
+  [`San${[San.Normal]}`]: { icon: "&#xe7ba;", tip: "愉快", color: "#16A085" },
   [`San${[San.Unstable]}`]: { icon: "&#xe7ba;", tip: "神迷", color: "#FFCC80" },
   [`San${[San.Fracture]}`]: { icon: "&#xe7ba;", tip: "神乱", color: "#E53935" },
   [`Warm${[Warm.Hypothermia]}`]: {
@@ -53,7 +61,7 @@ const iconMap: {
   },
   [`Warm${[Warm.Normal]}`]: {
     icon: "&#xe51f;",
-    tip: "常温",
+    tip: "舒适",
     color: "#34B59C",
   },
 };
@@ -172,47 +180,85 @@ export const WarmCom = () => {
   );
 };
 
-export const TiredCom = () => {
-  const warm = useStatusStore((state) => state.warm);
-  const map = iconMap[`Warm${getWarm(warm)}`];
+export const InjuriedCom = () => {
+  const injuried = useStatusStore((state) => state.injuried);
+  if (!injuried) return null;
   return (
-    <section
-      className="speedIconWrapper"
-      style={{
-        color: map.color,
-      }}
-    >
+    <section className="speedIconWrapper">
+      <img
+        src="https://raw.githubusercontent.com/just-00/game-image-cdn/main/受伤.png"
+        width={30}
+        style={{
+          filter: "saturate(0.8)",
+        }}
+      />
       <div
-        className="fontIcon"
-        dangerouslySetInnerHTML={{ __html: map.icon }}
-      ></div>
-      {<div className="tip">{map.tip}</div>}
+        className="tip"
+        style={{
+          color: "#E49E00",
+        }}
+      >
+        受伤
+      </div>
+    </section>
+  );
+};
+
+export const HungerCom = () => {
+  const hunger = useStatusStore((state) => state.hunger);
+  const hungerType = getHunger(hunger);
+  if (hungerType === Hunger.Full) {
+    return null;
+  }
+  return (
+    <section className="speedIconWrapper">
+      <img
+        src="https://raw.githubusercontent.com/just-00/game-image-cdn/main/饥饿.png"
+        width={30}
+        style={{
+          filter: "saturate(0.8)",
+        }}
+      />
+      <div
+        className="tip"
+        style={{
+          color: "#E49E00",
+        }}
+      >
+        饥饿
+      </div>
     </section>
   );
 };
 
 export const MainPannel = () => {
   return (
-    <section className="pannelRow">
-      <section className="mainPannel">
-        <section className="leftWrapper">
-          <section className="timeAndDistance">
-            <TimeCom />
-            <DistanceCom />
+    <>
+      <section className="pannelRow">
+        <section className="mainPannel">
+          <section className="leftWrapper">
+            <section className="rightWeatherWrapper">
+              <WeatherCom />
+            </section>
+            <section className="timeAndDistance">
+              <TimeCom />
+              <DistanceCom />
+            </section>
           </section>
-        </section>
-        <section className="rightWrapper">
-          <section className="rightWeatherWrapper">
-            <WeatherCom />
-          </section>
-          <section className="rightMainWrapper">
-            <SanCom />
-            <SpeedCom />
-            <WarmCom />
+          <section className="rightWrapper">
+            <section className="rightMainWrapper">
+              <InjuriedCom />
+              <HungerCom />
+              <SpeedCom />
+              <SanCom />
+              <WarmCom />
+            </section>
           </section>
         </section>
       </section>
-      <BagCom />
-    </section>
+      <section className="bagRow">
+        <BagCom />
+      </section>
+    </>
   );
 };

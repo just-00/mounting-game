@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import "./index.scss";
 import { useEnvironmenStore } from "@/store/environment/store";
 import { add, div, mul } from "@/utils/number";
+import { useStatusStore } from "@/store/status/store";
 
 // 在动画期间会走多长时间（h）
 // 设定0.5小时
@@ -18,6 +19,8 @@ export const MoutingAnimationCom = ({
 }) => {
   // 出现感叹号
   const [isWarning, setIsWarning] = useState<boolean>(false);
+  const { hunger, setHunger } = useStatusStore();
+
   const {
     distance,
     setDistance,
@@ -34,6 +37,7 @@ export const MoutingAnimationCom = ({
     hasClose.current = true;
     // 小人头上出现感叹号，表示有事件
     setTimeout(() => {
+      setHunger(hunger - 15)
       setIsWarning(true);
     }, showWarningTime);
 
@@ -90,7 +94,7 @@ export const MoutingAnimationCom = ({
         {isWarning && (
           <div
             className="fontIcon warningFont"
-            dangerouslySetInnerHTML={{ __html: "&#xe640;"}}
+            dangerouslySetInnerHTML={{ __html: "&#xe640;" }}
           ></div>
         )}
         <img

@@ -17,11 +17,6 @@
       margin-top: 2px;
     }
   }
-  .bagWrapper {
-    width: 48px;
-    height: 48px;
-    animation: bagFlash 0.3s ease-in-out infinite alternate;
-  }
   .mainPannel {
     flex: 1;
     display: flex;
@@ -51,8 +46,8 @@
       }
       .rightMainWrapper {
         padding: 0 8px;
-        border: 2px solid rgba(135, 206, 235, 0.3);
-        background: rgba(135, 206, 235, 0.6);
+        // border: 2px solid rgba(135, 206, 235, 0.3);
+        // background: rgba(135, 206, 235, 0.6);
         border-radius: 8px;
         display: flex;
         align-items: center;
@@ -63,10 +58,20 @@
 
   @keyframes bagFlash {
     from {
-      filter: brightness(0.9) blur(0.3px);
+      filter: brightness(0.9) blur(0.3px) saturate(0.7);
     }
     to {
-      filter: brightness(1.1) blur(0.3px);
+      filter: brightness(1.1) blur(0.3px) saturate(0.7);
     }
+  }
+}
+.bagRow {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 12px;
+  .bagWrapper {
+    width: 48px;
+    height: 48px;
+    animation: bagFlash 0.5s ease-in-out infinite alternate;
   }
 }

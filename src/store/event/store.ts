@@ -44,9 +44,10 @@ export const useEventStore = create<EventStore>((set, get) => ({
     set((state) => {
       const { routeId, doneEventKeys } = get();
       const currentRoute = ROUTES.find((item) => item.key === routeId);
-      const afterEvent = currentRoute!.otherEvents.find(
-        (item) => item.key === afterEventKey,
-      );
+      const afterEvent = [
+        ...currentRoute!.otherEvents,
+        ...currentRoute!.mainEvents,
+      ].find((item) => item.key === afterEventKey);
       return {
         ...state,
         doneEventKeys: doneEventKeys.concat(afterEventKey),

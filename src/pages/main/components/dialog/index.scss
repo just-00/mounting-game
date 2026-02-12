@@ -76,8 +76,17 @@
 
   .dialogToastText {
     font-size: 18px;
-    padding-top: 12px;
+    padding: 12px 0;
     padding-left: 8px;
     line-height: 32px;
+  }
+
+  .endWrapper{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    .title{
+      font-size: 28px;
+    }
   }
 }

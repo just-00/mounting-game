@@ -1,7 +1,7 @@
 .pixelToast {
   color: rgba(0, 0, 0, 0.6);
   width: 240px;
-  height: 125px;
+  min-height: 125px;
   position: fixed;
   z-index: 2;
   top: 50%;

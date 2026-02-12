@@ -36,5 +36,8 @@ export const MOUNTING_ANIMATION = {
 
 export const MAIN_PROLOAD = {
     ICE_FALL: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0b636189b054471abb08f630f6af15db.jpeg%7Etplv-a9rns2rl98-image_raw_b%20(1).png",
-    MAIN_BK: 'https://raw.githubusercontent.com/just-00/game-image-cdn/main/0255557287c44c29b93f9f5c0d7812f8.jpeg%7Etplv-a9rns2rl98-image_raw_b.png'
+    MAIN_BK: 'https://raw.githubusercontent.com/just-00/game-image-cdn/main/0255557287c44c29b93f9f5c0d7812f8.jpeg%7Etplv-a9rns2rl98-image_raw_b.png',
+    BEAR_NOT_WEAPON: 'https://raw.githubusercontent.com/just-00/game-image-cdn/main/熊没带武器.mp4',
+    BEAR_WEAPON: 'https://raw.githubusercontent.com/just-00/game-image-cdn/main/熊带武器.mp4',
+    BAD_END: 'https://raw.githubusercontent.com/just-00/game-image-cdn/main/b2613cdc7aca4b70a9c5492e8dd6d62a.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png'
 }

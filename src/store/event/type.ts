@@ -1,5 +1,5 @@
 import type { Time, Weather } from "../environment/type";
-import type { EquipmentKey } from "../equipment/type";
+import type { Equipment, EquipmentKey } from "../equipment/type";
 
 export enum EventType {
   // 主线相关
@@ -35,15 +35,32 @@ export interface Option {
   // 用一次要多少分钟
   useTime?: number;
   // 会出什么图片
-  pics?: string[]
+  pics?: string[];
   // 天气
   weather?: Weather;
   // 装备相关
   equipment?: {
     [key: string]: number;
   };
+  // 受伤
+  injuried?: boolean;
   // 下一个必会触发的后置事件key
   mustTriggerAfterKey?: string;
+  // 动态计算结果，返回结局key或者toast
+  result?: (equipments: Equipment[]) => {
+    endKey?: string;
+    toast?: string;
+    effect?: {
+      useTime?: number;
+      warm?: number;
+      san?: number;
+      weather?: Weather;
+      equipment?: {
+        [key: string]: number;
+      };
+      injuried?: boolean;
+    };
+  };
 }
 
 export interface GameEvent {
@@ -71,4 +88,9 @@ export interface GameEvent {
   weatherKey?: Weather[];
   // 需要满足的时间key
   timeKey?: Time[];
+
+  // 是否是结局
+  isEnd?: boolean;
+  // 结局配的图片
+  pic?: string;
 }
