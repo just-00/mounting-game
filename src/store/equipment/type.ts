@@ -31,9 +31,18 @@ export enum EquipmentKey {
   SleepingBag = "sleepingBag",
   FirstAidKit = "firstAidKit",
   SurvivalBlanket = "survivalBlanket",
-  Mushroom = "mushroom",
-  Egg = 'egg',
-  BeastSteak = 'BeastSteak',
+  // 鸡油菌
+  MushroomJiYou = "MushroomJiYou",
+  // 香菇
+  MushroomXiangGu = "MushroomXiangGu",
+  // 毒蝇菌
+  MushroomDuYing = "MushroomDuYing",
+  // 鹅肝菌
+  MushroomEGan = "MushroomEGan",
+  // 见手青
+  Mushroom_JianShouQing = 'Mushroom_JianShouQing',
+  Egg = "egg",
+  BeastSteak = "BeastSteak",
   Spear = "Spear",
   SportsDrink = "sportsDrink",
   CompressedBiscuit = "compressedBiscuit",

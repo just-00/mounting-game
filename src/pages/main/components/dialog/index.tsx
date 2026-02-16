@@ -25,7 +25,7 @@ const TOAST_SHOW_TIME = 2500;
 
 export const GameDialog = () => {
   const [toast, setToast] = useState<string | undefined>();
-  const [pic, setPic] = useState<string>();
+  const [optionPic, setOptionPic] = useState<string>();
   const [mouting, setMounting] = useState<boolean>();
   const { currentEvent, setCurrentEventByCompute, setCurrentEventByKey } =
     useEventStore();
@@ -47,7 +47,7 @@ export const GameDialog = () => {
       queueMicrotask(() => {
         if (endKeyRef.current) {
           setCurrentEventByKey(endKeyRef.current);
-          endKeyRef.current = null
+          endKeyRef.current = null;
         } else {
           setMounting(true);
         }
@@ -63,12 +63,12 @@ export const GameDialog = () => {
   const onClick = async (option: Option) => {
     // 通过当前选项计算出toast
     const { toast, endKey } = computeEffect(option as Option & Equipment);
-    if (option.pics?.length) {
-      for (let i = 0; i < option.pics.length; i++) {
-        setPic(option.pics[i]);
+    if (option.optionPics?.length) {
+      for (let i = 0; i < option.optionPics.length; i++) {
+        setOptionPic(option.optionPics[i]);
         await timeoutPromise();
       }
-      setPic(undefined);
+      setOptionPic(undefined);
     }
 
     if (toast) {
@@ -102,7 +102,7 @@ export const GameDialog = () => {
           dangerouslySetInnerHTML={{ __html: currentEvent.title }}
           className="title"
         ></div>
-        <img src={currentEvent.pic} width={60} />
+        <img src={currentEvent.eventPic} width={60} />
       </section>
     );
   } else if (toast) {
@@ -135,16 +135,24 @@ export const GameDialog = () => {
               );
             })}
           </section>
+
+          {/* 事件图片展示 */}
+          {currentEvent?.eventPic && !currentEvent.isEnd && (
+            <section className="eventPicWrapper">
+              <img src={currentEvent.eventPic} width={100} />
+            </section>
+          )}
+        </div>
+      )}
+
+      {/* 点击选项后图片展示 */}
+      {optionPic && (
+        <div className="optionPicWrapper">
+          <img src={optionPic} width="80%" className="optionPic" />
         </div>
       )}
 
       {CenterCardDefined && <CenterCard content={CenterCardDefined} />}
-
-      {pic && (
-        <div className="optionPicWrapper">
-          <img src={pic} width="80%" className="optionPic" />
-        </div>
-      )}
     </>
   );
 };

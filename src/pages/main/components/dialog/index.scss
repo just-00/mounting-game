@@ -73,6 +73,12 @@
   background: rgba(0, 0, 0, 0.2);
 }
 
+.eventPicWrapper {
+  position: absolute;
+  top: -82px;
+  animation: flash 0.4s ease-in-out infinite alternate;
+}
+
 .dialogToastText {
   font-size: 18px;
   padding: 12px 0;

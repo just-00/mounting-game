@@ -1,4 +1,3 @@
-import { mul } from "@/utils/number";
 import { useEnvironmenStore } from "../environment/store";
 import type { Weather } from "../environment/type";
 import { useEquipmentStore } from "../equipment/store";
@@ -49,7 +48,7 @@ export type Effect = {
 export const ToastText: {
   [K in SelectedEquipmentKeys]: (val: ToastTextMap[K]) => string;
 } = {
-  useTime: (val: number) => `使用了${mul(val, 60)}分钟`,
+  useTime: (val: number) => `使用了${val}分钟`,
   weather: (val: Weather) => `天气变成${val}了`,
   warm: (val: number) => `体温${val > 0 ? "升高" : "降低"}了${val}°`,
   san: (val: number) => `精神值${val > 0 ? "升高" : "降低"}了${val}`,

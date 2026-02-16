@@ -4,6 +4,8 @@ import type { Equipment, EquipmentKey } from "../equipment/type";
 export enum EventType {
   // 主线相关
   Main = "Main",
+  // 偶遇蘑菇
+  Mushroom = "Mushroom",
   // 偶遇物品
   Item = "Item",
   // 野兽遭遇
@@ -17,6 +19,7 @@ export enum EventType {
 }
 
 export const EVENT_PRIORITY: Partial<Record<EventType, number>> = {
+  [EventType.Mushroom]: 2,
   [EventType.Item]: 5,
   [EventType.Beast]: 5,
   [EventType.Human]: 5,
@@ -34,8 +37,8 @@ export interface Option {
   san?: number;
   // 用一次要多少分钟
   useTime?: number;
-  // 会出什么图片
-  pics?: string[];
+  // 点击选项后会出什么图片
+  optionPics?: string[];
   // 天气
   weather?: Weather;
   // 装备相关
@@ -93,6 +96,6 @@ export interface GameEvent {
 
   // 是否是结局
   isEnd?: boolean;
-  // 结局配的图片
-  pic?: string;
+  // 事件配的图片
+  eventPic?: string;
 }

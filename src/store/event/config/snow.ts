@@ -1,6 +1,6 @@
 import { EquipmentKey, type Equipment } from "@/store/equipment/type";
 import { EventType, type GameEvent } from "../type";
-import { MAIN_PROLOAD } from "@/const/ResourceUrl";
+import { MAIN_PROLOAD, SELECT_EQUIPMENT_PRELOAD } from "@/const/ResourceUrl";
 import { getToast } from "@/store/effect";
 import { add } from "@/utils/number";
 
@@ -25,8 +25,16 @@ export enum OtherEventKey {
   Uncle = "Uncle_1",
 
   // 物品相关
-  // 蘑菇
-  Mushroom = "Mushroom",
+  // 鸡油菌
+  MushroomJiYou = "MushroomJiYou",
+  // 香菇
+  MushroomXiangGu = "MushroomXiangGu",
+  // 毒蝇菌
+  MushroomDuYing = "MushroomDuYing",
+  // 鹅肝菌
+  MushroomEGan = "MushroomEGan",
+  // 见手青
+  MushroomJianShouQing = 'MushroomJianShouQing',
   // 尖尖的棍子
   OtherIce_Stick = "OtherIce_Stick",
 }
@@ -43,110 +51,120 @@ export enum OtherOptionKey {
   FOX_1_2 = "FOX_1_2",
   FOX_1_3 = "FOX_1_3",
   FOX_1_4 = "FOX_1_4",
-
+  // 温泉
   HotSpring_1_1 = "HotSpring_1_1",
   HotSpring_1_2 = "HotSpring_1_2",
   HotSpring_2_1 = "HotSpring_2_1",
   HotSpring_2_2 = "HotSpring_2_2",
-  Mushroom_1 = "Mushroom_1",
-  Mushroom_2 = "Mushroom_2",
+  // 蘑菇
+  MushroomJiYou_1 = "MushroomJiYou_1",
+  MushroomJiYou_2 = "MushroomJiYou_2",
+  MushroomXiangGu_1 = "MushroomXiangGu_1",
+  MushroomXiangGu_2 = "MushroomXiangGu_2",
+  MushroomDuYing_1 = "MushroomDuYing_1",
+  MushroomDuYing_2 = "MushroomDuYing_2",
+  MushroomEGan_1 = "MushroomEGan_1",
+  MushroomEGan_2 = "MushroomEGan_2",
+  MushroomJianShouQing_1 = 'MushroomJianShouQing_1',
+  MushroomJianShouQing_2 = 'MushroomJianShouQing_2',
+
   OtherIce_Stick_1 = "OtherIce_Stick_1",
   OtherIce_Stick_2 = "OtherIce_Stick_2",
 }
 
 export const OTHER_ICE_EVENTS: GameEvent[] = [
-  // 野兽类相关
-  // 熊
-  {
-    key: OtherEventKey.Bear_1,
-    title: "前方模模糊糊的有一个人，在朝你招手",
-    eventType: EventType.Beast,
-    options: [
-      {
-        key: OtherOptionKey.Bear_1_1,
-        title: "过去看看",
-        mustTriggerAfterKey: OtherEventKey.Bear_2,
-      },
-      {
-        key: OtherOptionKey.Bear_1_2,
-        title: "不过去",
-      },
-    ],
-  },
-  {
-    key: OtherEventKey.Bear_2,
-    title: "原来是一只熊",
-    eventType: EventType.Beast,
-    preOptionKeys: [OtherOptionKey.Bear_1_2],
-    isForcedTriggerAfterKey: true,
-    options: [
-      {
-        key: OtherOptionKey.Bear_2_1,
-        title: "战斗！！！",
-        result: (equipments: Equipment[]) => {
-          // 返回toast供给展示，并且结算战斗结果
-          return getBeastFightResult("熊", equipments);
-        },
-      },
-      {
-        key: OtherOptionKey.Bear_2_2,
-        title: "装死",
-        result: () => ({
-          endKey: MainEventKey.IceMain_Icefall_BadEnd,
-        }),
-      },
-      {
-        key: OtherOptionKey.Bear_2_3,
-        title: "向它投掷食物",
-      },
-    ],
-  },
-  // 引路雪狐
-  {
-    key: OtherEventKey.FOX_1,
-    title: "窜出了一只雪狐",
-    eventType: EventType.Beast,
-    options: [
-      {
-        key: OtherOptionKey.FOX_1_2,
-        title: "给它肉排",
-        isShow: (equipments: Equipment[]) =>
-          !!equipments.find((item) => item.key === EquipmentKey.BeastSteak)
-            ?.count,
-        equipments: {
-          [EquipmentKey.BeastSteak]: -1,
-        },
-      },
-      {
-        key: OtherOptionKey.FOX_1_2,
-        title: "给它蘑菇",
-        isShow: (equipments: Equipment[]) =>
-          !!equipments.find((item) => item.key === EquipmentKey.Mushroom)
-            ?.count,
-        equipments: {
-          [EquipmentKey.Mushroom]: -1,
-        },
-      },
-      {
-        key: OtherOptionKey.FOX_1_3,
-        title: "给它压缩饼干",
-        isShow: (equipments: Equipment[]) =>
-          !!equipments.find(
-            (item) => item.key === EquipmentKey.CompressedBiscuit,
-          )?.count,
-        equipments: {
-          [EquipmentKey.CompressedBiscuit]: -1,
-        },
-      },
-      {
-        key: OtherOptionKey.FOX_1_4,
-        title: "不理他",
-      },
-    ],
-  },
+  // // 野兽类相关
+  // // 熊
+  // {
+  //   key: OtherEventKey.Bear_1,
+  //   title: "前方模模糊糊的有一个人，在朝你招手",
+  //   eventType: EventType.Beast,
+  //   options: [
+  //     {
+  //       key: OtherOptionKey.Bear_1_1,
+  //       title: "过去看看",
+  //       mustTriggerAfterKey: OtherEventKey.Bear_2,
+  //     },
+  //     {
+  //       key: OtherOptionKey.Bear_1_2,
+  //       title: "不过去",
+  //     },
+  //   ],
+  // },
+  // {
+  //   key: OtherEventKey.Bear_2,
+  //   title: "原来是一只熊",
+  //   eventType: EventType.Beast,
+  //   preOptionKeys: [OtherOptionKey.Bear_1_2],
+  //   isForcedTriggerAfterKey: true,
+  //   options: [
+  //     {
+  //       key: OtherOptionKey.Bear_2_1,
+  //       title: "战斗！！！",
+  //       result: (equipments: Equipment[]) => {
+  //         // 返回toast供给展示，并且结算战斗结果
+  //         return getBeastFightResult("熊", equipments);
+  //       },
+  //     },
+  //     {
+  //       key: OtherOptionKey.Bear_2_2,
+  //       title: "装死",
+  //       result: () => ({
+  //         endKey: MainEventKey.IceMain_Icefall_BadEnd,
+  //       }),
+  //     },
+  //     {
+  //       key: OtherOptionKey.Bear_2_3,
+  //       title: "向它投掷食物",
+  //     },
+  //   ],
+  // },
+  // // 引路雪狐
+  // {
+  //   key: OtherEventKey.FOX_1,
+  //   title: "窜出了一只雪狐",
+  //   eventType: EventType.Beast,
+  //   options: [
+  //     {
+  //       key: OtherOptionKey.FOX_1_2,
+  //       title: "给它肉排",
+  //       isShow: (equipments: Equipment[]) =>
+  //         !!equipments.find((item) => item.key === EquipmentKey.BeastSteak)
+  //           ?.count,
+  //       equipments: {
+  //         [EquipmentKey.BeastSteak]: -1,
+  //       },
+  //     },
+  //     {
+  //       key: OtherOptionKey.FOX_1_2,
+  //       title: "给它蘑菇",
+  //       isShow: (equipments: Equipment[]) =>
+  //         !!equipments.find((item) => item.key === EquipmentKey.Mushroom)
+  //           ?.count,
+  //       equipments: {
+  //         [EquipmentKey.Mushroom]: -1,
+  //       },
+  //     },
+  //     {
+  //       key: OtherOptionKey.FOX_1_3,
+  //       title: "给它压缩饼干",
+  //       isShow: (equipments: Equipment[]) =>
+  //         !!equipments.find(
+  //           (item) => item.key === EquipmentKey.CompressedBiscuit,
+  //         )?.count,
+  //       equipments: {
+  //         [EquipmentKey.CompressedBiscuit]: -1,
+  //       },
+  //     },
+  //     {
+  //       key: OtherOptionKey.FOX_1_4,
+  //       title: "不理他",
+  //     },
+  //   ],
+  // },
 
-  // // 探索相关
-  // // 温泉
+  // 探索相关
+  // 温泉
   // {
   //   key: OtherEventKey.HotSpring_1,
   //   title: "远处传来一阵臭味",
@@ -173,8 +191,9 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
   //     {
   //       key: OtherOptionKey.HotSpring_2_1,
   //       title: "美美泡一下",
-  //       useTime: 1,
+  //       useTime: 60,
   //       warm: 30,
+  //       san: 5
   //     },
   //     {
   //       key: OtherOptionKey.HotSpring_2_2,
@@ -183,44 +202,110 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
   //   ],
   // },
 
-  // // 碰到人相关
-  // // 路过人赠与
-  // {
-  //   key: OtherEventKey.HotSpring_1,
-  //   title: "碰到一个小女孩，送你一个苹果",
-  //   eventType: EventType.Human,
-  //   options: [
-  //     {
-  //       key: OtherOptionKey.HotSpring_1_1,
-  //       title: "收下",
-  //     },
-  //     {
-  //       key: OtherOptionKey.HotSpring_1_2,
-  //       title: "不收",
-  //     },
-  //   ],
-  // },
+  // 碰到人相关
+  // 小女孩
 
-  // // 物品相关
-  // // 蘑菇
-  // {
-  //   key: OtherEventKey.Mushroom,
-  //   title: "路边有几丛蘑菇",
-  //   eventType: EventType.Human,
-  //   options: [
-  //     {
-  //       key: OtherOptionKey.Mushroom_1,
-  //       title: "采",
-  //       equipment: {
-  //         [EquipmentKey.Mushroom]: 3,
-  //       },
-  //     },
-  //     {
-  //       key: OtherOptionKey.Mushroom_2,
-  //       title: "不采",
-  //     },
-  //   ],
-  // },
+  // 蘑菇相关
+  // 鸡油菌
+  {
+    key: OtherEventKey.MushroomJiYou,
+    title: "路边有几丛蘑菇",
+    eventType: EventType.Mushroom,
+    eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIYOU,
+    options: [
+      {
+        key: OtherOptionKey.MushroomJiYou_1,
+        title: "采",
+        equipments: {
+          [EquipmentKey.MushroomJiYou]: 3,
+        },
+      },
+      {
+        key: OtherOptionKey.MushroomJiYou_2,
+        title: "不采",
+      },
+    ],
+  },
+  // 香菇
+  {
+    key: OtherEventKey.MushroomXiangGu,
+    title: "路边有几丛蘑菇",
+    eventType: EventType.Mushroom,
+    eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_XIANGGU,
+    options: [
+      {
+        key: OtherOptionKey.MushroomXiangGu_1,
+        title: "采",
+        equipments: {
+          [EquipmentKey.MushroomXiangGu]: 3,
+        },
+      },
+      {
+        key: OtherOptionKey.MushroomXiangGu_2,
+        title: "不采",
+      },
+    ],
+  },
+  // 鹅肝菌
+  {
+    key: OtherEventKey.MushroomEGan,
+    title: "路边有几丛蘑菇",
+    eventType: EventType.Mushroom,
+    eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_EGAN,
+    options: [
+      {
+        key: OtherOptionKey.MushroomEGan_1,
+        title: "采",
+        equipments: {
+          [EquipmentKey.MushroomEGan]: 3,
+        },
+      },
+      {
+        key: OtherOptionKey.MushroomEGan_2,
+        title: "不采",
+      },
+    ],
+  },
+  // 毒蝇菌
+  {
+    key: OtherEventKey.MushroomDuYing,
+    title: "路边有几丛蘑菇",
+    eventType: EventType.Mushroom,
+    eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_DUYING,
+    options: [
+      {
+        key: OtherOptionKey.MushroomDuYing_1,
+        title: "采",
+        equipments: {
+          [EquipmentKey.MushroomDuYing]: 3,
+        },
+      },
+      {
+        key: OtherOptionKey.MushroomDuYing_2,
+        title: "不采",
+      },
+    ],
+  },
+  // 见手青
+  {
+    key: OtherEventKey.MushroomJianShouQing,
+    title: "路边有几丛蘑菇",
+    eventType: EventType.Mushroom,
+    eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIANSHOUQING,
+    options: [
+      {
+        key: OtherOptionKey.MushroomJianShouQing_1,
+        title: "采",
+        equipments: {
+          [EquipmentKey.Mushroom_JianShouQing]: 3,
+        },
+      },
+      {
+        key: OtherOptionKey.MushroomJianShouQing_2,
+        title: "不采",
+      },
+    ],
+  },
   // // 棍子
   // {
   //   key: OtherEventKey.OtherIce_Stick,
@@ -329,7 +414,7 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
     title: "你死了",
     eventType: EventType.Main,
     isEnd: true,
-    pic: MAIN_PROLOAD.BAD_END,
+    eventPic: MAIN_PROLOAD.BAD_END,
   },
 ];
 
