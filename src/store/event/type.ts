@@ -46,6 +46,8 @@ export interface Option {
   injuried?: boolean;
   // 下一个必会触发的后置事件key
   mustTriggerAfterKey?: string;
+  // 计算是否出现这个选项
+  isShow?: (equipments: Equipment[]) => boolean
   // 动态计算结果，返回结局key或者toast
   result?: (equipments: Equipment[]) => {
     endKey?: string;

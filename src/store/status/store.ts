@@ -25,7 +25,7 @@ interface StatusStore {
   setWarm: (warm: number) => void;
   setSan: (san: number) => void;
   setHunger: (hunger: number) => void;
-  setInjuried: (injuried: boolean) => void
+  setInjuried: (injuried: boolean) => void;
 }
 
 export const useStatusStore = create<StatusStore>((set) => ({
@@ -62,6 +62,7 @@ export const useStatusStore = create<StatusStore>((set) => ({
     set((state) => ({
       ...state,
       injuried,
+      speed: injuried ? Speed.Slow : state.speed,
     }));
   },
 }));

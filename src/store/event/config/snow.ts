@@ -10,6 +10,9 @@ export enum OtherEventKey {
   // 熊
   Bear_1 = "ice_enc_bear_1",
   Bear_2 = "ice_enc_bear_2",
+  // 雪狐
+  FOX_1 = "FOX_1",
+
   // 小狗 喂摸3次后得到XX
 
   // 探索相关
@@ -29,11 +32,18 @@ export enum OtherEventKey {
 }
 
 export enum OtherOptionKey {
+  // 熊
   Bear_1_1 = "Bear_1_1",
   Bear_1_2 = "Bear_1_2",
   Bear_2_1 = "Bear_2_1",
   Bear_2_2 = "Bear_2_2",
   Bear_2_3 = "Bear_2_3",
+  // 雪狐
+  FOX_1_1 = "FOX_1_1",
+  FOX_1_2 = "FOX_1_2",
+  FOX_1_3 = "FOX_1_3",
+  FOX_1_4 = "FOX_1_4",
+
   HotSpring_1_1 = "HotSpring_1_1",
   HotSpring_1_2 = "HotSpring_1_2",
   HotSpring_2_1 = "HotSpring_2_1",
@@ -47,7 +57,6 @@ export enum OtherOptionKey {
 export const OTHER_ICE_EVENTS: GameEvent[] = [
   // 野兽类相关
   // 熊
-  // 发现熊留下的爪印和啃剩的野果
   {
     key: OtherEventKey.Bear_1,
     title: "前方模模糊糊的有一个人，在朝你招手",
@@ -89,6 +98,49 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
       {
         key: OtherOptionKey.Bear_2_3,
         title: "向它投掷食物",
+      },
+    ],
+  },
+  // 引路雪狐
+  {
+    key: OtherEventKey.FOX_1,
+    title: "窜出了一只雪狐",
+    eventType: EventType.Beast,
+    options: [
+      {
+        key: OtherOptionKey.FOX_1_2,
+        title: "给它肉排",
+        isShow: (equipments: Equipment[]) =>
+          !!equipments.find((item) => item.key === EquipmentKey.BeastSteak)
+            ?.count,
+        equipments: {
+          [EquipmentKey.BeastSteak]: -1,
+        },
+      },
+      {
+        key: OtherOptionKey.FOX_1_2,
+        title: "给它蘑菇",
+        isShow: (equipments: Equipment[]) =>
+          !!equipments.find((item) => item.key === EquipmentKey.Mushroom)
+            ?.count,
+        equipments: {
+          [EquipmentKey.Mushroom]: -1,
+        },
+      },
+      {
+        key: OtherOptionKey.FOX_1_3,
+        title: "给它压缩饼干",
+        isShow: (equipments: Equipment[]) =>
+          !!equipments.find(
+            (item) => item.key === EquipmentKey.CompressedBiscuit,
+          )?.count,
+        equipments: {
+          [EquipmentKey.CompressedBiscuit]: -1,
+        },
+      },
+      {
+        key: OtherOptionKey.FOX_1_4,
+        title: "不理他",
       },
     ],
   },

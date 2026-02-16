@@ -56,7 +56,7 @@ export const ToastText: {
   equipments: (val: { [key: string]: number }) => {
     return Object.entries(val)
       .map(([key, value]) => {
-        return `${EQUIPMENTS.find((item) => item.key === key)?.name}${value > 0 ? "增加" : "减少"}了${value}个`;
+        return `${EQUIPMENTS.find((item) => item.key === key)?.name}${value > 0 ? "增加" : "减少"}了${Math.abs(value)}个`;
       })
       .join("<br/>");
   },
@@ -109,7 +109,8 @@ export const useGameEffect = () => {
       })
     ) {
       Object.entries(effect.equipments).forEach(([key, value]) => {
-        setEquipmentsCount(key, value);
+        const current = equipments.find((item) => item.key === key);
+        setEquipmentsCount(key, (current?.count || 0) + value);
       });
     }
 

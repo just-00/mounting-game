@@ -2,6 +2,8 @@ import { create } from "zustand";
 import { EVENT_PRIORITY, type EventType, type GameEvent } from "./type";
 import { Route, ROUTES } from "./config";
 import { useEnvironmenStore } from "@/store/environment/store";
+import type { Equipment } from "../equipment/type";
+import { useEquipmentStore } from "../equipment/store";
 
 interface EventStore {
   currentEvent: GameEvent | null;
@@ -43,6 +45,7 @@ export const useEventStore = create<EventStore>((set, get) => ({
   setCurrentEventByKey: (afterEventKey: string) => {
     set((state) => {
       const { routeId, doneEventKeys } = get();
+      const { equipments } = useEquipmentStore.getState();
       const currentRoute = ROUTES.find((item) => item.key === routeId);
       const afterEvent = [
         ...currentRoute!.otherEvents,
@@ -51,7 +54,7 @@ export const useEventStore = create<EventStore>((set, get) => ({
       return {
         ...state,
         doneEventKeys: doneEventKeys.concat(afterEventKey),
-        currentEvent: afterEvent,
+        currentEvent: computeEvent(afterEvent!, equipments),
       };
     });
   },
@@ -61,6 +64,7 @@ export const useEventStore = create<EventStore>((set, get) => ({
       // 前置需要的数据
       const distance = useEnvironmenStore.getState().distance;
       const { routeId, eventPriority, doneEventKeys } = get();
+      const { equipments } = useEquipmentStore.getState();
       const currentRoute = ROUTES.find((item) => item.key === routeId);
       // 先看有无状态低导致的必发事件
 
@@ -76,7 +80,7 @@ export const useEventStore = create<EventStore>((set, get) => ({
         return {
           ...state,
           doneEventKeys: doneEventKeys.concat(originMain.key),
-          currentEvent: originMain,
+          currentEvent: computeEvent(originMain, equipments),
         };
       }
 
@@ -149,8 +153,21 @@ export const useEventStore = create<EventStore>((set, get) => ({
         ...state,
         doneEventKeys: doneEventKeys.concat(events![eventRandom]!.key),
         eventPriority: { ...eventPriority },
-        currentEvent: events![eventRandom] || null,
+        currentEvent: computeEvent(events![eventRandom], equipments),
       };
     });
   },
 }));
+
+const computeEvent = (event: GameEvent, equipments: Equipment[]) => {
+  const options = event.options?.filter((item) => {
+    if (!item.isShow) {
+      return true;
+    }
+    return item.isShow(equipments);
+  });
+  return {
+    ...event,
+    options,
+  };
+};
