@@ -1,6 +1,6 @@
 import type { Option } from "@/store/event/type";
 import "./index.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { CenterCard } from "../center-card";
 import { MoutingAnimationCom } from "../center-card/mouting-animation";
 import { useEventStore } from "@/store/event/store";
@@ -30,6 +30,7 @@ export const GameDialog = () => {
   const { currentEvent, setCurrentEventByCompute, setCurrentEventByKey } =
     useEventStore();
   const { computeEffect } = useGameEffect();
+  const endKeyRef = useRef<string | undefined>(null);
 
   useEffect(() => {
     // 展示动画变为不展示时，不进行逻辑计算
@@ -41,10 +42,15 @@ export const GameDialog = () => {
   }, [mouting]);
 
   useEffect(() => {
-    // toast变为空时，展示mounting动画
+    // toast变为空时，如果有结局key，展示结局，如果没有，展示mounting动画
     if (!toast) {
       queueMicrotask(() => {
-        setMounting(true);
+        if (endKeyRef.current) {
+          setCurrentEventByKey(endKeyRef.current);
+          endKeyRef.current = null
+        } else {
+          setMounting(true);
+        }
       });
       return;
     }
@@ -52,7 +58,7 @@ export const GameDialog = () => {
     setTimeout(() => {
       setToast(undefined);
     }, TOAST_SHOW_TIME);
-  }, [toast, ]);
+  }, [toast]);
 
   const onClick = async (option: Option) => {
     // 通过当前选项计算出toast
@@ -67,6 +73,7 @@ export const GameDialog = () => {
 
     if (toast) {
       setToast(toast);
+      endKeyRef.current = endKey;
     } else if (endKey) {
       setCurrentEventByKey(endKey);
     } else if (option?.mustTriggerAfterKey) {
@@ -108,7 +115,7 @@ export const GameDialog = () => {
   }
 
   return (
-    <section className="gameDialog">
+    <>
       {!CenterCardDefined && currentEvent && (
         <div className="pixel-dialog">
           <div className="title">
@@ -138,7 +145,7 @@ export const GameDialog = () => {
           <img src={pic} width="80%" className="optionPic" />
         </div>
       )}
-    </section>
+    </>
   );
 };
 

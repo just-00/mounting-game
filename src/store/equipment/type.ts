@@ -33,6 +33,7 @@ export enum EquipmentKey {
   SurvivalBlanket = "survivalBlanket",
   Mushroom = "mushroom",
   Egg = 'egg',
+  BeastSteak = 'BeastSteak',
   Spear = "Spear",
   SportsDrink = "sportsDrink",
   CompressedBiscuit = "compressedBiscuit",

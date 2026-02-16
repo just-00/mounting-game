@@ -69,7 +69,7 @@ const iconMap: {
 export const BagCom = () => {
   const navigate = useNavigate();
   const onClick = () => {
-    navigate("/bag-manage");
+    navigate("/main/bag-manage");
   };
   return (
     <img

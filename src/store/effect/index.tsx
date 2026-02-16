@@ -12,7 +12,7 @@ export type SelectedEquipmentKeys =
   | "san"
   | "useTime"
   | "weather"
-  | "equipment"
+  | "equipments"
   | "injuried";
 
 type EquipmentValueType =
@@ -28,7 +28,7 @@ type ToastTextMap = {
   warm: number;
   san: number;
   weather: Weather;
-  equipment: {
+  equipments: {
     [key: string]: number;
   };
   injuried: boolean;
@@ -39,7 +39,7 @@ export type Effect = {
   warm?: number;
   san?: number;
   weather?: Weather;
-  equipment?: {
+  equipments?: {
     [key: string]: number;
   };
   injuried?: boolean;
@@ -53,7 +53,7 @@ export const ToastText: {
   weather: (val: Weather) => `天气变成${val}了`,
   warm: (val: number) => `体温${val > 0 ? "升高" : "降低"}了${val}°`,
   san: (val: number) => `精神值${val > 0 ? "升高" : "降低"}了${val}`,
-  equipment: (val: { [key: string]: number }) => {
+  equipments: (val: { [key: string]: number }) => {
     return Object.entries(val)
       .map(([key, value]) => {
         return `${EQUIPMENTS.find((item) => item.key === key)?.name}${value > 0 ? "增加" : "减少"}了${value}个`;
@@ -103,12 +103,12 @@ export const useGameEffect = () => {
 
     // 通过选项 获得或减少装备
     if (
-      effect.equipment &&
-      (effect.equipment as {
+      effect.equipments &&
+      (effect.equipments as {
         [key: string]: number;
       })
     ) {
-      Object.entries(effect.equipment).forEach(([key, value]) => {
+      Object.entries(effect.equipments).forEach(([key, value]) => {
         setEquipmentsCount(key, value);
       });
     }

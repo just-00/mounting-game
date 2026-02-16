@@ -1,92 +1,90 @@
-.gameDialog {
-  .pixel-dialog {
-    color: rgba(0, 0, 0, 0.6);
-    position: fixed;
-    z-index: 2;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.pixel-dialog {
+  color: rgba(0, 0, 0, 0.6);
+  position: fixed;
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    .title {
-      opacity: 0.95;
-      width: 280px;
-      height: 140px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      color: rgba(255, 255, 255, 0.8);
-      background: rgba(0, 0, 0, 0.05)
-        url("https://raw.githubusercontent.com/just-00/game-image-cdn/main/17d6855282c74cac8e71d134becee04b.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png")
-        right bottom / 100% 100% no-repeat;
-
-      .text {
-        padding-left: 24px;
-        padding-right: 18px;
-        line-height: 30px;
-        text-align: center;
-      }
-    }
-    .desc {
-      margin-top: 12px;
-      width: calc(100% - 60px);
-      .buttonWrapper {
-        position: relative;
-      }
-      .button {
-        opacity: 0.85;
-        width: 100%;
-        height: 84px;
-        background: url("https://raw.githubusercontent.com/just-00/game-image-cdn/main/image-removebg-preview.png")
-          right bottom / 100% 100% no-repeat;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      .text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 18px;
-        color: rgba(255, 255, 255, 0.8);
-        z-index: 1;
-      }
-      .button:not(:first-child) {
-        margin-top: 12px;
-      }
-    }
-  }
-  .optionPicWrapper {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 6;
-    position: fixed;
+  .title {
+    opacity: 0.95;
+    width: 280px;
+    height: 140px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.2);
-  }
+    font-size: 24px;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(0, 0, 0, 0.05)
+      url("https://raw.githubusercontent.com/just-00/game-image-cdn/main/17d6855282c74cac8e71d134becee04b.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png")
+      right bottom / 100% 100% no-repeat;
 
-  .dialogToastText {
-    font-size: 18px;
-    padding: 12px 0;
-    padding-left: 8px;
-    line-height: 32px;
-  }
-
-  .endWrapper{
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    .title{
-      font-size: 28px;
+    .text {
+      padding-left: 24px;
+      padding-right: 18px;
+      line-height: 30px;
+      text-align: center;
     }
+  }
+  .desc {
+    margin-top: 12px;
+    width: calc(100% - 60px);
+    .buttonWrapper {
+      position: relative;
+    }
+    .button {
+      opacity: 0.85;
+      width: 100%;
+      height: 84px;
+      background: url("https://raw.githubusercontent.com/just-00/game-image-cdn/main/image-removebg-preview.png")
+        right bottom / 100% 100% no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 18px;
+      color: rgba(255, 255, 255, 0.8);
+      z-index: 1;
+    }
+    .button:not(:first-child) {
+      margin-top: 12px;
+    }
+  }
+}
+.optionPicWrapper {
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 6;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.dialogToastText {
+  font-size: 18px;
+  padding: 12px 0;
+  padding-left: 8px;
+  line-height: 32px;
+}
+
+.endWrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  .title {
+    font-size: 28px;
   }
 }

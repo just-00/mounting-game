@@ -2,6 +2,7 @@ import { MainPannel } from "@/components/pannelItem";
 import "./index.scss";
 import { Bird } from "@/components/bird/bird";
 import { GameDialog } from "./components/dialog";
+import { Outlet } from "react-router-dom";
 
 const Main = () => {
   return (
@@ -13,6 +14,8 @@ const Main = () => {
         <MainPannel />
       </section>
       <Bird isFlying />
+      {/* 展示背包管理 */}
+      <Outlet />
     </section>
   );
 };

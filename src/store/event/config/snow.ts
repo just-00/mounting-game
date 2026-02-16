@@ -2,6 +2,7 @@ import { EquipmentKey, type Equipment } from "@/store/equipment/type";
 import { EventType, type GameEvent } from "../type";
 import { MAIN_PROLOAD } from "@/const/ResourceUrl";
 import { getToast } from "@/store/effect";
+import { add } from "@/utils/number";
 
 // 支线相关
 export enum OtherEventKey {
@@ -281,14 +282,22 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
 ];
 
 const getBeastFightResult = (animal: string, equipments: Equipment[]) => {
-  // 默认30%几率打中
-  let side = 0.3;
+  // 默认40%几率打中
+  const DEFAULT_SIDE = 0.4;
+  // 有登山杖60%
+  const HIKING_SIDE = 0.6;
+  // 有长矛80%
+  const SPEAR_SIDE = 0.8;
+  // 搏斗次数
+  const MAX = 4;
 
+  // 默认情况
+  let side = DEFAULT_SIDE;
   let weapon;
   // 如果有长矛的情况下
   const hasSpear = equipments.find((item) => item.key === EquipmentKey.Spear);
   if (hasSpear?.count) {
-    side = 0.6;
+    side = HIKING_SIDE;
     weapon = hasSpear?.name;
   }
   // 如果有登山杖的情况下
@@ -296,14 +305,13 @@ const getBeastFightResult = (animal: string, equipments: Equipment[]) => {
     (item) => item.key === EquipmentKey.HikingPole,
   );
   if (hasHikingPole?.count) {
-    side = 0.5;
+    side = SPEAR_SIDE;
     weapon = hasHikingPole?.name;
   }
 
   const youBeat = `你${weapon ? "击中" : "打中"}了${animal}`;
   const itBeat = `${animal}打中了你`;
   let beatStr = "";
-  const MAX = 4;
   let beHitted = 0;
 
   for (let i = 0; i < MAX; i++) {
@@ -318,29 +326,32 @@ const getBeastFightResult = (animal: string, equipments: Equipment[]) => {
       beatStr += "<br/>";
     }
   }
-  const effect = {
-    injuried: beHitted > 0,
-  };
-  // 效果影响事件
-  const effectToast = getToast(effect);
-  if (effectToast) {
-    beatStr += "<br/>";
-    beatStr += effectToast;
-  }
-
   // 拼凑toast
-  const toast = `你${weapon ? `拿起${weapon}` : "赤手空拳"},和${animal}进行搏斗<br/>${beatStr}`
+  const toast = `你${weapon ? `拿起${weapon}` : "赤手空拳"},和${animal}进行搏斗<br/>${beatStr}`;
 
   // 如果被打中的次数多，则死亡
-  if(beHitted > MAX / 2){
+  if (beHitted > MAX / 2) {
     return {
       toast,
       endKey: MainEventKey.IceMain_Icefall_BadEnd,
     };
   }
 
+  const effect = {
+    injuried: beHitted > 0,
+    equipments: {
+      [EquipmentKey.BeastSteak]: add(Math.floor(Math.random() * 3), 2),
+    },
+  };
+  // 效果影响事件
+  let effectToast = "";
+  const computeToast = getToast(effect);
+  if (computeToast) {
+    effectToast += `<br/>${computeToast}`;
+  }
+
   return {
-    toast,
+    toast: `${toast}${effectToast}`,
     effect,
   };
 };

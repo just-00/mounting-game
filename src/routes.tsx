@@ -23,10 +23,12 @@ const router = createBrowserRouter([
   {
     path: "/main",
     element: <MainLazy />,
-  },
-  {
-    path: "/bag-manage",
-    element: <BagManage />,
+    children: [
+      {
+        path: "bag-manage",
+        element: <BagManage />,
+      },
+    ],
   },
 ]);
 

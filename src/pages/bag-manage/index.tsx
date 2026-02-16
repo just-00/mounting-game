@@ -6,18 +6,20 @@ import classNames from "classnames";
 import { GameToast } from "../main/components/toast";
 import { getToast } from "@/store/effect";
 import type { Option } from "@/store/event/type";
+import { useNavigate } from "react-router-dom";
 
 const BagManage = () => {
   const { equipments, setEquipmentsCount } = useEquipmentStore();
   const [equipment, setEquipment] = useState<Equipment>();
   const filterEquipments = equipments.filter((item) => item.count);
   const [toast, setToast] = useState<string>();
+  const navigate = useNavigate();
 
   // toast展示1500秒
   useEffect(() => {
     if (!toast) return;
     const timeout = setTimeout(() => {
-      clearTimeout(timeout)
+      clearTimeout(timeout);
       setToast(undefined);
     }, 1500);
     return () => {
@@ -29,9 +31,13 @@ const BagManage = () => {
     setEquipment(eq);
   };
 
+  const returnPage = () => {
+    navigate(-1);
+  };
+
   const onUse = () => {
     if (!equipment) return;
-    setEquipmentsCount(equipment.key, equipment.count! - 1)
+    setEquipmentsCount(equipment.key, equipment.count! - 1);
     const text = getToast(equipment as Option & Equipment);
     if (text) {
       setToast(text);
@@ -44,7 +50,17 @@ const BagManage = () => {
 
   return (
     <section className="bagManagePage">
-      <section className="headerWrapper">背包</section>
+      <section className="headerWrapper">
+        <div onClick={returnPage}>返回</div>
+        <div>背包</div>
+        <div
+          style={{
+            visibility: "hidden",
+          }}
+        >
+          占位
+        </div>
+      </section>
       {!filterEquipments.length && (
         <section className="placeholderWrapper">
           <div

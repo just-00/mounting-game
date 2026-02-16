@@ -39,7 +39,7 @@ export interface Option {
   // 天气
   weather?: Weather;
   // 装备相关
-  equipment?: {
+  equipments?: {
     [key: string]: number;
   };
   // 受伤
@@ -55,7 +55,7 @@ export interface Option {
       warm?: number;
       san?: number;
       weather?: Weather;
-      equipment?: {
+      equipments?: {
         [key: string]: number;
       };
       injuried?: boolean;

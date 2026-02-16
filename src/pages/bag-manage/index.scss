@@ -1,11 +1,15 @@
 .bagManagePage {
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
   background: linear-gradient(to bottom, #1a5f7a, #147d73);
   //   background: radial-gradient(circle, #1a5f7a 0%, #0f4a5e 100%);
-  height: 100vh;
   .headerWrapper {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     padding: 12px 0;
     color: rgba(255, 255, 255, 0.7);
   }
