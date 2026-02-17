@@ -1,10 +1,6 @@
+import { Poison } from "../status/type";
 import { SELECT_EQUIPMENT_PRELOAD } from "@/const/ResourceUrl";
 import { EquipmentKey, EquipmentType, type Equipment } from "./type";
-
-// 最多能携带的装备体积
-export const EQUIPMENT_MAX_SIZE = 55;
-// 最多能携带的装备重量（kg）
-export const EQUIPMENT_MAX_WEIGHT = 20;
 
 export const EQUIPMENTS: Equipment[] = [
   // {
@@ -61,6 +57,7 @@ export const EQUIPMENTS: Equipment[] = [
     type: EquipmentType.Warmth,
     isSelectEquipmentShow: true,
   },
+  // 鸡油菌
   {
     key: EquipmentKey.MushroomJiYou,
     name: "蘑菇",
@@ -69,7 +66,9 @@ export const EQUIPMENTS: Equipment[] = [
     src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIYOU,
     disposable: true,
     type: EquipmentType.Food,
+    hunger: 10,
   },
+  // 香菇
   {
     key: EquipmentKey.MushroomXiangGu,
     name: "蘑菇",
@@ -78,7 +77,9 @@ export const EQUIPMENTS: Equipment[] = [
     src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_XIANGGU,
     disposable: true,
     type: EquipmentType.Food,
+    hunger: 10,
   },
+  // 毒蝇菌
   {
     key: EquipmentKey.MushroomDuYing,
     name: "蘑菇",
@@ -87,17 +88,21 @@ export const EQUIPMENTS: Equipment[] = [
     src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_DUYING,
     disposable: true,
     type: EquipmentType.Food,
+    poison: Poison.DuYing,
   },
+  // 鹅膏菌
   {
-    key: EquipmentKey.MushroomEGan,
+    key: EquipmentKey.MushroomEGao,
     name: "蘑菇",
     weight: 0.2,
     size: 0.2,
-    src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_EGAN,
+    src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_EGAO,
     disposable: true,
     type: EquipmentType.Food,
+    poison: Poison.EGao,
   },
-{
+  // 见手青
+  {
     key: EquipmentKey.Mushroom_JianShouQing,
     name: "蘑菇",
     weight: 0.2,
@@ -105,8 +110,8 @@ export const EQUIPMENTS: Equipment[] = [
     src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIANSHOUQING,
     disposable: true,
     type: EquipmentType.Food,
+    poison: Poison.JianShouQing,
   },
-
   {
     key: EquipmentKey.SportsDrink,
     name: "运动饮料",

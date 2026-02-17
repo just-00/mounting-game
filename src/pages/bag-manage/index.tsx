@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { type Equipment } from "@/store/equipment/type";
 import classNames from "classnames";
 import { GameToast } from "../main/components/toast";
-import { getToast } from "@/store/effect";
+import { useGameEffect } from "@/store/effect";
 import type { Option } from "@/store/event/type";
 import { useNavigate } from "react-router-dom";
 
@@ -14,6 +14,7 @@ const BagManage = () => {
   const filterEquipments = equipments.filter((item) => item.count);
   const [toast, setToast] = useState<string>();
   const navigate = useNavigate();
+  const { computeEffect } = useGameEffect();
 
   // toast展示1500秒
   useEffect(() => {
@@ -37,15 +38,32 @@ const BagManage = () => {
 
   const onUse = () => {
     if (!equipment) return;
-    setEquipmentsCount(equipment.key, equipment.count! - 1);
-    const text = getToast(equipment as Option & Equipment);
-    if (text) {
-      setToast(text);
+    const final = equipment.count! - 1;
+    setEquipmentsCount(equipment.key, final);
+    setEquipment({
+      ...equipment,
+      count: final,
+    });
+    const { toast } = computeEffect(equipment as Option & Equipment);
+    if (toast) {
+      setToast(toast);
+    }
+    if (!final) {
+      setEquipment(undefined);
     }
   };
 
   const onDestory = () => {
-    console.log("2");
+    if (!equipment) return;
+    const final = equipment.count! - 1;
+    setEquipmentsCount(equipment.key, final);
+    setEquipment({
+      ...equipment,
+      count: final,
+    });
+    if (!final) {
+      setEquipment(undefined);
+    }
   };
 
   return (

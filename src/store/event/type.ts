@@ -1,3 +1,4 @@
+import type { Effect } from "../effect";
 import type { Time, Weather } from "../environment/type";
 import type { Equipment, EquipmentKey } from "../equipment/type";
 
@@ -27,26 +28,10 @@ export const EVENT_PRIORITY: Partial<Record<EventType, number>> = {
   [EventType.Danger]: 3,
 };
 
-export interface Option {
+export interface Option extends Effect {
   // 唯一标识
   key: string;
   title: string;
-  // 升高体温
-  warm?: number;
-  // 精神
-  san?: number;
-  // 用一次要多少分钟
-  useTime?: number;
-  // 点击选项后会出什么图片
-  optionPics?: string[];
-  // 天气
-  weather?: Weather;
-  // 装备相关
-  equipments?: {
-    [key: string]: number;
-  };
-  // 受伤
-  injuried?: boolean;
   // 下一个必会触发的后置事件key
   mustTriggerAfterKey?: string;
   // 计算是否出现这个选项
@@ -55,16 +40,7 @@ export interface Option {
   result?: (equipments: Equipment[]) => {
     endKey?: string;
     toast?: string;
-    effect?: {
-      useTime?: number;
-      warm?: number;
-      san?: number;
-      weather?: Weather;
-      equipments?: {
-        [key: string]: number;
-      };
-      injuried?: boolean;
-    };
+    effect?: Effect;
   };
 }
 

@@ -5,6 +5,7 @@ import type { Equipment } from "../equipment/type";
 import type { Option } from "../event/type";
 import { useStatusStore } from "../status/store";
 import { EQUIPMENTS } from "../equipment/config";
+import { Poison } from "../status/type";
 
 export type SelectedEquipmentKeys =
   | "warm"
@@ -12,12 +13,15 @@ export type SelectedEquipmentKeys =
   | "useTime"
   | "weather"
   | "equipments"
-  | "injuried";
+  | "injuried"
+  | 'hunger'
+  | 'poison';
 
 type EquipmentValueType =
   | number
   | Weather
   | boolean
+  | Poison
   | {
       [key: string]: number;
     };
@@ -31,18 +35,11 @@ type ToastTextMap = {
     [key: string]: number;
   };
   injuried: boolean;
+  hunger: number
+  poison: Poison
 };
 
-export type Effect = {
-  useTime?: number;
-  warm?: number;
-  san?: number;
-  weather?: Weather;
-  equipments?: {
-    [key: string]: number;
-  };
-  injuried?: boolean;
-};
+export type Effect = Partial<ToastTextMap>;
 
 // toast中各项对应的计算函数
 export const ToastText: {
@@ -60,6 +57,8 @@ export const ToastText: {
       .join("<br/>");
   },
   injuried: (injuried: boolean) => (injuried ? `你受伤了` : ""),
+  hunger: (val: number) => `饥饿度提升了${val}`,
+  poison: () => `你中毒了`
 };
 
 // 获取装备使用的toast文案
@@ -82,7 +81,7 @@ export const getToast = (eq: Effect) => {
 
 // 使用装备、点击选项时，计算效果和产出toast
 export const useGameEffect = () => {
-  const { warm, san, setSan, setWarm, setInjuried } = useStatusStore();
+  const { warm, san, setSan, setWarm, setInjuried, setPoison, addPoison } = useStatusStore();
   const { timestamp, setTimestamp, setWeather } = useEnvironmenStore();
   const { equipments, setEquipmentsCount } = useEquipmentStore();
 
@@ -135,6 +134,14 @@ export const useGameEffect = () => {
 
     if (effect.injuried) {
       setInjuried(true);
+    }
+
+    if(effect.poison){
+      if(effect.poison === Poison.Clear){
+        setPoison([])
+      }else{
+        addPoison(effect.poison)
+      }
     }
 
     // 如果有result，优先返回result

@@ -31,8 +31,8 @@ export enum OtherEventKey {
   MushroomXiangGu = "MushroomXiangGu",
   // 毒蝇菌
   MushroomDuYing = "MushroomDuYing",
-  // 鹅肝菌
-  MushroomEGan = "MushroomEGan",
+  // 鹅膏菌
+  MushroomEGao = "MushroomEGao",
   // 见手青
   MushroomJianShouQing = 'MushroomJianShouQing',
   // 尖尖的棍子
@@ -63,8 +63,8 @@ export enum OtherOptionKey {
   MushroomXiangGu_2 = "MushroomXiangGu_2",
   MushroomDuYing_1 = "MushroomDuYing_1",
   MushroomDuYing_2 = "MushroomDuYing_2",
-  MushroomEGan_1 = "MushroomEGan_1",
-  MushroomEGan_2 = "MushroomEGan_2",
+  MushroomEGao_1 = "MushroomEGao_1",
+  MushroomEGao_2 = "MushroomEGao_2",
   MushroomJianShouQing_1 = 'MushroomJianShouQing_1',
   MushroomJianShouQing_2 = 'MushroomJianShouQing_2',
 
@@ -207,85 +207,85 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
 
   // 蘑菇相关
   // 鸡油菌
-  {
-    key: OtherEventKey.MushroomJiYou,
-    title: "路边有几丛蘑菇",
-    eventType: EventType.Mushroom,
-    eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIYOU,
-    options: [
-      {
-        key: OtherOptionKey.MushroomJiYou_1,
-        title: "采",
-        equipments: {
-          [EquipmentKey.MushroomJiYou]: 3,
-        },
-      },
-      {
-        key: OtherOptionKey.MushroomJiYou_2,
-        title: "不采",
-      },
-    ],
-  },
-  // 香菇
-  {
-    key: OtherEventKey.MushroomXiangGu,
-    title: "路边有几丛蘑菇",
-    eventType: EventType.Mushroom,
-    eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_XIANGGU,
-    options: [
-      {
-        key: OtherOptionKey.MushroomXiangGu_1,
-        title: "采",
-        equipments: {
-          [EquipmentKey.MushroomXiangGu]: 3,
-        },
-      },
-      {
-        key: OtherOptionKey.MushroomXiangGu_2,
-        title: "不采",
-      },
-    ],
-  },
-  // 鹅肝菌
-  {
-    key: OtherEventKey.MushroomEGan,
-    title: "路边有几丛蘑菇",
-    eventType: EventType.Mushroom,
-    eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_EGAN,
-    options: [
-      {
-        key: OtherOptionKey.MushroomEGan_1,
-        title: "采",
-        equipments: {
-          [EquipmentKey.MushroomEGan]: 3,
-        },
-      },
-      {
-        key: OtherOptionKey.MushroomEGan_2,
-        title: "不采",
-      },
-    ],
-  },
-  // 毒蝇菌
-  {
-    key: OtherEventKey.MushroomDuYing,
-    title: "路边有几丛蘑菇",
-    eventType: EventType.Mushroom,
-    eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_DUYING,
-    options: [
-      {
-        key: OtherOptionKey.MushroomDuYing_1,
-        title: "采",
-        equipments: {
-          [EquipmentKey.MushroomDuYing]: 3,
-        },
-      },
-      {
-        key: OtherOptionKey.MushroomDuYing_2,
-        title: "不采",
-      },
-    ],
-  },
+  // {
+  //   key: OtherEventKey.MushroomJiYou,
+  //   title: "路边有几丛蘑菇",
+  //   eventType: EventType.Mushroom,
+  //   eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIYOU,
+  //   options: [
+  //     {
+  //       key: OtherOptionKey.MushroomJiYou_1,
+  //       title: "采",
+  //       equipments: {
+  //         [EquipmentKey.MushroomJiYou]: 3,
+  //       },
+  //     },
+  //     {
+  //       key: OtherOptionKey.MushroomJiYou_2,
+  //       title: "不采",
+  //     },
+  //   ],
+  // },
+  // // 香菇
+  // {
+  //   key: OtherEventKey.MushroomXiangGu,
+  //   title: "路边有几丛蘑菇",
+  //   eventType: EventType.Mushroom,
+  //   eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_XIANGGU,
+  //   options: [
+  //     {
+  //       key: OtherOptionKey.MushroomXiangGu_1,
+  //       title: "采",
+  //       equipments: {
+  //         [EquipmentKey.MushroomXiangGu]: 3,
+  //       },
+  //     },
+  //     {
+  //       key: OtherOptionKey.MushroomXiangGu_2,
+  //       title: "不采",
+  //     },
+  //   ],
+  // },
+  // // 鹅膏菌
+  // {
+  //   key: OtherEventKey.MushroomEGao,
+  //   title: "路边有几丛蘑菇",
+  //   eventType: EventType.Mushroom,
+  //   eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_EGAN,
+  //   options: [
+  //     {
+  //       key: OtherOptionKey.MushroomEGao_1,
+  //       title: "采",
+  //       equipments: {
+  //         [EquipmentKey.MushroomEGao]: 3,
+  //       },
+  //     },
+  //     {
+  //       key: OtherOptionKey.MushroomEGao_2,
+  //       title: "不采",
+  //     },
+  //   ],
+  // },
+  // // 毒蝇菌
+  // {
+  //   key: OtherEventKey.MushroomDuYing,
+  //   title: "路边有几丛蘑菇",
+  //   eventType: EventType.Mushroom,
+  //   eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_DUYING,
+  //   options: [
+  //     {
+  //       key: OtherOptionKey.MushroomDuYing_1,
+  //       title: "采",
+  //       equipments: {
+  //         [EquipmentKey.MushroomDuYing]: 3,
+  //       },
+  //     },
+  //     {
+  //       key: OtherOptionKey.MushroomDuYing_2,
+  //       title: "不采",
+  //     },
+  //   ],
+  // },
   // 见手青
   {
     key: OtherEventKey.MushroomJianShouQing,

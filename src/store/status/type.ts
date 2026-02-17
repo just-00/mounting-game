@@ -1,4 +1,7 @@
-import { EQUIPMENT_MAX_SIZE, EQUIPMENT_MAX_WEIGHT } from "../equipment/config";
+// 最多能携带的装备体积
+export const EQUIPMENT_MAX_SIZE = 55;
+// 最多能携带的装备重量（kg）
+export const EQUIPMENT_MAX_WEIGHT = 20;
 
 // 速度
 export enum Speed {
@@ -41,6 +44,18 @@ export enum San {
   // 不稳定
   Unstable = "Unstable",
   Normal = "Normal",
+}
+
+// 中毒状态
+export enum Poison {
+  // 效果：血量、体力狂减
+  EGao = 'EGao',
+  // 效果：画面充满小人，以及小人的专属事件
+  JianShouQing = 'JianShouQing',
+  // 效果：画面出现乱码，以及假敌人、控制不了选项
+  DuYing = 'DuYing',
+  // 清除中毒状态
+  Clear = 'Clear'
 }
 
 // 每种精神值对应的数值

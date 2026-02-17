@@ -16,6 +16,7 @@ import { useEventStore } from "@/store/event/store";
 import { ROUTES } from "@/store/event/config";
 import { div, sub } from "@/utils/number";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const iconMap: {
   [key: string]: {
@@ -49,6 +50,12 @@ const iconMap: {
   [`San${[San.Normal]}`]: { icon: "&#xe7ba;", tip: "愉快", color: "#16A085" },
   [`San${[San.Unstable]}`]: { icon: "&#xe7ba;", tip: "神迷", color: "#FFCC80" },
   [`San${[San.Fracture]}`]: { icon: "&#xe7ba;", tip: "神乱", color: "#E53935" },
+  [`Poison`]: {
+    icon: "&#xe7ba;",
+    tip: "中毒",
+    color: "#E53935",
+  },
+
   [`Warm${[Warm.Hypothermia]}`]: {
     icon: "&#xe51f;",
     tip: "失温",
@@ -67,12 +74,21 @@ const iconMap: {
 };
 
 export const BagCom = () => {
+  const [isClicked, setIsClicked] = useState(false);
   const navigate = useNavigate();
   const onClick = () => {
+    setIsClicked(true);
     navigate("/main/bag-manage");
   };
   return (
     <img
+      style={
+        isClicked
+          ? {
+              animation: "none",
+            }
+          : {}
+      }
       className="bagWrapper"
       onClick={onClick}
       src="https://raw.githubusercontent.com/just-00/game-image-cdn/main/e016fe0ccc334a97a5f6dfa5213f91ff.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png"
@@ -145,6 +161,27 @@ export const SpeedCom = () => {
 export const SanCom = () => {
   const san = useStatusStore((state) => state.san);
   const map = iconMap[`San${getSan(san)}`];
+  return (
+    <section
+      className="speedIconWrapper"
+      style={{
+        color: map.color,
+      }}
+    >
+      <div
+        className="fontIcon"
+        dangerouslySetInnerHTML={{ __html: map.icon }}
+      ></div>
+      {<div className="tip">{map.tip}</div>}
+    </section>
+  );
+};
+
+export const PoisonCom = () => {
+  const poison = useStatusStore((state) => state.poison)
+  const poisonLen = poison.length
+  if (!poisonLen) return null;
+  const map = iconMap[`Poison`];
   return (
     <section
       className="speedIconWrapper"
@@ -251,6 +288,7 @@ export const MainPannel = () => {
               <HungerCom />
               <SpeedCom />
               <SanCom />
+              <PoisonCom />
               <WarmCom />
             </section>
           </section>

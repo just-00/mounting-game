@@ -1,4 +1,6 @@
-export interface Equipment {
+import type { Effect } from "../effect";
+
+export interface Equipment extends Effect {
   key: EquipmentKey;
   // 类型
   type: EquipmentType;
@@ -17,12 +19,6 @@ export interface Equipment {
   count?: number;
   // 只可用一次
   disposable?: boolean;
-  // 升高体温
-  warm?: number;
-  // 精神
-  san?: number;
-  // 用一次要多少分钟
-  useTime?: number;
 }
 
 export enum EquipmentKey {
@@ -37,8 +33,8 @@ export enum EquipmentKey {
   MushroomXiangGu = "MushroomXiangGu",
   // 毒蝇菌
   MushroomDuYing = "MushroomDuYing",
-  // 鹅肝菌
-  MushroomEGan = "MushroomEGan",
+  // 鹅膏菌
+  MushroomEGao = "MushroomEGao",
   // 见手青
   Mushroom_JianShouQing = 'Mushroom_JianShouQing',
   Egg = "egg",

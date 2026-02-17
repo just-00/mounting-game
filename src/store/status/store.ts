@@ -2,6 +2,7 @@ import { create } from "zustand";
 import {
   Hunger,
   HungerValue,
+  Poison,
   San,
   SanValue,
   Speed,
@@ -19,13 +20,17 @@ interface StatusStore {
   warm: number;
   // 饥饿值
   hunger: number;
-  // 手上
+  // 受伤
   injuried: boolean;
+  // 中毒
+  poison: Poison[];
   setSpeed: (speed: Speed) => void;
   setWarm: (warm: number) => void;
   setSan: (san: number) => void;
   setHunger: (hunger: number) => void;
   setInjuried: (injuried: boolean) => void;
+  addPoison: (poison: Poison) => void;
+  setPoison: (poison: Poison[]) => void;
 }
 
 export const useStatusStore = create<StatusStore>((set) => ({
@@ -34,6 +39,7 @@ export const useStatusStore = create<StatusStore>((set) => ({
   warm: WarmValue[Warm.Normal],
   hunger: HungerValue[Hunger.Full],
   injuried: false,
+  poison: [],
   setSpeed: (speed: Speed) => {
     set((state) => ({
       ...state,
@@ -63,6 +69,18 @@ export const useStatusStore = create<StatusStore>((set) => ({
       ...state,
       injuried,
       speed: injuried ? Speed.Slow : state.speed,
+    }));
+  },
+  addPoison: (poison: Poison) => {
+    set((state) => ({
+      ...state,
+      poison: state.poison.concat(poison),
+    }));
+  },
+  setPoison: (poison: Poison[]) => {
+    set((state) => ({
+      ...state,
+      poison
     }));
   },
 }));

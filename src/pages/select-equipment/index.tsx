@@ -1,13 +1,10 @@
 import { Play } from "@react-vant/icons";
-import {
-  EQUIPMENT_MAX_SIZE,
-  EQUIPMENT_MAX_WEIGHT,
-} from "../../store/equipment/config";
 import "./index.scss";
 import { useState } from "react";
 import { Stepper } from "react-vant";
 import { useEquipmentStore } from "@/store/equipment/store";
 import { useNavigate } from "react-router-dom";
+import { EQUIPMENT_MAX_SIZE, EQUIPMENT_MAX_WEIGHT } from "@/store/status/type";
 
 const SelectEquipment = () => {
   const [page, setPage] = useState(1);
