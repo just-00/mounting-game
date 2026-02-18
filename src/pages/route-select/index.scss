@@ -4,7 +4,7 @@
   right: 0;
   bottom: 0;
   top: 0;
-  background: url("https://raw.githubusercontent.com/just-00/game-image-cdn/main/5137ede1b7cb4b55b457db812dc52d31.jpeg%7Etplv-a9rns2rl98-image_pre_watermark_1_5b.png")
+  background: url($ROUTE_SELECT_BK)
     right bottom / 100% 100% no-repeat;
   .buttonWrapper {
     position: absolute;

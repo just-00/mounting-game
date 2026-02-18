@@ -12,10 +12,8 @@
     right: 0;
     bottom: 0;
     top: 0;
-    background: url("https://raw.githubusercontent.com/just-00/game-image-cdn/main/moutain_bak10.jpg")
-      right bottom / 100% 100% no-repeat;
-    animation:
-      flash 0.5s ease-in-out infinite alternate;
+    background: url($HOME_BK) right bottom / 100% 100% no-repeat;
+    animation: flash 0.5s ease-in-out infinite alternate;
     z-index: -1;
   }
 

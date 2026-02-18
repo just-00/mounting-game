@@ -17,6 +17,7 @@ import { ROUTES } from "@/store/event/config";
 import { div, sub } from "@/utils/number";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { PANNEL_ITEM_PRELOAD } from "@/const/ResourceUrl";
 
 const iconMap: {
   [key: string]: {
@@ -91,7 +92,7 @@ export const BagCom = () => {
       }
       className="bagWrapper"
       onClick={onClick}
-      src="https://raw.githubusercontent.com/just-00/game-image-cdn/main/e016fe0ccc334a97a5f6dfa5213f91ff.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png"
+      src={PANNEL_ITEM_PRELOAD.BAG}
       width={48}
     />
   );
@@ -223,7 +224,7 @@ export const InjuriedCom = () => {
   return (
     <section className="speedIconWrapper">
       <img
-        src="https://raw.githubusercontent.com/just-00/game-image-cdn/main/受伤.png"
+        src={PANNEL_ITEM_PRELOAD.INJURIED}
         width={30}
         style={{
           filter: "saturate(0.8)",
@@ -250,7 +251,7 @@ export const HungerCom = () => {
   return (
     <section className="speedIconWrapper">
       <img
-        src="https://raw.githubusercontent.com/just-00/game-image-cdn/main/饥饿.png"
+        src={PANNEL_ITEM_PRELOAD.HUNGER}
         width={30}
         style={{
           filter: "saturate(0.8)",

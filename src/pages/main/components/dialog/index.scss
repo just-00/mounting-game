@@ -20,7 +20,7 @@
     font-size: 24px;
     color: rgba(255, 255, 255, 0.8);
     background: rgba(0, 0, 0, 0.05)
-      url("https://raw.githubusercontent.com/just-00/game-image-cdn/main/17d6855282c74cac8e71d134becee04b.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png")
+      url($DIALOG_PROLOAD_TITLE)
       right bottom / 100% 100% no-repeat;
 
     .text {
@@ -40,7 +40,7 @@
       opacity: 0.85;
       width: 100%;
       height: 84px;
-      background: url("https://raw.githubusercontent.com/just-00/game-image-cdn/main/image-removebg-preview.png")
+      background: url($DIALOG_PROLOAD_BUTTON)
         right bottom / 100% 100% no-repeat;
       display: flex;
       align-items: center;

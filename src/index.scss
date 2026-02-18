@@ -5,8 +5,7 @@ html {
 }
 @font-face {
   font-family: "MyFontHome";
-  src: url("https://raw.githubusercontent.com/just-00/game-image-cdn/main/homefont.woff")
-    format("woff");
+  src: url($HOME_FONT) format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -14,10 +13,13 @@ html {
 
 @font-face {
   font-family: "MyFont";
-  src: url("https://raw.githubusercontent.com/just-00/game-image-cdn/main/ZLabsRoundPix_16px_M_CN.woff")
-    format("woff");
+  src: url($MY_FONT) format("woff");
   font-style: normal;
   font-display: swap;
+}
+@font-face {
+  font-family: "iconfont logo";
+  src: url($ICON_FONT) format("truetype");
 }
 * {
   font-family: "MyFont";

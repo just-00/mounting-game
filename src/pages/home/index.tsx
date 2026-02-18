@@ -3,7 +3,7 @@ import "./index.scss";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import usePreloadImages from "@/hooks/usePreloadImg";
-import { DIALOG_PROLOAD, MAIN_PROLOAD, MOUNTING_ANIMATION, ROUTE_SELECT_PRELOAD, SELECT_EQUIPMENT_PRELOAD } from "@/const/ResourceUrl";
+import { ALL_RESOURCE } from "@/const/ResourceUrl";
 import { preloadOtherRoutes } from "@/routes";
 
 export const HomePage = () => {
@@ -16,11 +16,7 @@ export const HomePage = () => {
   const { preloadImages } = usePreloadImages();
 
   useEffect(() => {
-    preloadImages(Object.values(ROUTE_SELECT_PRELOAD));
-    preloadImages(Object.values(SELECT_EQUIPMENT_PRELOAD));
-    preloadImages(Object.values(DIALOG_PROLOAD));
-    preloadImages(Object.values(MOUNTING_ANIMATION));
-    preloadImages(Object.values(MAIN_PROLOAD));
+    preloadImages(ALL_RESOURCE);
   }, []);
 
   useEffect(() => {

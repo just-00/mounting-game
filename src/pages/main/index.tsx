@@ -7,7 +7,6 @@ import { Outlet } from "react-router-dom";
 const Main = () => {
   return (
     <section className="mainPage">
-      <div className="snow-overlay"></div>
       <GameDialog />
 
       <section className="pannel">

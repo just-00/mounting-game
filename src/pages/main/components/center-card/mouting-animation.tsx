@@ -3,6 +3,7 @@ import "./index.scss";
 import { useEnvironmenStore } from "@/store/environment/store";
 import { add, div, mul } from "@/utils/number";
 import { useStatusStore } from "@/store/status/store";
+import { CENTER_CARD_PRELOAD } from "@/const/ResourceUrl";
 
 // 在动画期间会走多长时间（h）
 // 设定0.5小时
@@ -100,8 +101,8 @@ export const MoutingAnimationCom = ({
         <img
           src={
             isWarning
-              ? "https://raw.githubusercontent.com/just-00/game-image-cdn/main/下载.png"
-              : "https://raw.githubusercontent.com/just-00/game-image-cdn/main/little-man-1%20(6).gif"
+              ? CENTER_CARD_PRELOAD.PIXEL_WALKING
+              : CENTER_CARD_PRELOAD.PIXEL_STOPPING
           }
           width={64}
         />
