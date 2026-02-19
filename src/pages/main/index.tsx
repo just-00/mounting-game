@@ -1,8 +1,8 @@
-import { MainPannel } from "@/components/pannelItem";
 import "./index.scss";
 import { Bird } from "@/components/bird/bird";
 import { GameDialog } from "./components/dialog";
 import { Outlet } from "react-router-dom";
+import { MainPannel } from "@/components/pannelItem";
 
 const Main = () => {
   return (

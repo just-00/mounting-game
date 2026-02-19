@@ -1,20 +1,24 @@
 import { useEquipmentStore } from "@/store/equipment/store";
 import "./index.scss";
 import { useEffect, useState } from "react";
-import { type Equipment } from "@/store/equipment/type";
+import { EquipmentType, type Equipment } from "@/store/equipment/type";
 import classNames from "classnames";
 import { GameToast } from "../main/components/toast";
 import { useGameEffect } from "@/store/effect";
 import type { Option } from "@/store/event/type";
 import { useNavigate } from "react-router-dom";
+import { useEventStore } from "@/store/event/store";
+import { useSettingStore } from "@/store/setting";
 
 const BagManage = () => {
+  const { setMounting } = useSettingStore();
   const { equipments, setEquipmentsCount } = useEquipmentStore();
   const [equipment, setEquipment] = useState<Equipment>();
   const filterEquipments = equipments.filter((item) => item.count);
   const [toast, setToast] = useState<string>();
   const navigate = useNavigate();
   const { computeEffect } = useGameEffect();
+  const { setCurrentEventByKey } = useEventStore();
 
   // toast展示1500秒
   useEffect(() => {
@@ -38,6 +42,12 @@ const BagManage = () => {
 
   const onUse = () => {
     if (!equipment) return;
+    if (equipment.usedEndKey) {
+      setMounting(false)
+      setCurrentEventByKey(equipment.usedEndKey);
+      navigate(-1);
+      return;
+    }
     const final = equipment.count! - 1;
     setEquipmentsCount(equipment.key, final);
     setEquipment({
@@ -112,9 +122,13 @@ const BagManage = () => {
       </section>
       {!!filterEquipments.length && (
         <section className="buttonWrapper">
-          <div className="button confirm" onClick={onUse}>
-            使用
-          </div>
+          {!equipment || equipment?.type === EquipmentType.Tool ? (
+            <div />
+          ) : (
+            <div className="button confirm" onClick={onUse}>
+              使用
+            </div>
+          )}
           <div className="button distory" onClick={onDestory}>
             丢弃
           </div>

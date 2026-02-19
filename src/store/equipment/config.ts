@@ -1,6 +1,7 @@
 import { Poison } from "../status/type";
 import { SELECT_EQUIPMENT_PRELOAD } from "@/const/ResourceUrl";
 import { EquipmentKey, EquipmentType, type Equipment } from "./type";
+import { SnowMainEventKey } from "../event/config/type";
 
 export const EQUIPMENTS: Equipment[] = [
   // {
@@ -100,6 +101,7 @@ export const EQUIPMENTS: Equipment[] = [
     disposable: true,
     type: EquipmentType.Food,
     poison: Poison.EGao,
+    usedEndKey: SnowMainEventKey.IceMain_Poison_BadEnd,
   },
   // 见手青
   {
@@ -207,7 +209,7 @@ export const EQUIPMENTS: Equipment[] = [
     weight: 0.3,
     size: 0.4,
     src: SELECT_EQUIPMENT_PRELOAD.POWER_BANK,
-    type: EquipmentType.Daily,
+    type: EquipmentType.Tool,
     isSelectEquipmentShow: true,
   },
   {
@@ -216,7 +218,7 @@ export const EQUIPMENTS: Equipment[] = [
     weight: 0.2,
     size: 0.2,
     src: SELECT_EQUIPMENT_PRELOAD.HEAD_LAMP,
-    type: EquipmentType.Daily,
+    type: EquipmentType.Tool,
     isSelectEquipmentShow: true,
   },
 ];

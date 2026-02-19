@@ -61,6 +61,4 @@ export enum EquipmentType {
   Food = "food",
   // 工具类
   Tool = "tool",
-  // 日常用品类
-  Daily = "daily",
 }

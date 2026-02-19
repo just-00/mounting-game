@@ -5,7 +5,7 @@ import type { Equipment } from "../equipment/type";
 import type { Option } from "../event/type";
 import { useStatusStore } from "../status/store";
 import { EQUIPMENTS } from "../equipment/config";
-import { Poison } from "../status/type";
+import { Poison, San, SanValue, Speed, Warm, WarmValue } from "../status/type";
 
 export type SelectedEquipmentKeys =
   | "warm"
@@ -14,8 +14,8 @@ export type SelectedEquipmentKeys =
   | "weather"
   | "equipments"
   | "injuried"
-  | 'hunger'
-  | 'poison';
+  | "hunger"
+  | "poison";
 
 type EquipmentValueType =
   | number
@@ -35,8 +35,9 @@ type ToastTextMap = {
     [key: string]: number;
   };
   injuried: boolean;
-  hunger: number
-  poison: Poison
+  hunger: number;
+  poison: Poison;
+  usedEndKey?: string
 };
 
 export type Effect = Partial<ToastTextMap>;
@@ -58,7 +59,7 @@ export const ToastText: {
   },
   injuried: (injuried: boolean) => (injuried ? `你受伤了` : ""),
   hunger: (val: number) => `饥饿度提升了${val}`,
-  poison: () => `你中毒了`
+  poison: () => `你中毒了<br/>你的精神值降低了<br/>你的体温降低了<br/>你的速度降低了`,
 };
 
 // 获取装备使用的toast文案
@@ -81,7 +82,16 @@ export const getToast = (eq: Effect) => {
 
 // 使用装备、点击选项时，计算效果和产出toast
 export const useGameEffect = () => {
-  const { warm, san, setSan, setWarm, setInjuried, setPoison, addPoison } = useStatusStore();
+  const {
+    warm,
+    san,
+    setSan,
+    setWarm,
+    setInjuried,
+    setPoison,
+    addPoison,
+    setSpeed,
+  } = useStatusStore();
   const { timestamp, setTimestamp, setWeather } = useEnvironmenStore();
   const { equipments, setEquipmentsCount } = useEquipmentStore();
 
@@ -136,11 +146,14 @@ export const useGameEffect = () => {
       setInjuried(true);
     }
 
-    if(effect.poison){
-      if(effect.poison === Poison.Clear){
-        setPoison([])
-      }else{
-        addPoison(effect.poison)
+    if (effect.poison) {
+      if (effect.poison === Poison.Clear) {
+        setPoison([]);
+      } else {
+        addPoison(effect.poison);
+        setSpeed(Speed.Slow);
+        setSan(SanValue[San.Fracture]);
+        setWarm(WarmValue[Warm.Hypothermia]);
       }
     }
 

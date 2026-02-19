@@ -9,7 +9,7 @@ import { CENTER_CARD_PRELOAD } from "@/const/ResourceUrl";
 // 设定0.5小时
 const ANIMATION_RUN_TIME = 0.5;
 
-export const MoutingAnimationCom = ({
+export const MountingAnimationCom = ({
   onClose,
   showWarningTime,
   closeTime,

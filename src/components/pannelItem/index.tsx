@@ -49,8 +49,8 @@ const iconMap: {
     color: "#4A90E2",
   },
   [`San${[San.Normal]}`]: { icon: "&#xe7ba;", tip: "愉快", color: "#16A085" },
-  [`San${[San.Unstable]}`]: { icon: "&#xe7ba;", tip: "神迷", color: "#FFCC80" },
-  [`San${[San.Fracture]}`]: { icon: "&#xe7ba;", tip: "神乱", color: "#E53935" },
+  [`San${[San.Unstable]}`]: { icon: "&#xe7ba;", tip: "错乱", color: "#FFCC80" },
+  [`San${[San.Fracture]}`]: { icon: "&#xe7ba;", tip: "疯狂", color: "#E53935" },
   [`Poison`]: {
     icon: "&#xe7ba;",
     tip: "中毒",
@@ -65,7 +65,7 @@ const iconMap: {
   [`Warm${[Warm.Low]}`]: {
     icon: "&#xe51f;",
     tip: "低温",
-    color: "#76D7C4",
+    color: "#4ABAA8",
   },
   [`Warm${[Warm.Normal]}`]: {
     icon: "&#xe51f;",
@@ -179,8 +179,8 @@ export const SanCom = () => {
 };
 
 export const PoisonCom = () => {
-  const poison = useStatusStore((state) => state.poison)
-  const poisonLen = poison.length
+  const poison = useStatusStore((state) => state.poison);
+  const poisonLen = poison.length;
   if (!poisonLen) return null;
   const map = iconMap[`Poison`];
   return (
@@ -270,6 +270,7 @@ export const HungerCom = () => {
 };
 
 export const MainPannel = () => {
+  const { currentEvent } = useEventStore();
   return (
     <>
       <section className="pannelRow">
@@ -284,14 +285,17 @@ export const MainPannel = () => {
             </section>
           </section>
           <section className="rightWrapper">
-            <section className="rightMainWrapper">
-              <InjuriedCom />
-              <HungerCom />
-              <SpeedCom />
-              <SanCom />
-              <PoisonCom />
-              <WarmCom />
-            </section>
+            {!currentEvent?.isEnd && (
+              <>
+                <InjuriedCom />
+                <HungerCom />
+                <SpeedCom />
+                <SanCom />
+                <PoisonCom />
+                <WarmCom />
+              </>
+            )}
+            <section className="rightMainWrapper"></section>
           </section>
         </section>
       </section>

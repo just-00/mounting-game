@@ -1,16 +1,17 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { HomePage } from "@/pages/home";
+import { Home } from "@/pages/home";
 import { lazy } from "react";
 
 const RouteSelectLazy = lazy(() => import("./pages/route-select"));
 const SelectEquipmentLazy = lazy(() => import("./pages/select-equipment"));
 const MainLazy = lazy(() => import("./pages/main"));
-const BagManage = lazy(() => import("./pages/bag-manage"));
+const BagManageLazy = lazy(() => import("./pages/bag-manage"));
+const AchievementLazy = lazy(() => import("./pages/achievement"));
 
 const router = createBrowserRouter([
   {
     path: "/home",
-    element: <HomePage />,
+    element: <Home />,
   },
   {
     path: "/route-select",
@@ -26,9 +27,13 @@ const router = createBrowserRouter([
     children: [
       {
         path: "bag-manage",
-        element: <BagManage />,
+        element: <BagManageLazy />,
       },
     ],
+  },
+  {
+    path: "/achievement",
+    element: <AchievementLazy />,
   },
 ]);
 
@@ -37,9 +42,11 @@ const AppRouter = () => {
 };
 export default AppRouter;
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const preloadOtherRoutes = () => {
   import("./pages/route-select");
   import("./pages/select-equipment");
   import("./pages/main");
   import("./pages/bag-manage");
+  import("./pages/achievement");
 };

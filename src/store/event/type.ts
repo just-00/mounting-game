@@ -1,6 +1,7 @@
 import type { Effect } from "../effect";
 import type { Time, Weather } from "../environment/type";
 import type { Equipment, EquipmentKey } from "../equipment/type";
+import type { Poison } from "../status/type";
 
 export enum EventType {
   // 主线相关
@@ -17,6 +18,8 @@ export enum EventType {
   Explore = "Explore",
   // 遇到危险
   Danger = "Danger",
+  // 特殊
+  Special = 'Special'
 }
 
 export const EVENT_PRIORITY: Partial<Record<EventType, number>> = {
@@ -34,8 +37,10 @@ export interface Option extends Effect {
   title: string;
   // 下一个必会触发的后置事件key
   mustTriggerAfterKey?: string;
+  // 点击选项后会出现的图片
+  optionPics?: string[];
   // 计算是否出现这个选项
-  isShow?: (equipments: Equipment[]) => boolean
+  isShow?: (equipments: Equipment[]) => boolean;
   // 动态计算结果，返回结局key或者toast
   result?: (equipments: Equipment[]) => {
     endKey?: string;
@@ -69,6 +74,25 @@ export interface GameEvent {
   weatherKey?: Weather[];
   // 需要满足的时间key
   timeKey?: Time[];
+  // 需要满足的状态
+  status?: {
+    san?: {
+      max?: number,
+      min?: number
+    };
+    warm: {
+      max?: number,
+      min?: number
+    };
+    hunger:  {
+      max?: number,
+      min?: number
+    };
+    // 受伤
+    injuried?: boolean;
+    // 中毒
+    poison: Poison[];
+  };
 
   // 是否是结局
   isEnd?: boolean;

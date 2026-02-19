@@ -6,11 +6,15 @@ import usePreloadImages from "@/hooks/usePreloadImg";
 import { ALL_RESOURCE } from "@/const/ResourceUrl";
 import { preloadOtherRoutes } from "@/routes";
 
-export const HomePage = () => {
+export const Home = () => {
   const navigate = useNavigate();
 
-  const goto = () => {
+  const gotoStart = () => {
     navigate("/route-select");
+  };
+
+  const gotoAchievement = () => {
+    navigate("/achievement");
   };
 
   const { preloadImages } = usePreloadImages();
@@ -30,11 +34,11 @@ export const HomePage = () => {
     <div className="homePage">
       <div className="bk">
         <div className="title">爬山吧</div>
-        <a className="start" href="" onClick={goto}>
+        <a className="start" href="" onClick={gotoStart}>
           开始
         </a>
         <div className="achivement-wrapper">
-          <a className="achivement" href="" onClick={goto}>
+          <a className="achivement" href="" onClick={gotoAchievement}>
             成就
           </a>
         </div>

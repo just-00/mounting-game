@@ -2,10 +2,11 @@ import type { Option } from "@/store/event/type";
 import "./index.scss";
 import { useEffect, useRef, useState } from "react";
 import { CenterCard } from "../center-card";
-import { MoutingAnimationCom } from "../center-card/mouting-animation";
+import { MountingAnimationCom } from "../center-card/mounting-animation";
 import { useEventStore } from "@/store/event/store";
 import { useGameEffect } from "@/store/effect";
 import type { Equipment } from "@/store/equipment/type";
+import { useSettingStore } from "@/store/setting";
 
 // mounting的动画展示多久
 const MOUNTING_ANIMATION_SHOW_WARNING_TIME = 2000;
@@ -24,22 +25,42 @@ const TOAST_SHOW_TIME = 2500;
 //   选项点击后 toast结束后，展示mounting动画
 
 export const GameDialog = () => {
+  // 是否展示动画
+  const [mounting, setMounting] = useState<boolean>(true);
+  const mountingRef = useRef<boolean>(true);
   const [toast, setToast] = useState<string | undefined>();
   const [optionPic, setOptionPic] = useState<string>();
-  const [mouting, setMounting] = useState<boolean>();
   const { currentEvent, setCurrentEventByCompute, setCurrentEventByKey } =
     useEventStore();
   const { computeEffect } = useGameEffect();
   const endKeyRef = useRef<string | undefined>(null);
 
+  // 监听背包页是否关闭了动画
   useEffect(() => {
-    // 展示动画变为不展示时，不进行逻辑计算
-    if (!mouting) {
+    const subscribe = useSettingStore.subscribe(
+      (state) => ({
+        mounting: state.mounting,
+      }),
+      ({ mounting }) => {
+        setMounting(mounting);
+      },
+    );
+    return () => {
+      subscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    // 展示动画变为展示时，或者之前mounting也是false时，不进行逻辑计算
+    if (mounting || !mountingRef.current) {
+      mountingRef.current = mounting
       return;
     }
-    // 展示动画变为展示时，计算当前事件
+    mountingRef.current = mounting
+    console.log("动画结束，计算当前事件=====");
+    // 展示动画变为不展示时，计算当前事件
     setCurrentEventByCompute();
-  }, [mouting]);
+  }, [mounting]);
 
   useEffect(() => {
     // toast变为空时，如果有结局key，展示结局，如果没有，展示mounting动画
@@ -85,9 +106,9 @@ export const GameDialog = () => {
 
   // 出现card的时机：mounting动画 和 点击选项后的toast 和 到结局
   let CenterCardDefined = null;
-  if (mouting) {
+  if (mounting) {
     CenterCardDefined = (
-      <MoutingAnimationCom
+      <MountingAnimationCom
         showWarningTime={MOUNTING_ANIMATION_SHOW_WARNING_TIME}
         closeTime={MOUNTING_ANIMATION_CLOSE_TIME}
         onClose={() => {
