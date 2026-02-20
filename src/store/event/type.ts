@@ -1,3 +1,4 @@
+import type { AchievementKey } from "../achievement/type";
 import type { Effect } from "../effect";
 import type { Time, Weather } from "../environment/type";
 import type { Equipment, EquipmentKey } from "../equipment/type";
@@ -41,11 +42,14 @@ export interface Option extends Effect {
   optionPics?: string[];
   // 计算是否出现这个选项
   isShow?: (equipments: Equipment[]) => boolean;
+  // 成就
+  achievements?: AchievementKey[]
   // 动态计算结果，返回结局key或者toast
   result?: (equipments: Equipment[]) => {
     endKey?: string;
     toast?: string;
     effect?: Effect;
+    achievements?: AchievementKey[]
   };
 }
 
@@ -65,6 +69,8 @@ export interface GameEvent {
   preOptionKeys?: string[];
   // true的话，只能通过mustTriggerAfterKey触发
   isForcedTriggerAfterKey?: boolean;
+  // 成就
+  achievements?: AchievementKey[]
 
   // 需要满足的公里数后触发
   distance?: number;

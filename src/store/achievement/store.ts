@@ -1,17 +1,24 @@
 import { create } from "zustand";
 import type { AchievementKey } from "./type";
 
+const ACHIEVE_LOCAL = "MOUNTING_ACHIEVE_LOCAL";
+
 type AchievementStore = {
   achieved: AchievementKey[];
   addAchieved: (key: AchievementKey) => void;
 };
 
 export const useAchievementStore = create<AchievementStore>((set) => ({
-  achieved: [],
+  achieved: localStorage.getItem(ACHIEVE_LOCAL)?.split(",") as AchievementKey[] || [],
   addAchieved: (key: AchievementKey) => {
-    set((state) => ({
-      ...state,
-      achieved: state.achieved.concat(key),
-    }));
+    set((state) => {
+      const achieved = state.achieved.concat(key);
+      localStorage.setItem(ACHIEVE_LOCAL, achieved.join(","))
+
+      return {
+        ...state,
+        achieved,
+      };
+    });
   },
 }));

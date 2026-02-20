@@ -1,9 +1,14 @@
 import { EquipmentKey, type Equipment } from "@/store/equipment/type";
 import { EventType, type GameEvent } from "../type";
-import { MAIN_PROLOAD, SELECT_EQUIPMENT_PRELOAD, } from "@/const/ResourceUrl";
+import { MAIN_PROLOAD } from "@/const/ResourceUrl";
 import { getToast } from "@/store/effect";
 import { add } from "@/utils/number";
-import { SnowMainEventKey, SnowOtherEventKey, SnowOtherOptionKey } from "./type";
+import {
+  SnowMainEventKey,
+  SnowOtherEventKey,
+  SnowOtherOptionKey,
+} from "./type";
+import { AchievementKey } from "@/store/achievement/type";
 
 export const OTHER_ICE_EVENTS: GameEvent[] = [
   // 野兽类相关
@@ -43,7 +48,7 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
         key: SnowOtherOptionKey.Bear_2_2,
         title: "装死",
         result: () => ({
-          endKey: SnowMainEventKey.IceMain_Common_BadEnd,
+          endKey: SnowMainEventKey.IceMain_Bear_BadEnd,
         }),
       },
       {
@@ -316,13 +321,14 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
   // },
 
   // 坏结局
-  // 普通
+  // 被熊打死
   {
-    key: SnowMainEventKey.IceMain_Common_BadEnd,
-    title: "你死了",
+    key: SnowMainEventKey.IceMain_Bear_BadEnd,
+    title: "你被熊打死了",
     eventType: EventType.Main,
     isEnd: true,
     eventPic: MAIN_PROLOAD.BAD_END,
+    achievements: [AchievementKey.BEAR_KO],
   },
   // 被毒死
   {
@@ -382,11 +388,18 @@ const getBeastFightResult = (animal: string, equipments: Equipment[]) => {
   // 拼凑toast
   const toast = `你${weapon ? `拿起${weapon}` : "赤手空拳"},和${animal}进行搏斗<br/>${beatStr}`;
 
+  const achievements: AchievementKey[] = [];
+  if (!weapon) {
+    achievements.push(AchievementKey.BARE_HANDS);
+  }
+
   // 如果被打中的次数多，则死亡
   if (beHitted > MAX / 2) {
+    achievements.push(AchievementKey.BEAR_KO);
     return {
       toast,
-      endKey: SnowMainEventKey.IceMain_Common_BadEnd,
+      endKey: SnowMainEventKey.IceMain_Bear_BadEnd,
+      achievements,
     };
   }
 
@@ -403,8 +416,15 @@ const getBeastFightResult = (animal: string, equipments: Equipment[]) => {
     effectToast += `<br/>${computeToast}`;
   }
 
+  achievements.push(AchievementKey.BEAT_BEAR);
+  if (beHitted === 0) {
+    achievements.push(AchievementKey.BEAT_BEAR_NO_DAMAGE);
+  } else {
+    achievements.push(AchievementKey.BEAR_DAMAGE);
+  }
   return {
     toast: `${toast}${effectToast}`,
     effect,
+    achievements,
   };
 };

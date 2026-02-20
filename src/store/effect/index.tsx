@@ -6,6 +6,8 @@ import type { Option } from "../event/type";
 import { useStatusStore } from "../status/store";
 import { EQUIPMENTS } from "../equipment/config";
 import { Poison, San, SanValue, Speed, Warm, WarmValue } from "../status/type";
+import type { AchievementKey } from "../achievement/type";
+import { useAchievementStore } from "../achievement/store";
 
 export type SelectedEquipmentKeys =
   | "warm"
@@ -15,13 +17,15 @@ export type SelectedEquipmentKeys =
   | "equipments"
   | "injuried"
   | "hunger"
-  | "poison";
+  | "poison"
+  | "achievements";
 
 type EquipmentValueType =
   | number
   | Weather
   | boolean
   | Poison
+  | AchievementKey[]
   | {
       [key: string]: number;
     };
@@ -37,14 +41,15 @@ type ToastTextMap = {
   injuried: boolean;
   hunger: number;
   poison: Poison;
-  usedEndKey?: string
+  usedEndKey: string;
+  achievements: AchievementKey[];
 };
 
 export type Effect = Partial<ToastTextMap>;
 
 // toast中各项对应的计算函数
 export const ToastText: {
-  [K in SelectedEquipmentKeys]: (val: ToastTextMap[K]) => string;
+  [K in SelectedEquipmentKeys]?: (val: ToastTextMap[K]) => string;
 } = {
   useTime: (val: number) => `使用了${val}分钟`,
   weather: (val: Weather) => `天气变成${val}了`,
@@ -59,7 +64,8 @@ export const ToastText: {
   },
   injuried: (injuried: boolean) => (injuried ? `你受伤了` : ""),
   hunger: (val: number) => `饥饿度提升了${val}`,
-  poison: () => `你中毒了<br/>你的精神值降低了<br/>你的体温降低了<br/>你的速度降低了`,
+  poison: () =>
+    `你中毒了<br/>你的精神值降低了<br/>你的体温降低了<br/>你的速度降低了`,
 };
 
 // 获取装备使用的toast文案
@@ -94,6 +100,7 @@ export const useGameEffect = () => {
   } = useStatusStore();
   const { timestamp, setTimestamp, setWeather } = useEnvironmenStore();
   const { equipments, setEquipmentsCount } = useEquipmentStore();
+  const { addAchieved } = useAchievementStore();
 
   const computeEffect = (
     obj: Option & Equipment,
@@ -107,7 +114,14 @@ export const useGameEffect = () => {
       result = obj.result(equipments);
     }
 
+    // 如果没有动态计算结果的话，使用传入值
     const effect = result?.effect || obj;
+
+    // 增加成就
+    const achievements = result?.achievements || obj.achievements;
+    achievements?.forEach((item) => {
+      addAchieved(item);
+    });
 
     // 通过选项 获得或减少装备
     if (
