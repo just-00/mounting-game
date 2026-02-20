@@ -1,48 +1,50 @@
 import { create } from "zustand";
 import { EVENT_PRIORITY, type EventType, type GameEvent } from "./type";
-import { Route, ROUTES } from "./config";
+import { ROUTES } from "./config";
 import { useEnvironmenStore } from "@/store/environment/store";
 import type { Equipment } from "../equipment/type";
 import { useEquipmentStore } from "../equipment/store";
+import { GameRoute } from "./config/type";
 
 interface EventStore {
   currentEvent: GameEvent | null;
-  routeId: Route | null;
+  routeId: GameRoute | null;
   eventPriority: Partial<Record<EventType, number>>;
   doneEventKeys: string[];
-  setRouteId: (routeId: Route) => void;
-  reset: () => void;
-  setCurrentEventByKey: (key: string) => void;
+  setRouteId: (routeId: GameRoute) => void;
+  resetEventStore: () => void;
+  setCurrentEventByKey: (key: string, title?: string) => void;
   setCurrentEventByCompute: () => void;
 }
 
-export const useEventStore = create<EventStore>((set, get) => ({
+const INIT_STORE = {
   // 初始无事件
   currentEvent: null,
   // WIP 测试方便
-  routeId: Route.Ice,
+  routeId: GameRoute.Ice,
   // 遇到事件的优先级，优先级越大越容易遇到此类事件
   eventPriority: EVENT_PRIORITY,
   // 已经做过的eventKeys
   doneEventKeys: [],
+};
+
+export const useEventStore = create<EventStore>((set, get) => ({
+  ...INIT_STORE,
+  // 重置
+  resetEventStore: () => {
+    set(() => ({
+      ...INIT_STORE,
+    }));
+  },
   // 路线选择页选择路线id
-  setRouteId: (routeId: Route) => {
+  setRouteId: (routeId: GameRoute) => {
     set((state) => ({
       ...state,
       routeId,
     }));
   },
-  // 设置当前事件
-  reset: () => {
-    set((state) => ({
-      ...state,
-      currentEvent: null,
-      eventPriority: EVENT_PRIORITY,
-      doneEventKeys: [],
-    }));
-  },
   // 通过key设置当前事件
-  setCurrentEventByKey: (afterEventKey: string) => {
+  setCurrentEventByKey: (afterEventKey: string, title?: string) => {
     set((state) => {
       const { routeId, doneEventKeys } = get();
       const { equipments } = useEquipmentStore.getState();
@@ -54,7 +56,7 @@ export const useEventStore = create<EventStore>((set, get) => ({
       return {
         ...state,
         doneEventKeys: doneEventKeys.concat(afterEventKey),
-        currentEvent: computeEvent(afterEvent!, equipments),
+        currentEvent: computeEvent(afterEvent!, equipments, title),
       };
     });
   },
@@ -159,15 +161,23 @@ export const useEventStore = create<EventStore>((set, get) => ({
   },
 }));
 
-const computeEvent = (event: GameEvent, equipments: Equipment[]) => {
+const computeEvent = (
+  event: GameEvent,
+  equipments: Equipment[],
+  title?: string,
+) => {
   const options = event.options?.filter((item) => {
     if (!item.isShow) {
       return true;
     }
     return item.isShow(equipments);
   });
-  return {
+  const result = {
     ...event,
     options,
   };
+  if (title) {
+    result.title = title;
+  }
+  return result;
 };

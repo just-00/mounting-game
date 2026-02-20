@@ -2,16 +2,17 @@ import { useNavigate } from "react-router-dom";
 import "./index.scss";
 import { BEAR } from "@/components/bear";
 import { Bird } from "@/components/bird/bird";
-import { Route, ROUTES } from "@/store/event/config";
+import { ROUTES } from "@/store/event/config";
 import { useEventStore } from "@/store/event/store";
 import { useEnvironmenStore } from "@/store/environment/store";
+import type { GameRoute } from "@/store/event/config/type";
 
 const RouteSelect = () => {
   const navigate = useNavigate();
   const { setRouteId } = useEventStore();
   const { setDistance, setAverageDistancePerHour } = useEnvironmenStore();
 
-  const toPage = (routeId: Route) => {
+  const toPage = (routeId: GameRoute) => {
     navigate("/select-equipment");
     // 设置当前路线
     setRouteId(routeId);

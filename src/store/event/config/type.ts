@@ -1,4 +1,9 @@
 
+export enum GameRoute {
+  Ice = "Ice",
+  Sea = "Sea",
+}
+
 // 支线相关
 export enum SnowOtherEventKey {
   // 野兽相关
@@ -76,7 +81,7 @@ export enum SnowMainEventKey {
   IceMain_IceLake_9 = "ice_main_ice_lake_9",
   IceMain_RestStop_15 = "ice_main_rest_stop_15",
   IceMain_Downhill_18 = "ice_main_downhill_18",
-  IceMain_Bear_BadEnd = "IceMain_Bear_BadEnd",
+  IceMain_Common_BadEnd = "IceMain_Common_BadEnd",
   IceMain_Poison_BadEnd = "IceMain_Poison_BadEnd",
 }
 

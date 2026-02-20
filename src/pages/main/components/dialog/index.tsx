@@ -7,6 +7,8 @@ import { useEventStore } from "@/store/event/store";
 import { useGameEffect } from "@/store/effect";
 import type { Equipment } from "@/store/equipment/type";
 import { useSettingStore } from "@/store/setting";
+import { AchievementToast } from "../achievement-toast";
+import { useNavigate } from "react-router-dom";
 
 // mounting的动画展示多久
 const MOUNTING_ANIMATION_SHOW_WARNING_TIME = 2000;
@@ -30,10 +32,15 @@ export const GameDialog = () => {
   const mountingRef = useRef<boolean>(true);
   const [toast, setToast] = useState<string | undefined>();
   const [optionPic, setOptionPic] = useState<string>();
+  const navigate = useNavigate();
   const { currentEvent, setCurrentEventByCompute, setCurrentEventByKey } =
     useEventStore();
-  const { computeEffect } = useGameEffect();
-  const endKeyRef = useRef<string | undefined>(null);
+  const { resetAll, computeEffect } = useGameEffect();
+  const endRef = useRef<{
+    key: string | undefined;
+    title?: string;
+  }>(null);
+  const [newAchived, setNewAchived] = useState<boolean>(false);
 
   // 监听背包页是否关闭了动画
   useEffect(() => {
@@ -53,10 +60,10 @@ export const GameDialog = () => {
   useEffect(() => {
     // 展示动画变为展示时，或者之前mounting也是false时，不进行逻辑计算
     if (mounting || !mountingRef.current) {
-      mountingRef.current = mounting
+      mountingRef.current = mounting;
       return;
     }
-    mountingRef.current = mounting
+    mountingRef.current = mounting;
     console.log("动画结束，计算当前事件=====");
     // 展示动画变为不展示时，计算当前事件
     setCurrentEventByCompute();
@@ -66,9 +73,9 @@ export const GameDialog = () => {
     // toast变为空时，如果有结局key，展示结局，如果没有，展示mounting动画
     if (!toast) {
       queueMicrotask(() => {
-        if (endKeyRef.current) {
-          setCurrentEventByKey(endKeyRef.current);
-          endKeyRef.current = null;
+        if (endRef.current?.key) {
+          setCurrentEventByKey(endRef.current.key);
+          endRef.current = null;
         } else {
           setMounting(true);
         }
@@ -81,9 +88,31 @@ export const GameDialog = () => {
     }, TOAST_SHOW_TIME);
   }, [toast]);
 
+  // 如果有新成就提醒，3000ms后关闭
+  useEffect(() => {
+    if (!newAchived) return;
+
+    const inter = setTimeout(() => {
+      setNewAchived(false);
+    }, 3000);
+    return () => {
+      clearTimeout(inter);
+    };
+  }, [newAchived]);
+
+  const restart = () => {
+    resetAll();
+    navigate("/route-select", {
+      replace: true,
+    });
+  };
+
   const onClick = async (option: Option) => {
     // 通过当前选项计算出toast
-    const { toast, endKey } = computeEffect(option as Option & Equipment);
+    const { toast, endKey, endTitle, newAchived } = computeEffect(
+      option as Option & Equipment,
+    );
+    setNewAchived(newAchived);
     if (option.optionPics?.length) {
       for (let i = 0; i < option.optionPics.length; i++) {
         setOptionPic(option.optionPics[i]);
@@ -94,9 +123,13 @@ export const GameDialog = () => {
 
     if (toast) {
       setToast(toast);
-      endKeyRef.current = endKey;
+      endRef.current = {
+        key: endKey,
+        title: endTitle,
+      };
     } else if (endKey) {
-      setCurrentEventByKey(endKey);
+      // 可能有自定义end title的情况
+      setCurrentEventByKey(endKey, endTitle);
     } else if (option?.mustTriggerAfterKey) {
       setCurrentEventByKey(option?.mustTriggerAfterKey);
     } else {
@@ -118,7 +151,7 @@ export const GameDialog = () => {
     );
   } else if (currentEvent?.isEnd) {
     CenterCardDefined = (
-      <section className="endWrapper">
+      <section className="centerCardEndWrapper">
         <div
           dangerouslySetInnerHTML={{ __html: currentEvent.title }}
           className="title"
@@ -129,7 +162,7 @@ export const GameDialog = () => {
   } else if (toast) {
     CenterCardDefined = (
       <div
-        className="dialogToastText"
+        className="centerCardToastWrapper"
         dangerouslySetInnerHTML={{ __html: toast }}
       ></div>
     );
@@ -137,6 +170,7 @@ export const GameDialog = () => {
 
   return (
     <>
+      {/* 展示当前事件 */}
       {!CenterCardDefined && currentEvent && (
         <div className="pixel-dialog">
           <div className="title">
@@ -166,14 +200,26 @@ export const GameDialog = () => {
         </div>
       )}
 
-      {/* 点击选项后图片展示 */}
+      {/* 展示中心卡片：动画、结局、toast */}
+      {CenterCardDefined && <CenterCard content={CenterCardDefined} />}
+
+      {currentEvent?.isEnd && (
+        <div className="restartWrapper">
+          <div className="button" onClick={restart}>
+            重新开始
+          </div>
+        </div>
+      )}
+
+      {/* 点击选项后的图片展示 */}
       {optionPic && (
         <div className="optionPicWrapper">
           <img src={optionPic} width="80%" className="optionPic" />
         </div>
       )}
 
-      {CenterCardDefined && <CenterCard content={CenterCardDefined} />}
+      {/* 新成就提醒 */}
+      {newAchived && <AchievementToast />}
     </>
   );
 };

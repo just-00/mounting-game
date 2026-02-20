@@ -1,4 +1,8 @@
-import { EquipmentKey, type Equipment } from "@/store/equipment/type";
+import {
+  EquipmentKey,
+  EquipmentType,
+  type Equipment,
+} from "@/store/equipment/type";
 import { EventType, type GameEvent } from "../type";
 import { MAIN_PROLOAD } from "@/const/ResourceUrl";
 import { getToast } from "@/store/effect";
@@ -48,12 +52,36 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
         key: SnowOtherOptionKey.Bear_2_2,
         title: "装死",
         result: () => ({
-          endKey: SnowMainEventKey.IceMain_Bear_BadEnd,
+          endKey: SnowMainEventKey.IceMain_Common_BadEnd,
+          endTitle: "熊不信，你死了",
+          achievements: [AchievementKey.BEAR_KO],
         }),
       },
       {
         key: SnowOtherOptionKey.Bear_2_3,
         title: "向它投掷食物",
+        result: (equipments: Equipment[]) => {
+          const foods = equipments.filter(
+            (item) => item.type === EquipmentType.Food && item.count,
+          );
+          if (!foods.length) {
+            return {
+              achievements: [AchievementKey.BEAR_KO],
+              endKey: SnowMainEventKey.IceMain_Common_BadEnd,
+              endTitle: "身上没有食物<br/>你死了",
+            };
+          }
+          const ran = Math.floor(Math.random() * foods.length);
+          const effect = {
+            equipments: {
+              [foods[ran].key]: -1,
+            },
+          };
+          return {
+            effect,
+            toast: `${getToast(effect)}<br/>熊被吸引了注意力，你逃跑成功了！`,
+          };
+        },
       },
     ],
   },
@@ -321,19 +349,10 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
   // },
 
   // 坏结局
-  // 被熊打死
+  // 你死了
   {
-    key: SnowMainEventKey.IceMain_Bear_BadEnd,
-    title: "你被熊打死了",
-    eventType: EventType.Main,
-    isEnd: true,
-    eventPic: MAIN_PROLOAD.BAD_END,
-    achievements: [AchievementKey.BEAR_KO],
-  },
-  // 被毒死
-  {
-    key: SnowMainEventKey.IceMain_Poison_BadEnd,
-    title: "你被毒死了",
+    key: SnowMainEventKey.IceMain_Common_BadEnd,
+    title: "你死了",
     eventType: EventType.Main,
     isEnd: true,
     eventPic: MAIN_PROLOAD.BAD_END,
@@ -398,7 +417,7 @@ const getBeastFightResult = (animal: string, equipments: Equipment[]) => {
     achievements.push(AchievementKey.BEAR_KO);
     return {
       toast,
-      endKey: SnowMainEventKey.IceMain_Bear_BadEnd,
+      endKey: SnowMainEventKey.IceMain_Common_BadEnd,
       achievements,
     };
   }

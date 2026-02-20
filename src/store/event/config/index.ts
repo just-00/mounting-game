@@ -1,14 +1,10 @@
 import type { GameEvent } from "../type";
 import { MAIN_ICE_EVENTS, OTHER_ICE_EVENTS } from "./snow";
-
-export enum Route {
-  Ice = "Ice",
-  Sea = "Sea",
-}
+import { GameRoute } from "./type";
 
 export const ROUTES: {
   title: string;
-  key: Route;
+  key: GameRoute;
   mainEvents: GameEvent[];
   otherEvents: GameEvent[];
   distance: number;
@@ -17,7 +13,7 @@ export const ROUTES: {
 }[] = [
   {
     title: "冰山",
-    key: Route.Ice,
+    key: GameRoute.Ice,
     mainEvents: MAIN_ICE_EVENTS,
     otherEvents: OTHER_ICE_EVENTS,
     distance: 18,

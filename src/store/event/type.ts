@@ -47,6 +47,7 @@ export interface Option extends Effect {
   // 动态计算结果，返回结局key或者toast
   result?: (equipments: Equipment[]) => {
     endKey?: string;
+    endTitle?: string
     toast?: string;
     effect?: Effect;
     achievements?: AchievementKey[]

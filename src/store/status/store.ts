@@ -31,15 +31,25 @@ interface StatusStore {
   setInjuried: (injuried: boolean) => void;
   addPoison: (poison: Poison) => void;
   setPoison: (poison: Poison[]) => void;
+  resetStatusStore: () => void
 }
 
-export const useStatusStore = create<StatusStore>((set) => ({
+const INIT_STORE = {
   speed: Speed.Normal,
   san: SanValue[San.Normal],
   warm: WarmValue[Warm.Normal],
   hunger: HungerValue[Hunger.Full],
   injuried: false,
   poison: [],
+};
+
+export const useStatusStore = create<StatusStore>((set) => ({
+  ...INIT_STORE,
+  resetStatusStore: () => {
+    set({
+      ...INIT_STORE,
+    });
+  },
   setSpeed: (speed: Speed) => {
     set((state) => ({
       ...state,
@@ -80,7 +90,7 @@ export const useStatusStore = create<StatusStore>((set) => ({
   setPoison: (poison: Poison[]) => {
     set((state) => ({
       ...state,
-      poison
+      poison,
     }));
   },
 }));

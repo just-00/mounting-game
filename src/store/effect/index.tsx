@@ -8,6 +8,7 @@ import { EQUIPMENTS } from "../equipment/config";
 import { Poison, San, SanValue, Speed, Warm, WarmValue } from "../status/type";
 import type { AchievementKey } from "../achievement/type";
 import { useAchievementStore } from "../achievement/store";
+import { useEventStore } from "../event/store";
 
 export type SelectedEquipmentKeys =
   | "warm"
@@ -89,6 +90,7 @@ export const getToast = (eq: Effect) => {
 // 使用装备、点击选项时，计算效果和产出toast
 export const useGameEffect = () => {
   const {
+    resetStatusStore,
     warm,
     san,
     setSan,
@@ -98,15 +100,27 @@ export const useGameEffect = () => {
     addPoison,
     setSpeed,
   } = useStatusStore();
-  const { timestamp, setTimestamp, setWeather } = useEnvironmenStore();
-  const { equipments, setEquipmentsCount } = useEquipmentStore();
-  const { addAchieved } = useAchievementStore();
+  const { timestamp, setTimestamp, setWeather, resetEnvironmentStore } =
+    useEnvironmenStore();
+  const { equipments, setEquipmentsCount, resetEquipmentStore } =
+    useEquipmentStore();
+  const { resetEventStore } = useEventStore();
+  const { achieved, addAchieved } = useAchievementStore();
+
+  const resetAll = () => {
+    resetEnvironmentStore();
+    resetEquipmentStore();
+    resetEventStore();
+    resetStatusStore();
+  };
 
   const computeEffect = (
     obj: Option & Equipment,
   ): {
     toast?: string;
     endKey?: string;
+    endTitle?: string;
+    newAchived: boolean;
   } => {
     let result;
     // 选项有result项，进行计算
@@ -117,10 +131,15 @@ export const useGameEffect = () => {
     // 如果没有动态计算结果的话，使用传入值
     const effect = result?.effect || obj;
 
+    let newAchived: boolean = false;
+
     // 增加成就
     const achievements = result?.achievements || obj.achievements;
     achievements?.forEach((item) => {
-      addAchieved(item);
+      if (!achieved.includes(item)) {
+        newAchived = true;
+        addAchieved(item);
+      }
     });
 
     // 通过选项 获得或减少装备
@@ -174,15 +193,20 @@ export const useGameEffect = () => {
     // 如果有result，优先返回result
     if (result) {
       if (result.endKey) {
-        return { endKey: result.endKey, toast: result.toast };
+        return {
+          endKey: result.endKey,
+          toast: result.toast,
+          newAchived,
+          endTitle: result.endTitle,
+        };
       }
-      return { toast: result.toast };
+      return { toast: result.toast, newAchived };
     }
 
     // 返回toast供给
     const toast = getToast(effect);
-    return { toast };
+    return { toast, newAchived };
   };
 
-  return { computeEffect };
+  return { computeEffect, resetAll };
 };

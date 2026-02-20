@@ -39,7 +39,7 @@ const iconMap: {
     color: "#E69F22",
   },
   [`Weather${[Weather.Rain]}`]: {
-    icon: "&#xe60e;",
+    icon: "&#xe611;",
     tip: "下雨",
     color: "#4A90E2",
   },
@@ -295,7 +295,6 @@ export const MainPannel = () => {
                 <WarmCom />
               </>
             )}
-            <section className="rightMainWrapper"></section>
           </section>
         </section>
       </section>

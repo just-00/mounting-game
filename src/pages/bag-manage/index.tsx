@@ -54,7 +54,8 @@ const BagManage = () => {
       ...equipment,
       count: final,
     });
-    const { toast } = computeEffect(equipment as Option & Equipment);
+    const { toast, newAchived } = computeEffect(equipment as Option & Equipment);
+    console.log(newAchived)
     if (toast) {
       setToast(toast);
     }

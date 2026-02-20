@@ -19,9 +19,8 @@
     justify-content: center;
     font-size: 24px;
     color: rgba(255, 255, 255, 0.8);
-    background: rgba(0, 0, 0, 0.05)
-      url($DIALOG_PROLOAD_TITLE)
-      right bottom / 100% 100% no-repeat;
+    background: rgba(0, 0, 0, 0.05) url($DIALOG_PROLOAD_TITLE) right bottom /
+      100% 100% no-repeat;
 
     .text {
       padding-left: 24px;
@@ -40,8 +39,7 @@
       opacity: 0.85;
       width: 100%;
       height: 84px;
-      background: url($DIALOG_PROLOAD_BUTTON)
-        right bottom / 100% 100% no-repeat;
+      background: url($DIALOG_PROLOAD_BUTTON) right bottom / 100% 100% no-repeat;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -59,6 +57,11 @@
       margin-top: 12px;
     }
   }
+  .eventPicWrapper {
+    position: absolute;
+    top: -82px;
+    animation: flash 0.4s ease-in-out infinite alternate;
+  }
 }
 .optionPicWrapper {
   top: 0;
@@ -72,25 +75,47 @@
   justify-content: center;
   background: rgba(0, 0, 0, 0.2);
 }
-
-.eventPicWrapper {
-  position: absolute;
-  top: -82px;
-  animation: flash 0.4s ease-in-out infinite alternate;
+.restartWrapper {
+  position: fixed;
+  bottom: 60px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  .button {
+    text-shadow:
+      2px 2px 0 #000000,
+      -2px -2px 0 #000000,
+      2px -2px 0 #000000,
+      -2px 2px 0 #000000;
+    color: #fff;
+    box-shadow:
+      0 2px 0 0 #666,
+      2px 0 0 0 #666;
+    background: linear-gradient(135deg, #d4a373 0%, #e9c46a 50%, #d4a373 100%);
+    background-size: 4px 4px;
+    padding: 12px 32px;
+    border-radius: 16px;
+  }
 }
-
-.dialogToastText {
+.centerCardToastWrapper {
   font-size: 18px;
   padding: 12px 0;
   padding-left: 8px;
   line-height: 32px;
 }
 
-.endWrapper {
+.centerCardEndWrapper {
   display: flex;
   align-items: center;
   flex-direction: column;
+  justify-content: center;
+  padding: 12px 0;
   .title {
-    font-size: 28px;
+    font-size: 24px;
+    text-align: center;
+    line-height: 32px;
+    margin-bottom: 2px;
   }
 }

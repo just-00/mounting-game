@@ -108,72 +108,71 @@ export interface Achievement {
   type: AchievementType;
   isDone?: boolean;
 }
-
 export const ACHIEVEMENTS: Achievement[] = [
   {
-    title: "冰瀑真美啊",
+    title: "哇！冰瀑！",
     key: AchievementKey.ICE_FALL,
-    desc: "看到了冰瀑美景",
+    desc: "邂逅冰瀑的绝美瞬间",
     type: AchievementType.Main,
   },
   {
-    title: "击败灰熊",
+    title: "熊口制胜",
     key: AchievementKey.BEAT_BEAR,
-    desc: "成功击败森林中的灰熊",
+    desc: "拿下森林熊的首胜",
     type: AchievementType.Fight,
   },
   {
-    title: "无伤制熊",
+    title: "无伤驯熊",
     key: AchievementKey.BEAT_BEAR_NO_DAMAGE,
-    desc: "在未受到任何伤害的情况下击败灰熊",
+    desc: "零损伤拿捏森林熊",
     type: AchievementType.Fight,
   },
   {
-    title: "熊爪之痕",
+    title: "熊爪留痕",
     key: AchievementKey.BEAR_DAMAGE,
-    desc: "在与灰熊的战斗中受到了伤害",
+    desc: "与熊缠斗挂了彩",
     type: AchievementType.Fight,
   },
   {
-    title: "折于熊口",
+    title: "折戟熊口",
     key: AchievementKey.BEAR_KO,
-    desc: "在与灰熊的战斗中被击败",
+    desc: "栽在灰熊的熊掌下",
     type: AchievementType.Fight,
   },
   {
-    title: "赤手空拳",
+    title: "徒手制兽",
     key: AchievementKey.BARE_HANDS,
-    desc: "未使用任何武器完成与野兽的战斗",
+    desc: "空拳打赢野兽的狠人",
     type: AchievementType.Fight,
   },
   {
-    title: "爬山做的菜最好吃",
+    title: "山野厨神",
     key: AchievementKey.FIRST_RECIEPT,
-    desc: "做出第一道菜",
+    desc: "完成第一道菜谱",
     type: AchievementType.Reciept,
   },
   {
     title: "汪！",
     key: AchievementKey.FRIENDS_DOG,
-    desc: "和小狗成为了朋友",
+    desc: "和小狗贴贴",
     type: AchievementType.FRIENDS,
   },
   {
-    title: "热热的",
+    title: "泡得暖暖的",
     key: AchievementKey.SPRING_POT,
-    desc: "泡到了温泉",
+    desc: "泡进热乎乎的温泉里",
     type: AchievementType.EXPLORE,
   },
   {
-    title: "吃了会不妙吧",
+    title: "要不尝尝？",
     key: AchievementKey.POISON_MUSHROOM,
-    desc: "采到了颜色不妙的蘑菇",
+    desc: "采到颜色不对劲的蘑菇",
     type: AchievementType.COLLECT,
   },
   {
-    title: "如果在冬天，一个旅人",
+    title: "雪夜独行",
     key: AchievementKey.SNOW_NIGHT,
-    desc: "夜晚并且下雪",
+    desc: "如果在冬夜，一个旅人",
     type: AchievementType.SURVIVAL,
   },
 ];

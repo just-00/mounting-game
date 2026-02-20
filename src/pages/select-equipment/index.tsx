@@ -96,7 +96,7 @@ const SelectEquipment = () => {
           </section>
         </section>
         <section className="detailItemWrapper">
-          {equipments.slice((page - 1) * 7, page * 7).map((item) => {
+          {equipments.filter(item => item.isSelectEquipmentShow).slice((page - 1) * 7, page * 7).map((item) => {
             return (
               <section key={item.name} className="detailItem">
                 <img className="img" src={item.src} width={40} />

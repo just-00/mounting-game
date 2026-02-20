@@ -9,13 +9,23 @@ interface EquipmentStore {
   totalSize: number;
   totalWeight: number;
   setEquipmentsCount: (key: string, count: number) => void;
+  resetEquipmentStore: () => void;
 }
+
+const INIT_STORE = {
+  equipments: EQUIPMENTS,
+  totalSize: 0,
+  totalWeight: 0,
+};
 
 export const useEquipmentStore = create<EquipmentStore>()(
   subscribeWithSelector((set) => ({
-    equipments: EQUIPMENTS,
-    totalSize: 0,
-    totalWeight: 0,
+    ...INIT_STORE,
+    resetEquipmentStore: () => {
+      set(() => ({
+        ...INIT_STORE,
+      }));
+    },
     // 设置单个的装备key和装备数量，重新计算total的size和weight
     setEquipmentsCount: (key: string, count: number) => {
       set((state) => {

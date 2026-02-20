@@ -1,5 +1,11 @@
 import { create } from "zustand";
-import { getRandomWeather, getTimeByTimestamp, START_TIME, Time, Weather } from "./type";
+import {
+  getRandomWeather,
+  getTimeByTimestamp,
+  START_TIME,
+  Time,
+  Weather,
+} from "./type";
 import type { Dayjs } from "dayjs";
 
 interface EnvironmentStore {
@@ -14,9 +20,10 @@ interface EnvironmentStore {
   setDistance: (d: number) => void;
   setTimestamp: (timestamp: Dayjs) => void;
   setAverageDistancePerHour: (averageDistancePerHour: number) => void;
+  resetEnvironmentStore: () => void
 }
 
-export const useEnvironmenStore = create<EnvironmentStore>((set) => ({
+const INIT_STORE = {
   weather: getRandomWeather(),
   // 无初始距离，在选取路线后初始
   // WIP 测试方便
@@ -25,6 +32,15 @@ export const useEnvironmenStore = create<EnvironmentStore>((set) => ({
   averageDistancePerHour: 2.5,
   time: Time.Day,
   timestamp: START_TIME,
+};
+
+export const useEnvironmenStore = create<EnvironmentStore>((set) => ({
+  ...INIT_STORE,
+  resetEnvironmentStore: () => {
+    set(() => ({
+      ...INIT_STORE,
+    }));
+  },
   setWeather: (weather: Weather) => {
     set((state) => ({
       ...state,

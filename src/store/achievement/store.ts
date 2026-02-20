@@ -13,8 +13,8 @@ export const useAchievementStore = create<AchievementStore>((set) => ({
   addAchieved: (key: AchievementKey) => {
     set((state) => {
       const achieved = state.achieved.concat(key);
+      // 成就本地化
       localStorage.setItem(ACHIEVE_LOCAL, achieved.join(","))
-
       return {
         ...state,
         achieved,
