@@ -42,7 +42,8 @@ type ToastTextMap = {
   injuried: boolean;
   hunger: number;
   poison: Poison;
-  usedEndKey: string;
+  endKey: string;
+  endTitle: string;
   achievements: AchievementKey[];
 };
 
@@ -113,29 +114,34 @@ export const useGameEffect = () => {
     resetEventStore();
     resetStatusStore();
   };
-
-  const computeEffect = (
-    obj: Option & Equipment,
-  ): {
+  type Result = {
     toast?: string;
     endKey?: string;
     endTitle?: string;
-    newAchived: boolean;
-  } => {
-    let result;
-    // 选项有result项，进行计算
-    if (obj.result) {
-      result = obj.result(equipments);
+    newAchived?: boolean;
+  };
+  const computeEffect = (obj: Option | Equipment | Effect): Result => {
+    let effect;
+    // 选项有result项，进行计算（Option的情况下）
+    if ("result" in obj && obj.result) {
+      effect = obj.result(equipments);
     }
 
-    // 如果没有动态计算结果的话，使用传入值
-    const effect = result?.effect || obj;
+    // 选项有effect项（Equipment的情况下）
+    if ("effect" in obj) {
+      effect = obj.effect;
+    }
 
+    // 如果没有副作用，直接返回
+    if (!effect) {
+      return {};
+    }
+
+    // 是否有新增成就
     let newAchived: boolean = false;
 
     // 增加成就
-    const achievements = result?.achievements || obj.achievements;
-    achievements?.forEach((item) => {
+    effect.achievements?.forEach((item) => {
       if (!achieved.includes(item)) {
         newAchived = true;
         addAchieved(item);
@@ -143,12 +149,7 @@ export const useGameEffect = () => {
     });
 
     // 通过选项 获得或减少装备
-    if (
-      effect.equipments &&
-      (effect.equipments as {
-        [key: string]: number;
-      })
-    ) {
+    if (effect.equipments) {
       Object.entries(effect.equipments).forEach(([key, value]) => {
         const current = equipments.find((item) => item.key === key);
         setEquipmentsCount(key, (current?.count || 0) + value);
@@ -190,22 +191,9 @@ export const useGameEffect = () => {
       }
     }
 
-    // 如果有result，优先返回result
-    if (result) {
-      if (result.endKey) {
-        return {
-          endKey: result.endKey,
-          toast: result.toast,
-          newAchived,
-          endTitle: result.endTitle,
-        };
-      }
-      return { toast: result.toast, newAchived };
-    }
-
     // 返回toast供给
     const toast = getToast(effect);
-    return { toast, newAchived };
+    return { ...effect, toast: toast, newAchived };
   };
 
   return { computeEffect, resetAll };

@@ -1,6 +1,6 @@
 import type { Effect } from "../effect";
 
-export interface Equipment extends Effect {
+export interface Equipment {
   key: EquipmentKey;
   // 类型
   type: EquipmentType;
@@ -19,6 +19,10 @@ export interface Equipment extends Effect {
   count?: number;
   // 只可用一次
   disposable?: boolean;
+  // 不可烹饪
+  cantCook?: boolean
+  // 使用后的副作用
+  effect?: Effect
 }
 
 export enum EquipmentKey {
@@ -27,6 +31,8 @@ export enum EquipmentKey {
   SleepingBag = "sleepingBag",
   FirstAidKit = "firstAidKit",
   SurvivalBlanket = "survivalBlanket",
+
+  // 食物
   // 鸡油菌
   MushroomJiYou = "MushroomJiYou",
   // 香菇
@@ -39,15 +45,21 @@ export enum EquipmentKey {
   Mushroom_JianShouQing = 'Mushroom_JianShouQing',
   Egg = "egg",
   BeastSteak = "BeastSteak",
-  Spear = "Spear",
   SportsDrink = "sportsDrink",
   CompressedBiscuit = "compressedBiscuit",
   SelfHeatingPot = "selfHeatingPot",
+  // 菜肴
+  // 湿腻焦糊
+  EWW = 'EWW',
+
+  Spear = "Spear",
   HikingPole = "hikingPole",
   Crampons = "crampons",
   PowerBank = "powerBank",
   BearBell = "bearBell",
   Headlamp = "headlamp",
+  // 汽炉
+  GasStove = "GasStove",
 }
 
 export enum EquipmentType {
@@ -59,6 +71,8 @@ export enum EquipmentType {
   Medical = "medical",
   // 食品/补给类
   Food = "food",
+  // 菜肴类
+  DISH = "DISH",
   // 工具类
   Tool = "tool",
 }

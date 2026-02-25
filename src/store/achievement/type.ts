@@ -1,3 +1,5 @@
+import { ACHIEVEMENT_PRELOAD } from "@/const/ResourceUrl";
+
 export enum AchievementType {
   // 主线类成就
   Main = "Main",
@@ -25,38 +27,38 @@ export const AchievementTypeMap: {
 } = {
   [AchievementType.Main]: {
     title: "主线",
-    pic: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/c9780ed3d83049958dacde4412d97da1.jpeg~tplv-a9rns2rl98-image_raw_b.png",
+    pic: ACHIEVEMENT_PRELOAD.MAIN,
     colors: ["#FF7A1A", "#FF9933", "#FFB84D", "#FFD766"],
   },
   [AchievementType.Reciept]: {
     title: "菜谱",
-    pic: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/59d3a41fadbb4e9c929dc03273c20d7d.jpeg~tplv-a9rns2rl98-image_raw_b.png",
+    pic: ACHIEVEMENT_PRELOAD.RECIEPT,
     colors: ["#FF4D4D", "#FF6666", "#FF8080", "#FF9999"],
   },
   [AchievementType.Fight]: {
     title: "战斗",
-    pic: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/43105e17180947cb887aebda94c85a00.jpeg~tplv-a9rns2rl98-image_raw_b.png",
+    pic: ACHIEVEMENT_PRELOAD.FIGHT,
     colors: ["#5BBF33", "#7ACC4D", "#99D966", "#B8E680"],
   },
 
   [AchievementType.FRIENDS]: {
     title: "友谊",
-    pic: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/44af210669884bb89e5e57db153aacc2.jpeg~tplv-a9rns2rl98-image_raw_b.png",
+    pic: ACHIEVEMENT_PRELOAD.FRIENDS,
     colors: ["#3366FF", "#4D80FF", "#6699FF", "#80B3FF"],
   },
   [AchievementType.EXPLORE]: {
     title: "探索",
-    pic: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/e0927317ab7c4561866690fbc22b143b.jpeg~tplv-a9rns2rl98-image_raw_b.png",
+    pic: ACHIEVEMENT_PRELOAD.EXPLORE,
     colors: ["#33BFFF", "#4DCCFF", "#66D9FF", "#80E6FF"],
   },
   [AchievementType.COLLECT]: {
     title: "收集",
-    pic: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/58d1b7ef63ab4e97af80aead69d42d0f.jpeg~tplv-a9rns2rl98-image_raw_b.png",
+    pic: ACHIEVEMENT_PRELOAD.COLLECT,
     colors: ["#BF66FF", "#CC80FF", "#D999FF", "#E6B3FF"],
   },
   [AchievementType.SURVIVAL]: {
     title: "生存",
-    pic: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/76ed75a052fa40bcbbc646856109a8c6.jpeg%7Etplv-a9rns2rl98-image_raw_b.png",
+    pic: ACHIEVEMENT_PRELOAD.SURVIVAL,
     colors: ["#FF4D94", "#FF66A8", "#FF80BC", "#FF99D0"],
   },
 };

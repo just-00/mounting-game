@@ -28,6 +28,21 @@
   border-radius: 20px;
   text-decoration: none;
 }
+.third {
+  text-shadow:
+    2px 2px 0 #000000,
+    -2px -2px 0 #000000,
+    2px -2px 0 #000000,
+    -2px 2px 0 #000000;
+  color: #fff;
+  box-shadow:
+    0 2px 0 0 #666,
+    2px 0 0 0 #666;
+  background: linear-gradient(135deg, #d4a373 0%, #e9c46a 50%, #d4a373 100%);
+  background-size: 4px 4px;
+  padding: 12px 32px;
+  border-radius: 16px;
+}
 .bareTitle {
   background: linear-gradient(0deg, $orange, $orangered);
   -webkit-background-clip: text;

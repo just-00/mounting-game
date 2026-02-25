@@ -1,8 +1,5 @@
-import type { AchievementKey } from "../achievement/type";
 import type { Effect } from "../effect";
-import type { Time, Weather } from "../environment/type";
-import type { Equipment, EquipmentKey } from "../equipment/type";
-import type { Poison } from "../status/type";
+import type { Equipment } from "../equipment/type";
 
 export enum EventType {
   // 主线相关
@@ -20,7 +17,7 @@ export enum EventType {
   // 遇到危险
   Danger = "Danger",
   // 特殊
-  Special = 'Special'
+  Special = "Special",
 }
 
 export const EVENT_PRIORITY: Partial<Record<EventType, number>> = {
@@ -32,26 +29,21 @@ export const EVENT_PRIORITY: Partial<Record<EventType, number>> = {
   [EventType.Danger]: 3,
 };
 
-export interface Option extends Effect {
+export interface Option {
   // 唯一标识
   key: string;
   title: string;
   // 下一个必会触发的后置事件key
   mustTriggerAfterKey?: string;
+
   // 点击选项后会出现的图片
-  optionPics?: string[];
+  optionPics?: string[]
+
   // 计算是否出现这个选项
   isShow?: (equipments: Equipment[]) => boolean;
-  // 成就
-  achievements?: AchievementKey[]
-  // 动态计算结果，返回结局key或者toast
-  result?: (equipments: Equipment[]) => {
-    endKey?: string;
-    endTitle?: string
-    toast?: string;
-    effect?: Effect;
-    achievements?: AchievementKey[]
-  };
+
+  // 算结果，返回结局key、toast、副作用、成就
+  result?: (equipments: Equipment[]) => Effect
 }
 
 export interface GameEvent {
@@ -61,48 +53,21 @@ export interface GameEvent {
   title: string;
   // 事件类型
   eventType: EventType;
+  // 事件配的图片，类型：结局图片 / 非结局事件图片
+  eventPic?: string;
   // 事件选项
   options?: Option[];
 
-  // 需要满足触发的前置事件key
-  preEventKeys?: string[];
-  // 需要满足触发的前置选项key
+  // 需要满足触发的前置选项key（简单场景下）
   preOptionKeys?: string[];
-  // true的话，只能通过mustTriggerAfterKey触发
+  // 计算是否出现这个事件，默认是true（复杂场景下）
+  isShow?: (equipments: Equipment[]) => boolean;
+
+  // true的话，只能通过mustTriggerAfterKey触发，不可以通过随机计算触发
   isForcedTriggerAfterKey?: boolean;
-  // 成就
-  achievements?: AchievementKey[]
 
-  // 需要满足的公里数后触发
+  // 主线专属：需要满足的公里数后触发
   distance?: number;
-  // 需要满足的装备key
-  equipmentKey?: EquipmentKey[];
-  // 需要满足的天气key
-  weatherKey?: Weather[];
-  // 需要满足的时间key
-  timeKey?: Time[];
-  // 需要满足的状态
-  status?: {
-    san?: {
-      max?: number,
-      min?: number
-    };
-    warm: {
-      max?: number,
-      min?: number
-    };
-    hunger:  {
-      max?: number,
-      min?: number
-    };
-    // 受伤
-    injuried?: boolean;
-    // 中毒
-    poison: Poison[];
-  };
-
   // 是否是结局
   isEnd?: boolean;
-  // 事件配的图片
-  eventPic?: string;
 }

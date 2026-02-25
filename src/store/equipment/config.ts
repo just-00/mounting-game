@@ -4,48 +4,65 @@ import { EquipmentKey, EquipmentType, type Equipment } from "./type";
 import { SnowMainEventKey } from "../event/config/type";
 
 export const EQUIPMENTS: Equipment[] = [
-  // {
-  //   key: EquipmentKey.LightTent,
-  //   name: "轻便帐篷",
-  //   weight: 1.2,
-  //   size: 8,
-  //   src: SELECT_EQUIPMENT_PRELOAD.LIGHT_TENT,
-  //   useTime: 15,
-  //   warm: 5,
-  //   type: EquipmentType.Tent,
-  //   isSelectEquipmentShow: true,
-  // },
-  // {
-  //   key: EquipmentKey.WarmTent,
-  //   name: "保暖帐篷",
-  //   weight: 3,
-  //   size: 12,
-  //   src: SELECT_EQUIPMENT_PRELOAD.WARM_TENT,
-  //   useTime: 30,
-  //   warm: 8,
-  //   type: EquipmentType.Tent,
-  //   isSelectEquipmentShow: true,
-  // },
-  // {
-  //   key: EquipmentKey.SleepingBag,
-  //   name: "睡袋",
-  //   weight: 1.8,
-  //   size: 7,
-  //   src: SELECT_EQUIPMENT_PRELOAD.SLEEPING_BAG,
-  //   warm: 5,
-  //   type: EquipmentType.Warmth,
-  //   isSelectEquipmentShow: true,
-  // },
+  {
+    key: EquipmentKey.LightTent,
+    name: "轻便帐篷",
+    weight: 1.2,
+    size: 8,
+    src: SELECT_EQUIPMENT_PRELOAD.LIGHT_TENT,
+    type: EquipmentType.Tent,
+    effect: {
+      useTime: 15,
+      warm: 5,
+    },
+  },
+  {
+    key: EquipmentKey.WarmTent,
+    name: "保暖帐篷",
+    weight: 3,
+    size: 12,
+    src: SELECT_EQUIPMENT_PRELOAD.WARM_TENT,
+
+    type: EquipmentType.Tent,
+    effect: {
+      useTime: 30,
+      warm: 8,
+    },
+  },
+  {
+    key: EquipmentKey.SleepingBag,
+    name: "睡袋",
+    weight: 1.8,
+    size: 7,
+    src: SELECT_EQUIPMENT_PRELOAD.SLEEPING_BAG,
+    effect: {
+      warm: 5,
+    },
+    type: EquipmentType.Warmth,
+  },
+
+  {
+    key: EquipmentKey.GasStove,
+    name: "汽炉",
+    weight: 0.8,
+    size: 4,
+    src: SELECT_EQUIPMENT_PRELOAD.FIRST_AID_KIT,
+    type: EquipmentType.Tool,
+    isSelectEquipmentShow: true,
+  },
+
   {
     key: EquipmentKey.FirstAidKit,
     name: "急救包",
     weight: 0.8,
     size: 2,
     src: SELECT_EQUIPMENT_PRELOAD.FIRST_AID_KIT,
-    useTime: 10,
     disposable: true,
     type: EquipmentType.Medical,
     isSelectEquipmentShow: true,
+    effect: {
+      useTime: 10,
+    },
   },
   {
     key: EquipmentKey.SurvivalBlanket,
@@ -54,9 +71,11 @@ export const EQUIPMENTS: Equipment[] = [
     size: 0.5,
     src: SELECT_EQUIPMENT_PRELOAD.SURVIAL_BLANKET,
     disposable: true,
-    warm: 20,
     type: EquipmentType.Warmth,
     isSelectEquipmentShow: true,
+    effect: {
+      warm: 20,
+    },
   },
   // 鸡油菌
   {
@@ -67,7 +86,9 @@ export const EQUIPMENTS: Equipment[] = [
     src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIYOU,
     disposable: true,
     type: EquipmentType.Food,
-    hunger: 10,
+    effect: {
+      hunger: 10,
+    },
   },
   // 香菇
   {
@@ -78,7 +99,9 @@ export const EQUIPMENTS: Equipment[] = [
     src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_XIANGGU,
     disposable: true,
     type: EquipmentType.Food,
-    hunger: 10,
+    effect: {
+      hunger: 10,
+    },
   },
   // 毒蝇菌
   {
@@ -89,7 +112,10 @@ export const EQUIPMENTS: Equipment[] = [
     src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_DUYING,
     disposable: true,
     type: EquipmentType.Food,
-    poison: Poison.DuYing,
+    effect: {
+      poison: Poison.DuYing,
+      hunger: 5,
+    },
   },
   // 鹅膏菌
   {
@@ -100,8 +126,9 @@ export const EQUIPMENTS: Equipment[] = [
     src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_EGAO,
     disposable: true,
     type: EquipmentType.Food,
-    poison: Poison.EGao,
-    usedEndKey: SnowMainEventKey.IceMain_Poison_BadEnd,
+    effect: {
+      endKey: SnowMainEventKey.IceMain_Poison_BadEnd,
+    },
   },
   // 见手青
   {
@@ -112,7 +139,22 @@ export const EQUIPMENTS: Equipment[] = [
     src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIANSHOUQING,
     disposable: true,
     type: EquipmentType.Food,
-    poison: Poison.JianShouQing,
+    effect: {
+      poison: Poison.JianShouQing,
+    },
+  },
+  // 菜肴
+  {
+    key: EquipmentKey.EWW,
+    name: "湿腻焦糊",
+    weight: 0.2,
+    size: 0.2,
+    src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIANSHOUQING,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      san: -10,
+    },
   },
   {
     key: EquipmentKey.SportsDrink,
@@ -123,6 +165,7 @@ export const EQUIPMENTS: Equipment[] = [
     disposable: true,
     type: EquipmentType.Food,
     isSelectEquipmentShow: true,
+    cantCook: true,
   },
   {
     key: EquipmentKey.CompressedBiscuit,
@@ -133,6 +176,9 @@ export const EQUIPMENTS: Equipment[] = [
     disposable: true,
     type: EquipmentType.Food,
     isSelectEquipmentShow: true,
+    effect: {
+      hunger: 5,
+    },
   },
   {
     key: EquipmentKey.SelfHeatingPot,
@@ -140,11 +186,13 @@ export const EQUIPMENTS: Equipment[] = [
     weight: 1.2,
     size: 2,
     src: SELECT_EQUIPMENT_PRELOAD.SELF_HEATING_POT,
-    useTime: 10,
     disposable: true,
-    warm: 10,
     type: EquipmentType.Food,
     isSelectEquipmentShow: true,
+    effect: {
+      useTime: 10,
+      warm: 10,
+    },
   },
   {
     key: EquipmentKey.BeastSteak,
@@ -153,8 +201,10 @@ export const EQUIPMENTS: Equipment[] = [
     size: 0.4,
     src: SELECT_EQUIPMENT_PRELOAD.SELF_HEATING_POT,
     disposable: true,
-    warm: 8,
     type: EquipmentType.Food,
+    effect: {
+      hunger: 20,
+    },
   },
   {
     key: EquipmentKey.Egg,
@@ -162,17 +212,17 @@ export const EQUIPMENTS: Equipment[] = [
     weight: 0.2,
     size: 1,
     src: SELECT_EQUIPMENT_PRELOAD.SELF_HEATING_POT,
-    useTime: 10,
     disposable: true,
-    warm: 10,
     type: EquipmentType.Food,
+    effect: {
+      hunger: 5,
+    },
   },
   {
     key: EquipmentKey.Spear,
     name: "长矛",
     weight: 0.2,
     size: 0.2,
-    // WIP
     src: SELECT_EQUIPMENT_PRELOAD.SPORTS_DRINK,
     type: EquipmentType.Tool,
   },

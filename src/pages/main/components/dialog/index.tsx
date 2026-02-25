@@ -5,7 +5,6 @@ import { CenterCard } from "../center-card";
 import { MountingAnimationCom } from "../center-card/mounting-animation";
 import { useEventStore } from "@/store/event/store";
 import { useGameEffect } from "@/store/effect";
-import type { Equipment } from "@/store/equipment/type";
 import { useSettingStore } from "@/store/setting";
 import { AchievementToast } from "../achievement-toast";
 import { useNavigate } from "react-router-dom";
@@ -109,9 +108,7 @@ export const GameDialog = () => {
 
   const onClick = async (option: Option) => {
     // 通过当前选项计算出toast
-    const { toast, endKey, endTitle, newAchived } = computeEffect(
-      option as Option & Equipment,
-    );
+    const { toast, endKey, endTitle, newAchived = false } = computeEffect(option);
     setNewAchived(newAchived);
     if (option.optionPics?.length) {
       for (let i = 0; i < option.optionPics.length; i++) {

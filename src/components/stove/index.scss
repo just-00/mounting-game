@@ -1,0 +1,66 @@
+.stoveBkWrapper {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .stoveWrapper {
+    .buttonWrapper {
+      margin-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 32px;
+      .button {
+        @extend .third;
+        font-size: 32px;
+      }
+    }
+    .imgWrapper {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      .pot {
+        position: absolute;
+        top: 57px;
+        right: 116px;
+        z-index: 1;
+
+        @keyframes stoveSwave {
+          from {
+            transform: rotateZ(-3deg) scale(1.1);
+          }
+          to {
+            transform: rotateZ(2deg) scale(1);
+          }
+        }
+      }
+    }
+    .foodWrapper {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      row-gap: 8px;
+      column-gap: 16px;
+      padding-left: 16px;
+      .foodItemWrapper {
+        background: rgba(245, 240, 225, 0.5);
+        border: 1px solid rgba(245, 240, 225);
+        border-radius: 4px;
+        width: calc((100vw - 32px - 48px) / 4);
+        .img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .foodItemWrapper.foodItemWrapperSelected {
+        background: rgba(245, 240, 225, 0.8);
+      }
+    }
+  }
+}

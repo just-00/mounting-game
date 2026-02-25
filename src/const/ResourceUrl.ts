@@ -76,6 +76,12 @@ export const MAIN_PROLOAD = {
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/b2613cdc7aca4b70a9c5492e8dd6d62a.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
 };
 
+export const STOVE_PRELOAD = {
+  STOVE:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/50c1b855d4f64325857efc1c11f3ad25.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview%20(1).png",
+  POT: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5a4d99334ca549518667704f19c29201.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview%20(1).png",
+};
+
 export const PANNEL_ITEM_PRELOAD = {
   BAG: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/e016fe0ccc334a97a5f6dfa5213f91ff.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
   INJURIED:
@@ -91,12 +97,30 @@ export const CENTER_CARD_PRELOAD = {
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/little-man-1%20(6).gif",
 };
 
+export const ACHIEVEMENT_PRELOAD = {
+  MAIN: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/c9780ed3d83049958dacde4412d97da1.jpeg~tplv-a9rns2rl98-image_raw_b.png",
+  RECIEPT:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/59d3a41fadbb4e9c929dc03273c20d7d.jpeg~tplv-a9rns2rl98-image_raw_b.png",
+  FIGHT:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/43105e17180947cb887aebda94c85a00.jpeg~tplv-a9rns2rl98-image_raw_b.png",
+  FRIENDS:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/44af210669884bb89e5e57db153aacc2.jpeg~tplv-a9rns2rl98-image_raw_b.png",
+  EXPLORE:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/e0927317ab7c4561866690fbc22b143b.jpeg~tplv-a9rns2rl98-image_raw_b.png",
+  COLLECT:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/58d1b7ef63ab4e97af80aead69d42d0f.jpeg~tplv-a9rns2rl98-image_raw_b.png",
+  SURVIVAL:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/76ed75a052fa40bcbbc646856109a8c6.jpeg%7Etplv-a9rns2rl98-image_raw_b.png",
+};
+
 export const ALL_RESOURCE = [
   ...Object.values(ROUTE_SELECT_PRELOAD),
   ...Object.values(SELECT_EQUIPMENT_PRELOAD),
   ...Object.values(DIALOG_PROLOAD),
   ...Object.values(MOUNTING_ANIMATION),
   ...Object.values(MAIN_PROLOAD),
+  ...Object.values(STOVE_PRELOAD),
   ...Object.values(PANNEL_ITEM_PRELOAD),
   ...Object.values(CENTER_CARD_PRELOAD),
+  ...Object.values(ACHIEVEMENT_PRELOAD),
 ];

@@ -5,7 +5,6 @@ import { EquipmentType, type Equipment } from "@/store/equipment/type";
 import classNames from "classnames";
 import { GameToast } from "../main/components/toast";
 import { useGameEffect } from "@/store/effect";
-import type { Option } from "@/store/event/type";
 import { useNavigate } from "react-router-dom";
 import { useEventStore } from "@/store/event/store";
 import { useSettingStore } from "@/store/setting";
@@ -42,9 +41,9 @@ const BagManage = () => {
 
   const onUse = () => {
     if (!equipment) return;
-    if (equipment.usedEndKey) {
+    if (equipment.effect?.endKey) {
       setMounting(false)
-      setCurrentEventByKey(equipment.usedEndKey);
+      setCurrentEventByKey(equipment.effect.endKey);
       navigate(-1);
       return;
     }
@@ -54,7 +53,7 @@ const BagManage = () => {
       ...equipment,
       count: final,
     });
-    const { toast, newAchived } = computeEffect(equipment as Option & Equipment);
+    const { toast, newAchived } = computeEffect(equipment);
     console.log(newAchived)
     if (toast) {
       setToast(toast);

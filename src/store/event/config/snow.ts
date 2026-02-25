@@ -4,11 +4,12 @@ import {
   type Equipment,
 } from "@/store/equipment/type";
 import { EventType, type GameEvent } from "../type";
-import { MAIN_PROLOAD } from "@/const/ResourceUrl";
+import { MAIN_PROLOAD, SELECT_EQUIPMENT_PRELOAD } from "@/const/ResourceUrl";
 import { getToast } from "@/store/effect";
 import { add } from "@/utils/number";
 import {
   SnowMainEventKey,
+  SnowMainOptionKey,
   SnowOtherEventKey,
   SnowOtherOptionKey,
 } from "./type";
@@ -78,209 +79,234 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
             },
           };
           return {
-            effect,
+            ...effect,
             toast: `${getToast(effect)}<br/>熊被吸引了注意力，你逃跑成功了！`,
           };
         },
       },
     ],
   },
-  // // 引路雪狐
-  // {
-  //   key: SnowOtherEventKey.FOX_1,
-  //   title: "窜出了一只雪狐",
-  //   eventType: EventType.Beast,
-  //   options: [
-  //     {
-  //       key: SnowOtherOptionKey.FOX_1_2,
-  //       title: "给它肉排",
-  //       isShow: (equipments: Equipment[]) =>
-  //         !!equipments.find((item) => item.key === EquipmentKey.BeastSteak)
-  //           ?.count,
-  //       equipments: {
-  //         [EquipmentKey.BeastSteak]: -1,
-  //       },
-  //     },
-  //     {
-  //       key: SnowOtherOptionKey.FOX_1_3,
-  //       title: "给它压缩饼干",
-  //       isShow: (equipments: Equipment[]) =>
-  //         !!equipments.find(
-  //           (item) => item.key === EquipmentKey.CompressedBiscuit,
-  //         )?.count,
-  //       equipments: {
-  //         [EquipmentKey.CompressedBiscuit]: -1,
-  //       },
-  //     },
-  //     {
-  //       key: SnowOtherOptionKey.FOX_1_4,
-  //       title: "不理他",
-  //     },
-  //   ],
-  // },
+  // 引路雪狐
+  {
+    key: SnowOtherEventKey.FOX_1,
+    title: "窜出了一只雪狐",
+    eventType: EventType.Beast,
+    options: [
+      {
+        key: SnowOtherOptionKey.FOX_1_2,
+        title: "给它肉排",
+        isShow: (equipments: Equipment[]) =>
+          !!equipments.find((item) => item.key === EquipmentKey.BeastSteak)
+            ?.count,
+        result: () => ({
+          equipments: {
+            [EquipmentKey.BeastSteak]: -1,
+          },
+        }),
+      },
+      {
+        key: SnowOtherOptionKey.FOX_1_3,
+        title: "给它压缩饼干",
+        isShow: (equipments: Equipment[]) =>
+          !!equipments.find(
+            (item) => item.key === EquipmentKey.CompressedBiscuit,
+          )?.count,
+        result: () => ({
+          equipments: {
+            [EquipmentKey.CompressedBiscuit]: -1,
+          },
+        }),
+      },
+       {
+        key: SnowOtherOptionKey.FOX_1_3,
+        title: "踹它一脚",
+        result: () => ({
+          endKey: SnowMainEventKey.IceMain_Common_BadEnd,
+          endTitle: '你被逮捕了'
+        }),
+      },
+      {
+        key: SnowOtherOptionKey.FOX_1_4,
+        title: "不理他",
+      },
+    ],
+  },
+  // 探索相关
+  // 温泉
+  {
+    key: SnowOtherEventKey.HotSpring_1,
+    title: "远处传来一阵臭味",
+    eventType: EventType.Explore,
+    options: [
+      {
+        key: SnowOtherOptionKey.HotSpring_1_1,
+        mustTriggerAfterKey: SnowOtherEventKey.HotSpring_2,
+        title: "走过去看看",
+      },
+      {
+        key: SnowOtherOptionKey.HotSpring_1_2,
+        title: "不过去",
+      },
+    ],
+  },
+  {
+    key: SnowOtherEventKey.HotSpring_2,
+    title: "原来是硫磺泉",
+    eventType: EventType.Explore,
+    preOptionKeys: [SnowOtherOptionKey.HotSpring_1_1],
+    isForcedTriggerAfterKey: true,
+    options: [
+      {
+        key: SnowOtherOptionKey.HotSpring_2_1,
+        title: "美美泡一下",
+        result: () => ({
+          useTime: 60,
+          warm: 30,
+          san: 5,
+        }),
+      },
+      {
+        key: SnowOtherOptionKey.HotSpring_2_2,
+        title: "不泡",
+      },
+    ],
+  },
 
-  // // 探索相关
-  // // 温泉
-  // {
-  //   key: SnowOtherEventKey.HotSpring_1,
-  //   title: "远处传来一阵臭味",
-  //   eventType: EventType.Explore,
-  //   options: [
-  //     {
-  //       key: SnowOtherOptionKey.HotSpring_1_1,
-  //       mustTriggerAfterKey: SnowOtherEventKey.HotSpring_2,
-  //       title: "走过去看看",
-  //     },
-  //     {
-  //       key: SnowOtherOptionKey.HotSpring_1_2,
-  //       title: "不过去",
-  //     },
-  //   ],
-  // },
-  // {
-  //   key: SnowOtherEventKey.HotSpring_2,
-  //   title: "原来是硫磺泉",
-  //   eventType: EventType.Explore,
-  //   preOptionKeys: [SnowOtherOptionKey.HotSpring_1_1],
-  //   isForcedTriggerAfterKey: true,
-  //   options: [
-  //     {
-  //       key: SnowOtherOptionKey.HotSpring_2_1,
-  //       title: "美美泡一下",
-  //       useTime: 60,
-  //       warm: 30,
-  //       san: 5
-  //     },
-  //     {
-  //       key: SnowOtherOptionKey.HotSpring_2_2,
-  //       title: "不泡",
-  //     },
-  //   ],
-  // },
+  // 碰到人相关
+  // 小女孩
 
-  // // 碰到人相关
-  // // 小女孩
-
-  // // 蘑菇相关
-  // // 鸡油菌
-  // {
-  //   key: SnowOtherEventKey.MushroomJiYou,
-  //   title: "路边有几丛蘑菇",
-  //   eventType: EventType.Mushroom,
-  //   eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIYOU,
-  //   options: [
-  //     {
-  //       key: SnowOtherOptionKey.MushroomJiYou_1,
-  //       title: "采",
-  //       equipments: {
-  //         [EquipmentKey.MushroomJiYou]: 3,
-  //       },
-  //     },
-  //     {
-  //       key: SnowOtherOptionKey.MushroomJiYou_2,
-  //       title: "不采",
-  //     },
-  //   ],
-  // },
-  // // 香菇
-  // {
-  //   key: SnowOtherEventKey.MushroomXiangGu,
-  //   title: "路边有几丛蘑菇",
-  //   eventType: EventType.Mushroom,
-  //   eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_XIANGGU,
-  //   options: [
-  //     {
-  //       key: SnowOtherOptionKey.MushroomXiangGu_1,
-  //       title: "采",
-  //       equipments: {
-  //         [EquipmentKey.MushroomXiangGu]: 3,
-  //       },
-  //     },
-  //     {
-  //       key: SnowOtherOptionKey.MushroomXiangGu_2,
-  //       title: "不采",
-  //     },
-  //   ],
-  // },
-  // // 鹅膏菌
-  // {
-  //   key: SnowOtherEventKey.MushroomEGao,
-  //   title: "路边有几丛蘑菇",
-  //   eventType: EventType.Mushroom,
-  //   eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_EGAO,
-  //   options: [
-  //     {
-  //       key: SnowOtherOptionKey.MushroomEGao_1,
-  //       title: "采",
-  //       equipments: {
-  //         [EquipmentKey.MushroomEGao]: 3,
-  //       },
-  //     },
-  //     {
-  //       key: SnowOtherOptionKey.MushroomEGao_2,
-  //       title: "不采",
-  //     },
-  //   ],
-  // },
-  // // 毒蝇菌
-  // {
-  //   key: SnowOtherEventKey.MushroomDuYing,
-  //   title: "路边有几丛蘑菇",
-  //   eventType: EventType.Mushroom,
-  //   eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_DUYING,
-  //   options: [
-  //     {
-  //       key: SnowOtherOptionKey.MushroomDuYing_1,
-  //       title: "采",
-  //       equipments: {
-  //         [EquipmentKey.MushroomDuYing]: 3,
-  //       },
-  //     },
-  //     {
-  //       key: SnowOtherOptionKey.MushroomDuYing_2,
-  //       title: "不采",
-  //     },
-  //   ],
-  // },
-  // // 见手青
-  // {
-  //   key: SnowOtherEventKey.MushroomJianShouQing,
-  //   title: "路边有几丛蘑菇",
-  //   eventType: EventType.Mushroom,
-  //   eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIANSHOUQING,
-  //   options: [
-  //     {
-  //       key: SnowOtherOptionKey.MushroomJianShouQing_1,
-  //       title: "采",
-  //       equipments: {
-  //         [EquipmentKey.Mushroom_JianShouQing]: 3,
-  //       },
-  //     },
-  //     {
-  //       key: SnowOtherOptionKey.MushroomJianShouQing_2,
-  //       title: "不采",
-  //     },
-  //   ],
-  // },
-  // // 棍子
-  // {
-  //   key: SnowOtherEventKey.OtherIce_Stick,
-  //   title: "路边有一根削得尖尖的棍子",
-  //   eventType: EventType.Item,
-  //   options: [
-  //     {
-  //       title: "拿",
-  //       key: SnowOtherOptionKey.OtherIce_Stick_1,
-  //       equipments: {
-  //         [EquipmentKey.Spear]: 1,
-  //       },
-  //     },
-  //     {
-  //       title: "不拿",
-  //       key: SnowOtherOptionKey.OtherIce_Stick_2,
-  //     },
-  //   ],
-  // },
+  // 蘑菇相关
+  // 鸡油菌
+  {
+    key: SnowOtherEventKey.MushroomJiYou,
+    title: "路边有几丛蘑菇",
+    eventType: EventType.Mushroom,
+    eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIYOU,
+    options: [
+      {
+        key: SnowOtherOptionKey.MushroomJiYou_1,
+        title: "采",
+        result: () => ({
+          equipments: {
+            [EquipmentKey.MushroomJiYou]: 3,
+          },
+        }),
+      },
+      {
+        key: SnowOtherOptionKey.MushroomJiYou_2,
+        title: "不采",
+      },
+    ],
+  },
+  // 香菇
+  {
+    key: SnowOtherEventKey.MushroomXiangGu,
+    title: "路边有几丛蘑菇",
+    eventType: EventType.Mushroom,
+    eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_XIANGGU,
+    options: [
+      {
+        key: SnowOtherOptionKey.MushroomXiangGu_1,
+        title: "采",
+        result: () => ({
+          equipments: {
+            [EquipmentKey.MushroomXiangGu]: 3,
+          },
+        }),
+      },
+      {
+        key: SnowOtherOptionKey.MushroomXiangGu_2,
+        title: "不采",
+      },
+    ],
+  },
+  // 鹅膏菌
+  {
+    key: SnowOtherEventKey.MushroomEGao,
+    title: "路边有几丛蘑菇",
+    eventType: EventType.Mushroom,
+    eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_EGAO,
+    options: [
+      {
+        key: SnowOtherOptionKey.MushroomEGao_1,
+        title: "采",
+        result: () => ({
+          equipments: {
+            [EquipmentKey.MushroomEGao]: 3,
+          },
+        }),
+      },
+      {
+        key: SnowOtherOptionKey.MushroomEGao_2,
+        title: "不采",
+      },
+    ],
+  },
+  // 毒蝇菌
+  {
+    key: SnowOtherEventKey.MushroomDuYing,
+    title: "路边有几丛蘑菇",
+    eventType: EventType.Mushroom,
+    eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_DUYING,
+    options: [
+      {
+        key: SnowOtherOptionKey.MushroomDuYing_1,
+        title: "采",
+        result: () => ({
+          equipments: {
+            [EquipmentKey.MushroomDuYing]: 3,
+          },
+        }),
+      },
+      {
+        key: SnowOtherOptionKey.MushroomDuYing_2,
+        title: "不采",
+      },
+    ],
+  },
+  // 见手青
+  {
+    key: SnowOtherEventKey.MushroomJianShouQing,
+    title: "路边有几丛蘑菇",
+    eventType: EventType.Mushroom,
+    eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIANSHOUQING,
+    options: [
+      {
+        key: SnowOtherOptionKey.MushroomJianShouQing_1,
+        title: "采",
+        result: () => ({
+          equipments: {
+            [EquipmentKey.Mushroom_JianShouQing]: 3,
+          },
+        }),
+      },
+      {
+        key: SnowOtherOptionKey.MushroomJianShouQing_2,
+        title: "不采",
+      },
+    ],
+  },
+  // 棍子
+  {
+    key: SnowOtherEventKey.OtherIce_Stick,
+    title: "路边有一根削得尖尖的棍子",
+    eventType: EventType.Item,
+    options: [
+      {
+        title: "拿",
+        key: SnowOtherOptionKey.OtherIce_Stick_1,
+        result: () => ({
+          equipments: {
+            [EquipmentKey.Spear]: 1,
+          },
+        }),
+      },
+      {
+        title: "不拿",
+        key: SnowOtherOptionKey.OtherIce_Stick_2,
+      },
+    ],
+  },
 
   // 危险类
 
@@ -288,65 +314,76 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
 ];
 
 export const MAIN_ICE_EVENTS: GameEvent[] = [
-  // {
-  //   key: MainEventKey.IceMain_RestStop_3,
-  //   title: "路遇休息亭",
-  //   eventType: EventType.Main,
-  //   distance: 3,
-  //   options: [
-  //     {
-  //       title: "去休息一下",
-  //       key: SnowMainOptionKey.IceMain_RestStop_3_1,
-  //       useTime: 0.5,
-  //     },
-  //     {
-  //       title: "不休息",
-  //       key: SnowMainOptionKey.IceMain_RestStop_3_2,
-  //     },
-  //   ],
-  // },
-  // {
-  //   key: MainEventKey.IceMain_Icefall_5_5,
-  //   title: "附近有个冰瀑，要去看看吗？",
-  //   eventType: EventType.Main,
-  //   distance: 5.5,
-  //   options: [
-  //     {
-  //       title: "去看看",
-  //       key: SnowMainOptionKey.IceMain_Icefall_5_5_1,
-  //       useTime: 0.5,
-  //       pics: [MAIN_PROLOAD.ICE_FALL],
-  //     },
-  //     {
-  //       title: "不去看",
-  //       key: SnowMainOptionKey.IceMain_Icefall_5_5_2,
-  //     },
-  //   ],
-  // },
-  // {
-  //   key: MainEventKey.IceMain_RestStop_8,
-  //   title: "休息亭",
-  //   eventType: EventType.Main,
-  //   distance: 8,
-  // },
-  // {
-  //   key: MainEventKey.IceMain_IceLake_9,
-  //   title: "登顶看到冰湖",
-  //   eventType: EventType.Main,
-  //   distance: 9,
-  // },
-  // {
-  //   key: MainEventKey.IceMain_RestStop_15,
-  //   title: "休息亭",
-  //   eventType: EventType.Main,
-  //   distance: 15,
-  // },
-  // {
-  //   key: MainEventKey.IceMain_Downhill_18,
-  //   title: "下山到底",
-  //   eventType: EventType.Main,
-  //   distance: 18,
-  // },
+  {
+    key: SnowMainEventKey.IceMain_RestStop_3,
+    title: "路遇休息亭",
+    eventType: EventType.Main,
+    distance: 0,
+    options: [
+      {
+        title: "休息一下",
+        key: SnowMainOptionKey.IceMain_RestStop_3_1,
+        result: () => ({
+          useTime: 30,
+        }),
+      },
+      {
+        title: "使用汽炉",
+        key: SnowMainOptionKey.IceMain_RestStop_3_1,
+        isShow: (equipments: Equipment[]) =>
+          !!equipments.find((item) => item.key === EquipmentKey.GasStove)
+            ?.count,
+      },
+      {
+        title: "不休息",
+        key: SnowMainOptionKey.IceMain_RestStop_3_2,
+      },
+    ],
+  },
+  {
+    key: SnowMainEventKey.IceMain_Icefall_5_5,
+    title: "附近有个冰瀑，要去看看吗？",
+    eventType: EventType.Main,
+    distance: 5.5,
+    options: [
+      {
+        title: "去看看",
+        key: SnowMainOptionKey.IceMain_Icefall_5_5_1,
+        result: () => ({
+          useTime: 0.5,
+          optionPics: [MAIN_PROLOAD.ICE_FALL],
+        }),
+      },
+      {
+        title: "不去看",
+        key: SnowMainOptionKey.IceMain_Icefall_5_5_2,
+      },
+    ],
+  },
+  {
+    key: SnowMainEventKey.IceMain_RestStop_8,
+    title: "休息亭",
+    eventType: EventType.Main,
+    distance: 8,
+  },
+  {
+    key: SnowMainEventKey.IceMain_IceLake_9,
+    title: "登顶看到冰湖",
+    eventType: EventType.Main,
+    distance: 9,
+  },
+  {
+    key: SnowMainEventKey.IceMain_RestStop_15,
+    title: "休息亭",
+    eventType: EventType.Main,
+    distance: 15,
+  },
+  {
+    key: SnowMainEventKey.IceMain_Downhill_18,
+    title: "下山到底",
+    eventType: EventType.Main,
+    distance: 18,
+  },
 
   // 坏结局
   // 你死了
