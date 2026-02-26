@@ -6,6 +6,7 @@ import classNames from "classnames";
 import { useCook } from "./hook";
 import { STOVE_PRELOAD } from "@/const/ResourceUrl";
 import { CenterCard } from "@/pages/main/components/center-card";
+import { EQUIPMENTS } from "@/store/equipment/config";
 
 export const Stove = () => {
   const { equipments } = useEquipmentStore();
@@ -23,12 +24,8 @@ export const Stove = () => {
   const cookDisabled = !!animation || !selectedFoods.length;
 
   const onSelect = (key: EquipmentKey) => {
-    if (selectedFoods.includes(key)) {
-      selectedFoods.splice(selectedFoods.indexOf(key), 1);
-      setSelectedFoods([...selectedFoods]);
-    } else {
-      setSelectedFoods([...selectedFoods, key]);
-    }
+    if (selectedFoods.length >= 4) return;
+    setSelectedFoods([...selectedFoods, key]);
   };
   const onReturn = () => {};
 
@@ -53,6 +50,11 @@ export const Stove = () => {
     }, 2000);
   }, [animation]);
 
+  const onUnSelect = (index: number) => {
+    selectedFoods.splice(index, 1);
+    setSelectedFoods([...selectedFoods]);
+  };
+
   // 目前不启用自动关闭toast
   // useEffect(() => {
   //   if (!toast) return;
@@ -64,6 +66,20 @@ export const Stove = () => {
   return (
     <section className="stoveBkWrapper">
       <section className="stoveWrapper">
+        <section className="storageWrapper">
+          {new Array(4).fill(0).map((_, index) => (
+            <section
+              key={index}
+              className="storageItemWrapper"
+              onClick={() => onUnSelect(index)}
+            >
+              {selectedFoods[index] && (
+                <img src={EQUIPMENTS[selectedFoods[index]].src} width="70%" />
+              )}
+              <img src={STOVE_PRELOAD.SELECTED} className="bk" />
+            </section>
+          ))}
+        </section>
         <section className="imgWrapper">
           <img className="stove" width="300px" src={STOVE_PRELOAD.STOVE} />
           <img
@@ -82,7 +98,6 @@ export const Stove = () => {
             <section
               className={classNames({
                 foodItemWrapper: true,
-                foodItemWrapperSelected: selectedFoods.includes(item.key),
               })}
               onClick={() => onSelect(item.key)}
             >

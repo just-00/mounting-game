@@ -8,31 +8,40 @@
   backdrop-filter: blur(4px);
   z-index: 2;
   display: flex;
-  align-items: center;
   justify-content: center;
   .stoveWrapper {
-    .buttonWrapper {
-      margin-top: 24px;
+    .storageWrapper {
       display: flex;
-      justify-content: space-between;
-      padding: 0 32px;
-      .button {
-        @extend .third;
-        font-size: 32px;
-      }
-      .button.disabled {
-        background: linear-gradient(
-          135deg,
-          #b9b0a0 0%,
-          #c8c2b0 50%,
-          #b9b0a0 100%
-        );
+      align-items: center;
+      padding-left: 16px;
+      padding-top: 32px;
+      column-gap: 8px;
+      .storageItemWrapper {
+        position: relative;
+        box-sizing: border-box;
+        border-radius: 4px;
+        width: calc((100vw - 32px - 24px) / 4);
+        height: calc((100vw - 32px - 24px) / 4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .bk {
+          position: absolute;
+          top: 0;
+          right: 0;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+        }
       }
     }
     .imgWrapper {
       display: flex;
       justify-content: center;
       position: relative;
+      padding-top: 16px;
       .pot {
         position: absolute;
         top: 57px;
@@ -54,7 +63,9 @@
         }
       }
     }
+
     .foodWrapper {
+      margin-top: 32px;
       display: flex;
       align-items: center;
       flex-wrap: wrap;
@@ -65,7 +76,7 @@
         background: rgba(245, 240, 225, 0.5);
         border: 1px solid rgba(245, 240, 225);
         border-radius: 4px;
-        width: calc((100vw - 32px - 48px) / 4);
+        width: calc((100vw - 32px - 68px) / 5);
         .img {
           width: 100%;
           height: 100%;
@@ -73,6 +84,27 @@
       }
       .foodItemWrapper.foodItemWrapperSelected {
         background: rgba(245, 240, 225, 0.8);
+      }
+    }
+    .buttonWrapper {
+      position: absolute;
+      bottom: 16px;
+      left: 0;
+      right: 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 0 32px;
+      .button {
+        @extend .third;
+        font-size: 32px;
+      }
+      .button.disabled {
+        background: linear-gradient(
+          135deg,
+          #b9b0a0 0%,
+          #c8c2b0 50%,
+          #b9b0a0 100%
+        );
       }
     }
   }

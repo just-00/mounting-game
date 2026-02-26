@@ -20,9 +20,9 @@ export interface Equipment {
   // 只可用一次
   disposable?: boolean;
   // 不可烹饪
-  cantCook?: boolean
+  cantCook?: boolean;
   // 使用后的副作用
-  effect?: Effect
+  effect?: Effect;
 }
 
 export enum EquipmentKey {
@@ -42,7 +42,7 @@ export enum EquipmentKey {
   // 鹅膏菌
   MushroomEGao = "MushroomEGao",
   // 见手青
-  Mushroom_JianShouQing = 'Mushroom_JianShouQing',
+  Mushroom_JianShouQing = "Mushroom_JianShouQing",
   Egg = "egg",
   BeastSteak = "BeastSteak",
   SportsDrink = "sportsDrink",
@@ -50,7 +50,17 @@ export enum EquipmentKey {
   SelfHeatingPot = "selfHeatingPot",
   // 菜肴
   // 湿腻焦糊
-  EWW = 'EWW',
+  EWW = "EWW",
+  // 毒蘑菇杂烩
+  PoisonMushroomMixed = "PoisonMushroomMixed",
+  // 蘑菇杂烩
+  MushroomMixed = 'MushroomMixed',
+  // 自热锅杂烩
+  SelfHeatingPotMixed = "SelfHeatingPotMixed",
+  // 煎肉排
+  FriedSteak = 'FriedSteak',
+  // 肉排杂烩
+  FriedSteakMixed = 'FriedSteakMixed',
 
   Spear = "Spear",
   HikingPole = "hikingPole",

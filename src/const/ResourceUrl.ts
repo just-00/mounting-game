@@ -80,6 +80,7 @@ export const STOVE_PRELOAD = {
   STOVE:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/50c1b855d4f64325857efc1c11f3ad25.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview%20(1).png",
   POT: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5a4d99334ca549518667704f19c29201.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview%20(1).png",
+  SELECTED: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5dc652631df1434e89a46859a3876f0f.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview%20(2).png"
 };
 
 export const PANNEL_ITEM_PRELOAD = {

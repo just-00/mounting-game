@@ -1,8 +1,8 @@
 import { create } from "zustand";
-import { EQUIPMENTS } from "./config";
 import { add, mul } from "@/utils/number";
 import type { Equipment } from "./type";
 import { subscribeWithSelector } from "zustand/middleware";
+import { EQUIPMENTS_INIT } from "./config";
 
 interface EquipmentStore {
   equipments: Equipment[];
@@ -13,7 +13,7 @@ interface EquipmentStore {
 }
 
 const INIT_STORE = {
-  equipments: EQUIPMENTS,
+  equipments: EQUIPMENTS_INIT,
   totalSize: 0,
   totalWeight: 0,
 };

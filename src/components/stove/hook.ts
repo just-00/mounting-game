@@ -27,6 +27,7 @@ export const useCook = () => {
         )
       ) {
         // 得到毒蘑菇杂烩
+        doneDish = EquipmentKey.PoisonMushroomMixed;
         break;
       }
 
@@ -42,27 +43,49 @@ export const useCook = () => {
           doneDish = EquipmentKey.SelfHeatingPot;
         }
         // 自热锅火锅杂烩
+        doneDish = EquipmentKey.SelfHeatingPotMixed;
         break;
       }
 
-      if (select.find((item) => item === EquipmentKey.Mushroom_JianShouQing)) {
-        // 见手青菜肴
+      if (
+        select.every((item) =>
+          [
+            EquipmentKey.MushroomJiYou,
+            EquipmentKey.MushroomXiangGu,
+            EquipmentKey.Mushroom_JianShouQing,
+          ].includes(item),
+        )
+      ) {
+        // 蘑菇杂烩
+        doneDish = EquipmentKey.MushroomMixed;
         break;
       }
 
       if (select.find((item) => item === EquipmentKey.BeastSteak)) {
         if (select.length === 1) {
           // 煎肉排
+          doneDish = EquipmentKey.FriedSteak;
         }
         // 肉排杂烩
+        doneDish = EquipmentKey.FriedSteakMixed;
         break;
       }
+
+      doneDish = EquipmentKey.EWW;
+      break;
     }
 
+    // 执行减去的菜的副作用，并且计算toast
     const { toast } = computeEffect(effect);
+    // 执行增加的菜的副作用
+    computeEffect({
+      equipments: {
+        [doneDish]: 1,
+      },
+    });
 
     return {
-      toast: `${toast}<br/><b>锵锵！${EQUIPMENTS.find((item) => item.key === doneDish)?.name}做好了！</b>`,
+      toast: `${toast}<br/><b>锵锵！${EQUIPMENTS[doneDish]?.name}做好了！</b>`,
     };
   };
   return { cook };

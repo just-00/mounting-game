@@ -1,7 +1,7 @@
 import { useEnvironmenStore } from "../environment/store";
 import type { Weather } from "../environment/type";
 import { useEquipmentStore } from "../equipment/store";
-import type { Equipment } from "../equipment/type";
+import type { Equipment, EquipmentKey } from "../equipment/type";
 import type { Option } from "../event/type";
 import { useStatusStore } from "../status/store";
 import { EQUIPMENTS } from "../equipment/config";
@@ -60,7 +60,7 @@ export const ToastText: {
   equipments: (val: { [key: string]: number }) => {
     return Object.entries(val)
       .map(([key, value]) => {
-        return `${EQUIPMENTS.find((item) => item.key === key)?.name}${value > 0 ? "增加" : "减少"}了${Math.abs(value)}个`;
+        return `${EQUIPMENTS[key as EquipmentKey].name}${value > 0 ? "增加" : "减少"}了${Math.abs(value)}个`;
       })
       .join("<br/>");
   },
