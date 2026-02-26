@@ -20,6 +20,14 @@
         @extend .third;
         font-size: 32px;
       }
+      .button.disabled {
+        background: linear-gradient(
+          135deg,
+          #b9b0a0 0%,
+          #c8c2b0 50%,
+          #b9b0a0 100%
+        );
+      }
     }
     .imgWrapper {
       display: flex;
@@ -30,13 +38,18 @@
         top: 57px;
         right: 116px;
         z-index: 1;
-
         @keyframes stoveSwave {
-          from {
+          0% {
+            transform: rotateZ(0) scale(1);
+          }
+          33% {
+            transform: rotateZ(2deg) scale(1.05);
+          }
+          66% {
             transform: rotateZ(-3deg) scale(1.1);
           }
-          to {
-            transform: rotateZ(2deg) scale(1);
+          100% {
+            transform: rotateZ(0) scale(1);
           }
         }
       }

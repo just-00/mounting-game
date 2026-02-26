@@ -128,8 +128,12 @@ export const useGameEffect = () => {
     }
 
     // 选项有effect项（Equipment的情况下）
-    if ("effect" in obj) {
+    else if ("effect" in obj) {
       effect = obj.effect;
+    }
+    // 如果都没有则是单Effect
+    else{
+      effect = obj as Effect
     }
 
     // 如果没有副作用，直接返回
@@ -139,7 +143,6 @@ export const useGameEffect = () => {
 
     // 是否有新增成就
     let newAchived: boolean = false;
-
     // 增加成就
     effect.achievements?.forEach((item) => {
       if (!achieved.includes(item)) {

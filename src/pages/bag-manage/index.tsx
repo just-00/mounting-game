@@ -42,7 +42,7 @@ const BagManage = () => {
   const onUse = () => {
     if (!equipment) return;
     if (equipment.effect?.endKey) {
-      setMounting(false)
+      setMounting(false);
       setCurrentEventByKey(equipment.effect.endKey);
       navigate(-1);
       return;
@@ -54,7 +54,7 @@ const BagManage = () => {
       count: final,
     });
     const { toast, newAchived } = computeEffect(equipment);
-    console.log(newAchived)
+    console.log(newAchived);
     if (toast) {
       setToast(toast);
     }
@@ -100,25 +100,34 @@ const BagManage = () => {
       )}
 
       <section className="mainWrapper">
-        {filterEquipments.map((item) => {
-          return (
-            <section
-              key={item.key}
-              className={classNames({
-                itemWrapper: true,
-                isSelected: equipment?.key === item.key,
-              })}
-              onClick={() => {
-                onSelectEquipment(item);
-              }}
-            >
-              <img src={item.src} className="img" />
-              <div className="itemTitle">
-                {item.name}x{item.count}
-              </div>
-            </section>
-          );
-        })}
+        {/* 菜肴在前面 */}
+        {/* WIP 搞个装备类型优先级 */}
+        {filterEquipments
+          .sort((item) => {
+            if (item.type === EquipmentType.DISH) {
+              return 1;
+            }
+            return 0;
+          })
+          .map((item) => {
+            return (
+              <section
+                key={item.key}
+                className={classNames({
+                  itemWrapper: true,
+                  isSelected: equipment?.key === item.key,
+                })}
+                onClick={() => {
+                  onSelectEquipment(item);
+                }}
+              >
+                <img src={item.src} className="img" />
+                <div className="itemTitle">
+                  {item.name}x{item.count}
+                </div>
+              </section>
+            );
+          })}
       </section>
       {!!filterEquipments.length && (
         <section className="buttonWrapper">
