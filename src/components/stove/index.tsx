@@ -7,8 +7,10 @@ import { useCook } from "./hook";
 import { STOVE_PRELOAD } from "@/const/ResourceUrl";
 import { CenterCard } from "@/pages/main/components/center-card";
 import { EQUIPMENTS } from "@/store/equipment/config";
+import { useSettingStore } from "@/store/setting";
 
 export const Stove = () => {
+  const setIsStove = useSettingStore().setIsStove;
   const { equipments } = useEquipmentStore();
   const { cook } = useCook();
   const [selectedFoods, setSelectedFoods] = useState<EquipmentKey[]>([]);
@@ -27,7 +29,9 @@ export const Stove = () => {
     if (selectedFoods.length >= 4) return;
     setSelectedFoods([...selectedFoods, key]);
   };
-  const onReturn = () => {};
+  const onReturn = () => {
+    setIsStove(false);
+  };
 
   const onCook = () => {
     // disabled下按了没用

@@ -4,8 +4,10 @@ import { GameDialog } from "./components/dialog";
 import { Outlet } from "react-router-dom";
 import { MainPannel } from "@/components/pannelItem";
 import { Stove } from "@/components/stove";
+import { useSettingStore } from "@/store/setting";
 
 const Main = () => {
+  const isStove = useSettingStore().isStove;
   return (
     <section className="mainPage">
       <GameDialog />
@@ -14,7 +16,8 @@ const Main = () => {
         <MainPannel />
       </section>
       <Bird isFlying />
-      <Stove />
+      {isStove && <Stove />}
+
       {/* 展示背包管理 */}
       <Outlet />
     </section>

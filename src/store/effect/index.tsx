@@ -19,13 +19,15 @@ export type SelectedEquipmentKeys =
   | "injuried"
   | "hunger"
   | "poison"
-  | "achievements";
+  | "achievements"
+  | "toast";
 
 type EquipmentValueType =
   | number
   | Weather
   | boolean
   | Poison
+  | string
   | AchievementKey[]
   | {
       [key: string]: number;
@@ -45,6 +47,7 @@ type ToastTextMap = {
   endKey: string;
   endTitle: string;
   achievements: AchievementKey[];
+  toast: string;
 };
 
 export type Effect = Partial<ToastTextMap>;
@@ -68,6 +71,7 @@ export const ToastText: {
   hunger: (val: number) => `饥饿度提升了${val}`,
   poison: () =>
     `你中毒了<br/>你的精神值降低了<br/>你的体温降低了<br/>你的速度降低了`,
+  toast: undefined,
 };
 
 // 获取装备使用的toast文案
@@ -132,8 +136,8 @@ export const useGameEffect = () => {
       effect = obj.effect;
     }
     // 如果都没有则是单Effect
-    else{
-      effect = obj as Effect
+    else {
+      effect = obj as Effect;
     }
 
     // 如果没有副作用，直接返回
@@ -194,9 +198,9 @@ export const useGameEffect = () => {
       }
     }
 
-    // 返回toast供给
-    const toast = getToast(effect);
-    return { ...effect, toast: toast, newAchived };
+    // 如果动态计算出了toast，使用动态计算的
+    const toast = effect.toast ?? getToast(effect);
+    return { ...effect, toast, newAchived };
   };
 
   return { computeEffect, resetAll };

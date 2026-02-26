@@ -318,7 +318,7 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
     key: SnowMainEventKey.IceMain_RestStop_3,
     title: "路遇休息亭",
     eventType: EventType.Main,
-    distance: 0,
+    distance: 3,
     options: [
       {
         title: "休息一下",
@@ -480,7 +480,7 @@ const getBeastFightResult = (animal: string, equipments: Equipment[]) => {
   }
   return {
     toast: `${toast}${effectToast}`,
-    effect,
+    ...effect,
     achievements,
   };
 };
