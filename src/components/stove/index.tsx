@@ -15,8 +15,17 @@ export const Stove = () => {
   const { cook } = useCook();
   const [selectedFoods, setSelectedFoods] = useState<EquipmentKey[]>([]);
   // 烹饪导致的toast
-  const toastRef = useRef<string>("");
-  const [toast, setToast] = useState<string>();
+  const toastRef = useRef<{
+    text?: string;
+    img?: string;
+  }>({});
+  const [toast, setToast] = useState<
+    | {
+        text?: string;
+        img?: string;
+      }
+    | undefined
+  >();
   // 烹饪动画
   const [animation, setAnimation] = useState<boolean>(false);
 
@@ -39,8 +48,11 @@ export const Stove = () => {
 
     // 开始烹饪动画
     setAnimation(true);
-    const { toast } = cook(selectedFoods);
-    toastRef.current = toast!;
+    const { toast, doneDish } = cook(selectedFoods);
+    toastRef.current = {
+      text: toast,
+      img: EQUIPMENTS[doneDish].src,
+    };
   };
 
   useEffect(() => {
@@ -48,7 +60,7 @@ export const Stove = () => {
 
     setTimeout(() => {
       // 动画结束后展示toast
-      setToast(toastRef.current);
+      setToast({ ...toastRef.current });
       setAnimation(false);
       setSelectedFoods([]);
     }, 2000);
@@ -124,16 +136,19 @@ export const Stove = () => {
           </div>
         </section>
       </section>
-      {toast && (
+      {toast?.text && (
         <CenterCard
           closable
+          mask
           onClose={() => {
-            setToast("");
+            setToast(undefined);
           }}
+          needPlate
+          imgSrc={toast.img}
           content={
             <div
               className="centerCardToastWrapper"
-              dangerouslySetInnerHTML={{ __html: toast }}
+              dangerouslySetInnerHTML={{ __html: toast.text }}
             ></div>
           }
         />

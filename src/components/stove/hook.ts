@@ -90,6 +90,7 @@ export const useCook = () => {
 
     return {
       toast: `${toast}<br/><b>锵锵！${EQUIPMENTS[doneDish]?.name}做好了！</b>`,
+      doneDish,
     };
   };
   return { cook };

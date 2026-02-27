@@ -67,7 +67,7 @@ export const SELECT_EQUIPMENT_PRELOAD = {
   MUSHROOM_MIXED:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/cc9284016de24533ae4fadbd77228bee.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
   POISON_MUSHROOM_MIXED:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0c01a0c555fb4eeaa6c405e15fb4d9ab.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/9dfe8a0821ec4049b9fb9d5f572a6898.jpeg_tplv-a9rns2rl98-image_raw_b__2_-removebg-preview%20(1)%20(1).png",
   // 牛排系列
   FRIED_STEAK:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/f7bba899a437406393f0e8207169893b.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
@@ -91,7 +91,7 @@ export const SELECT_EQUIPMENT_PRELOAD = {
   STIR_FRIED:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/fca201c4fdc340a4996c526ad52a33a8.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
   STIR_FRIED_LUXURY:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/9f9764b8f6a04fb3a8b57d06120a6437.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/12af5047d3624d06823f89ec7a16591b.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview%20(1)%20(1).png",
 
   EWW: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/be06dc54a2464a64baadf59616c5ea2e.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
   SELF_HEATING_POT_MIXED:
