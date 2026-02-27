@@ -4,81 +4,7 @@ import { EquipmentKey, EquipmentType, type Equipment } from "./type";
 import { SnowMainEventKey } from "../event/config/type";
 
 export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
-  [EquipmentKey.EWW]: {
-    key: EquipmentKey.EWW,
-    name: "湿腻焦糊",
-    weight: 0.2,
-    size: 0.2,
-    src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIANSHOUQING,
-    disposable: true,
-    type: EquipmentType.DISH,
-    effect: {
-      san: -10,
-    },
-  },
-  [EquipmentKey.PoisonMushroomMixed]: {
-    key: EquipmentKey.PoisonMushroomMixed,
-    name: "不妙的蘑菇杂烩",
-    weight: 0.2,
-    size: 0.2,
-    src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIANSHOUQING,
-    disposable: true,
-    type: EquipmentType.DISH,
-    effect: {
-      san: -10,
-    },
-  },
-  [EquipmentKey.MushroomMixed]: {
-    key: EquipmentKey.MushroomMixed,
-    name: "蘑菇杂烩",
-    weight: 0.2,
-    size: 0.2,
-    src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIANSHOUQING,
-    disposable: true,
-    type: EquipmentType.DISH,
-    effect: {
-      san: -10,
-    },
-  },
-  [EquipmentKey.SelfHeatingPotMixed]: {
-    key: EquipmentKey.SelfHeatingPotMixed,
-    name: "自热锅杂烩",
-    weight: 0.3,
-    size: 0.4,
-    src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIANSHOUQING,
-    disposable: true,
-    type: EquipmentType.DISH,
-    effect: {
-      warm: 15,
-      hunger: 20,
-    },
-  },
-  [EquipmentKey.FriedSteak]: {
-    key: EquipmentKey.FriedSteak,
-    name: "煎肉排",
-    weight: 0.3,
-    size: 0.4,
-    src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIANSHOUQING,
-    disposable: true,
-    type: EquipmentType.DISH,
-    effect: {
-      warm: 15,
-      hunger: 20,
-    },
-  },
-  [EquipmentKey.FriedSteakMixed]: {
-    key: EquipmentKey.FriedSteakMixed,
-    name: "肉排杂烩",
-    weight: 0.3,
-    size: 0.4,
-    src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIANSHOUQING,
-    disposable: true,
-    type: EquipmentType.DISH,
-    effect: {
-      warm: 15,
-      hunger: 20,
-    },
-  },
+  // 食物
   [EquipmentKey.MushroomJiYou]: {
     key: EquipmentKey.MushroomJiYou,
     name: "某种蘑菇",
@@ -128,8 +54,8 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
       endKey: SnowMainEventKey.IceMain_Poison_BadEnd,
     },
   },
-  [EquipmentKey.Mushroom_JianShouQing]: {
-    key: EquipmentKey.Mushroom_JianShouQing,
+  [EquipmentKey.MushroomJianShouQing]: {
+    key: EquipmentKey.MushroomJianShouQing,
     name: "某种蘑菇",
     weight: 0.2,
     size: 0.2,
@@ -140,28 +66,28 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
       poison: Poison.JianShouQing,
     },
   },
-  [EquipmentKey.BeastSteak]: {
-    key: EquipmentKey.BeastSteak,
-    name: "野兽肉排",
-    weight: 0.3,
-    size: 0.4,
-    src: SELECT_EQUIPMENT_PRELOAD.SELF_HEATING_POT,
-    disposable: true,
-    type: EquipmentType.Food,
-    effect: {
-      hunger: 20,
-    },
-  },
   [EquipmentKey.Egg]: {
     key: EquipmentKey.Egg,
     name: "鸡蛋",
     weight: 0.2,
     size: 1,
-    src: SELECT_EQUIPMENT_PRELOAD.SELF_HEATING_POT,
+    src: SELECT_EQUIPMENT_PRELOAD.EGG,
     disposable: true,
     type: EquipmentType.Food,
     effect: {
       hunger: 5,
+    },
+  },
+  [EquipmentKey.BeastSteak]: {
+    key: EquipmentKey.BeastSteak,
+    name: "野兽肉排",
+    weight: 0.3,
+    size: 0.4,
+    src: SELECT_EQUIPMENT_PRELOAD.BeastSteak,
+    disposable: true,
+    type: EquipmentType.Food,
+    effect: {
+      hunger: 20,
     },
   },
   [EquipmentKey.SportsDrink]: {
@@ -202,12 +128,221 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
       warm: 10,
     },
   },
+  // 菜肴
+  [EquipmentKey.ScrambledMushroom]: {
+    key: EquipmentKey.ScrambledMushroom,
+    name: "蘑菇杂烩",
+    weight: 0.2,
+    size: 0.2,
+    src: SELECT_EQUIPMENT_PRELOAD.SCRAMBLED_MUSHROOM,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      san: -10,
+    },
+  },
+  [EquipmentKey.PoisonMushroom]: {
+    key: EquipmentKey.PoisonMushroom,
+    name: "蘑菇杂烩",
+    weight: 0.2,
+    size: 0.2,
+    src: SELECT_EQUIPMENT_PRELOAD.POISON__MUSHROOM,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      san: -10,
+    },
+  },
+  [EquipmentKey.MushroomMixed]: {
+    key: EquipmentKey.MushroomMixed,
+    name: "蘑菇杂烩",
+    weight: 0.2,
+    size: 0.2,
+    src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_MIXED,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      san: -10,
+    },
+  },
+  [EquipmentKey.PoisonMushroomMixed]: {
+    key: EquipmentKey.PoisonMushroomMixed,
+    name: "不妙的蘑菇杂烩",
+    weight: 0.2,
+    size: 0.2,
+    src: SELECT_EQUIPMENT_PRELOAD.POISON_MUSHROOM_MIXED,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      san: -10,
+    },
+  },
+  [EquipmentKey.FriedSteak]: {
+    key: EquipmentKey.FriedSteak,
+    name: "煎肉排",
+    weight: 0.3,
+    size: 0.4,
+    src: SELECT_EQUIPMENT_PRELOAD.FRIED_STEAK,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      warm: 15,
+      hunger: 20,
+    },
+  },
+  [EquipmentKey.FriedSteakMixed]: {
+    key: EquipmentKey.FriedSteakMixed,
+    name: "肉排杂烩",
+    weight: 0.3,
+    size: 0.4,
+    src: SELECT_EQUIPMENT_PRELOAD.FRIED_STEAK_MIXED,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      warm: 15,
+      hunger: 20,
+    },
+  },
+  [EquipmentKey.FriedSteakLuxury]: {
+    key: EquipmentKey.FriedSteakLuxury,
+    name: "肉排杂烩",
+    weight: 0.3,
+    size: 0.4,
+    src: SELECT_EQUIPMENT_PRELOAD.FRIED_STEAK_LUXURY,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      warm: 15,
+      hunger: 20,
+    },
+  },
+  [EquipmentKey.FriedSteakBreakfast]: {
+    key: EquipmentKey.FriedSteakBreakfast,
+    name: "肉排杂烩",
+    weight: 0.3,
+    size: 0.4,
+    src: SELECT_EQUIPMENT_PRELOAD.FRIED_STEAK_BREAKFAST,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      warm: 15,
+      hunger: 20,
+    },
+  },
+
+  [EquipmentKey.FriedEgg]: {
+    key: EquipmentKey.FriedEgg,
+    name: "肉排杂烩",
+    weight: 0.3,
+    size: 0.4,
+    src: SELECT_EQUIPMENT_PRELOAD.FRIED_EGG,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      warm: 15,
+      hunger: 20,
+    },
+  },
+  [EquipmentKey.ScrambledEgg]: {
+    key: EquipmentKey.ScrambledEgg,
+    name: "肉排杂烩",
+    weight: 0.3,
+    size: 0.4,
+    src: SELECT_EQUIPMENT_PRELOAD.SCRAMBLED_EGG,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      warm: 15,
+      hunger: 20,
+    },
+  },
+  [EquipmentKey.FriedBiscuit]: {
+    key: EquipmentKey.FriedBiscuit,
+    name: "肉排杂烩",
+    weight: 0.3,
+    size: 0.4,
+    src: SELECT_EQUIPMENT_PRELOAD.FRIED_BISCUIT,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      warm: 15,
+      hunger: 20,
+    },
+  },
+
+  [EquipmentKey.FriedBiscuitLuxury]: {
+    key: EquipmentKey.FriedBiscuitLuxury,
+    name: "肉排杂烩",
+    weight: 0.3,
+    size: 0.4,
+    src: SELECT_EQUIPMENT_PRELOAD.FRIED_BISCUIT_LUXURY,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      warm: 15,
+      hunger: 20,
+    },
+  },
+
+  [EquipmentKey.StirFried]: {
+    key: EquipmentKey.StirFried,
+    name: "肉排杂烩",
+    weight: 0.3,
+    size: 0.4,
+    src: SELECT_EQUIPMENT_PRELOAD.STIR_FRIED,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      warm: 15,
+      hunger: 20,
+    },
+  },
+
+  [EquipmentKey.StirFriedLuxury]: {
+    key: EquipmentKey.StirFriedLuxury,
+    name: "肉排杂烩",
+    weight: 0.3,
+    size: 0.4,
+    src: SELECT_EQUIPMENT_PRELOAD.STIR_FRIED_LUXURY,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      warm: 15,
+      hunger: 20,
+    },
+  },
+  [EquipmentKey.Eww]: {
+    key: EquipmentKey.Eww,
+    name: "湿腻焦糊",
+    weight: 0.2,
+    size: 0.2,
+    src: SELECT_EQUIPMENT_PRELOAD.EWW,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      san: -10,
+    },
+  },
+
+  [EquipmentKey.SelfHeatingPotMixed]: {
+    key: EquipmentKey.SelfHeatingPotMixed,
+    name: "自热锅杂烩",
+    weight: 0.3,
+    size: 0.4,
+    src: SELECT_EQUIPMENT_PRELOAD.SELF_HEATING_POT_MIXED,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      warm: 15,
+      hunger: 20,
+    },
+  },
   [EquipmentKey.GasStove]: {
     key: EquipmentKey.GasStove,
     name: "汽炉",
     weight: 0.8,
     size: 4,
-    src: SELECT_EQUIPMENT_PRELOAD.FIRST_AID_KIT,
+    src: SELECT_EQUIPMENT_PRELOAD.GAS_STOVE,
     type: EquipmentType.Tool,
     isSelectEquipmentShow: true,
   },
@@ -216,7 +351,7 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     name: "长矛",
     weight: 0.2,
     size: 0.2,
-    src: SELECT_EQUIPMENT_PRELOAD.SPORTS_DRINK,
+    src: SELECT_EQUIPMENT_PRELOAD.SPEAR,
     type: EquipmentType.Tool,
   },
   [EquipmentKey.HikingPole]: {
@@ -282,7 +417,7 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     name: "救生毯",
     weight: 0.1,
     size: 0.5,
-    src: SELECT_EQUIPMENT_PRELOAD.SURVIAL_BLANKET,
+    src: SELECT_EQUIPMENT_PRELOAD.SURVIVAL_BLANKET,
     disposable: true,
     type: EquipmentType.Warmth,
     isSelectEquipmentShow: true,
@@ -326,5 +461,4 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     type: EquipmentType.Warmth,
   },
 };
-
 export const EQUIPMENTS_INIT = Object.values(EQUIPMENTS);

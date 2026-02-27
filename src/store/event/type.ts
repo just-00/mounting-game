@@ -1,4 +1,4 @@
-import type { Effect } from "../effect";
+import type { Action, Effect } from "../effect";
 import type { Equipment } from "../equipment/type";
 
 export enum EventType {
@@ -35,15 +35,11 @@ export interface Option {
   title: string;
   // 下一个必会触发的后置事件key
   mustTriggerAfterKey?: string;
-
-  // 点击选项后会出现的图片
-  optionPics?: string[]
-
   // 计算是否出现这个选项
   isShow?: (equipments: Equipment[]) => boolean;
 
   // 算结果，返回结局key、toast、副作用、成就
-  result?: (equipments: Equipment[]) => Effect
+  result?: (equipments: Equipment[]) => { effect?: Effect; action?: Action };
 }
 
 export interface GameEvent {

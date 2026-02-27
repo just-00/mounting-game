@@ -109,15 +109,16 @@ export const GameDialog = () => {
   const onClick = async (option: Option) => {
     // 通过当前选项计算出toast
     const {
+      optionPics,
       toast,
       endKey,
       endTitle,
       newAchived = false,
     } = computeEffect(option);
     setNewAchived(newAchived);
-    if (option.optionPics?.length) {
-      for (let i = 0; i < option.optionPics.length; i++) {
-        setOptionPic(option.optionPics[i]);
+    if (optionPics?.length) {
+      for (let i = 0; i < optionPics.length; i++) {
+        setOptionPic(optionPics[i]);
         await timeoutPromise();
       }
       setOptionPic(undefined);

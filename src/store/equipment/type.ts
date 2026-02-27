@@ -26,11 +26,19 @@ export interface Equipment {
 }
 
 export enum EquipmentKey {
-  LightTent = "lightTent",
-  WarmTent = "warmTent",
-  SleepingBag = "sleepingBag",
-  FirstAidKit = "firstAidKit",
-  SurvivalBlanket = "survivalBlanket",
+  LightTent = "LightTent",
+  WarmTent = "WarmTent",
+  SleepingBag = "SleepingBag",
+  FirstAidKit = "FirstAidKit",
+  SurvivalBlanket = "SurvivalBlanket",
+  Spear = "Spear",
+  HikingPole = "HikingPole",
+  Crampons = "Crampons",
+  PowerBank = "PowerBank",
+  BearBell = "BearBell",
+  Headlamp = "Headlamp",
+  // 汽炉
+  GasStove = "GasStove",
 
   // 食物
   // 鸡油菌
@@ -42,34 +50,45 @@ export enum EquipmentKey {
   // 鹅膏菌
   MushroomEGao = "MushroomEGao",
   // 见手青
-  Mushroom_JianShouQing = "Mushroom_JianShouQing",
-  Egg = "egg",
+  MushroomJianShouQing = "MushroomJianShouQing",
+  Egg = "Egg",
   BeastSteak = "BeastSteak",
-  SportsDrink = "sportsDrink",
-  CompressedBiscuit = "compressedBiscuit",
-  SelfHeatingPot = "selfHeatingPot",
+  SportsDrink = "SportsDrink",
+  CompressedBiscuit = "CompressedBiscuit",
+  SelfHeatingPot = "SelfHeatingPot",
   // 菜肴
-  // 湿腻焦糊
-  EWW = "EWW",
+  // 炒蘑菇
+  ScrambledMushroom = "ScrambledMushroom",
+  // 炒毒蘑菇
+  PoisonMushroom = "PoisonMushroom",
+  // 蘑菇杂烩
+  MushroomMixed = "MushroomMixed",
   // 毒蘑菇杂烩
   PoisonMushroomMixed = "PoisonMushroomMixed",
-  // 蘑菇杂烩
-  MushroomMixed = 'MushroomMixed',
+  // 煎肉排
+  FriedSteak = "FriedSteak",
+  // 肉排杂烩
+  FriedSteakMixed = "FriedSteakMixed",
+  // 大肉汤
+  FriedSteakLuxury = "FriedSteakLuxury",
+  // 早餐锅
+  FriedSteakBreakfast = "FriedSteakBreakfast",
+  // 煎蛋
+  FriedEgg = "FriedEgg",
+  // 炒蛋
+  ScrambledEgg = "ScrambledEgg",
+  // 炒饼干
+  FriedBiscuit = "FriedBiscuit",
+  // 高能饼干条
+  FriedBiscuitLuxury = "FriedBiscuitLuxury",
+  // 炒菜
+  StirFried = "StirFried",
+  // 美味炒菜
+  StirFriedLuxury = "StirFriedLuxury",
+  // 湿腻焦糊
+  Eww = "Eww",
   // 自热锅杂烩
   SelfHeatingPotMixed = "SelfHeatingPotMixed",
-  // 煎肉排
-  FriedSteak = 'FriedSteak',
-  // 肉排杂烩
-  FriedSteakMixed = 'FriedSteakMixed',
-
-  Spear = "Spear",
-  HikingPole = "hikingPole",
-  Crampons = "crampons",
-  PowerBank = "powerBank",
-  BearBell = "bearBell",
-  Headlamp = "headlamp",
-  // 汽炉
-  GasStove = "GasStove",
 }
 
 export enum EquipmentType {

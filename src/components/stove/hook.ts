@@ -33,7 +33,7 @@ export const useCook = () => {
 
       // 做菜放运动饮料？喜提湿腻焦糊
       if (select.includes(EquipmentKey.SportsDrink)) {
-        doneDish = EquipmentKey.EWW;
+        doneDish = EquipmentKey.Eww;
         break;
       }
 
@@ -52,7 +52,7 @@ export const useCook = () => {
           [
             EquipmentKey.MushroomJiYou,
             EquipmentKey.MushroomXiangGu,
-            EquipmentKey.Mushroom_JianShouQing,
+            EquipmentKey.MushroomJianShouQing,
           ].includes(item),
         )
       ) {
@@ -71,16 +71,20 @@ export const useCook = () => {
         break;
       }
 
-      doneDish = EquipmentKey.EWW;
+      doneDish = EquipmentKey.Eww;
       break;
     }
 
     // 执行减去的菜的副作用，并且计算toast
-    const { toast } = computeEffect(effect);
+    const { toast } = computeEffect({
+      effect,
+    });
     // 执行增加的菜的副作用
     computeEffect({
-      equipments: {
-        [doneDish]: 1,
+      effect: {
+        equipments: {
+          [doneDish]: 1,
+        },
       },
     });
 

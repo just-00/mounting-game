@@ -53,9 +53,11 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
         key: SnowOtherOptionKey.Bear_2_2,
         title: "装死",
         result: () => ({
-          endKey: SnowMainEventKey.IceMain_Common_BadEnd,
-          endTitle: "熊不信，你死了",
-          achievements: [AchievementKey.BEAR_KO],
+          effect: {
+            endKey: SnowMainEventKey.IceMain_Common_BadEnd,
+            endTitle: "熊不信，你死了",
+            achievements: [AchievementKey.BEAR_KO],
+          },
         }),
       },
       {
@@ -67,9 +69,11 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
           );
           if (!foods.length) {
             return {
-              achievements: [AchievementKey.BEAR_KO],
-              endKey: SnowMainEventKey.IceMain_Common_BadEnd,
-              endTitle: "身上没有食物<br/>你死了",
+              effect: {
+                achievements: [AchievementKey.BEAR_KO],
+                endKey: SnowMainEventKey.IceMain_Common_BadEnd,
+                endTitle: "身上没有食物<br/>你死了",
+              },
             };
           }
           const ran = Math.floor(Math.random() * foods.length);
@@ -79,8 +83,10 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
             },
           };
           return {
-            ...effect,
-            toast: `${getToast(effect)}<br/>熊被吸引了注意力，你逃跑成功了！`,
+            effect: {
+              ...effect,
+              toast: `${getToast(effect)}<br/>熊被吸引了注意力，你逃跑成功了！`,
+            },
           };
         },
       },
@@ -99,8 +105,10 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
           !!equipments.find((item) => item.key === EquipmentKey.BeastSteak)
             ?.count,
         result: () => ({
-          equipments: {
-            [EquipmentKey.BeastSteak]: -1,
+          effect: {
+            equipments: {
+              [EquipmentKey.BeastSteak]: -1,
+            },
           },
         }),
       },
@@ -112,17 +120,21 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
             (item) => item.key === EquipmentKey.CompressedBiscuit,
           )?.count,
         result: () => ({
-          equipments: {
-            [EquipmentKey.CompressedBiscuit]: -1,
+          effect: {
+            equipments: {
+              [EquipmentKey.CompressedBiscuit]: -1,
+            },
           },
         }),
       },
-       {
+      {
         key: SnowOtherOptionKey.FOX_1_3,
         title: "踹它一脚",
         result: () => ({
-          endKey: SnowMainEventKey.IceMain_Common_BadEnd,
-          endTitle: '你被逮捕了'
+          effect: {
+            endKey: SnowMainEventKey.IceMain_Common_BadEnd,
+            endTitle: "你被逮捕了",
+          },
         }),
       },
       {
@@ -160,9 +172,11 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
         key: SnowOtherOptionKey.HotSpring_2_1,
         title: "美美泡一下",
         result: () => ({
-          useTime: 60,
-          warm: 30,
-          san: 5,
+          effect: {
+            useTime: 60,
+            warm: 30,
+            san: 5,
+          },
         }),
       },
       {
@@ -187,8 +201,10 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
         key: SnowOtherOptionKey.MushroomJiYou_1,
         title: "采",
         result: () => ({
-          equipments: {
-            [EquipmentKey.MushroomJiYou]: 3,
+          effect: {
+            equipments: {
+              [EquipmentKey.MushroomJiYou]: 3,
+            },
           },
         }),
       },
@@ -209,8 +225,10 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
         key: SnowOtherOptionKey.MushroomXiangGu_1,
         title: "采",
         result: () => ({
-          equipments: {
-            [EquipmentKey.MushroomXiangGu]: 3,
+          effect: {
+            equipments: {
+              [EquipmentKey.MushroomXiangGu]: 3,
+            },
           },
         }),
       },
@@ -231,8 +249,10 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
         key: SnowOtherOptionKey.MushroomEGao_1,
         title: "采",
         result: () => ({
-          equipments: {
-            [EquipmentKey.MushroomEGao]: 3,
+          effect: {
+            equipments: {
+              [EquipmentKey.MushroomEGao]: 3,
+            },
           },
         }),
       },
@@ -253,8 +273,10 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
         key: SnowOtherOptionKey.MushroomDuYing_1,
         title: "采",
         result: () => ({
-          equipments: {
-            [EquipmentKey.MushroomDuYing]: 3,
+          effect: {
+            equipments: {
+              [EquipmentKey.MushroomDuYing]: 3,
+            },
           },
         }),
       },
@@ -275,8 +297,10 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
         key: SnowOtherOptionKey.MushroomJianShouQing_1,
         title: "采",
         result: () => ({
-          equipments: {
-            [EquipmentKey.Mushroom_JianShouQing]: 3,
+          effect: {
+            equipments: {
+              [EquipmentKey.MushroomJianShouQing]: 3,
+            },
           },
         }),
       },
@@ -296,8 +320,10 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
         title: "拿",
         key: SnowOtherOptionKey.OtherIce_Stick_1,
         result: () => ({
-          equipments: {
-            [EquipmentKey.Spear]: 1,
+          effect: {
+            equipments: {
+              [EquipmentKey.Spear]: 1,
+            },
           },
         }),
       },
@@ -324,15 +350,19 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
         title: "休息一下",
         key: SnowMainOptionKey.IceMain_RestStop_3_1,
         result: () => ({
-          useTime: 30,
+          effect: {
+            useTime: 30,
+          },
         }),
       },
       {
-        title: "使用汽炉",
+        title: "使用炉子",
         key: SnowMainOptionKey.IceMain_RestStop_3_1,
-        isShow: (equipments: Equipment[]) =>
-          !!equipments.find((item) => item.key === EquipmentKey.GasStove)
-            ?.count,
+        result: () => ({
+          action: {
+            stove: true,
+          },
+        }),
       },
       {
         title: "不休息",
@@ -350,8 +380,10 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
         title: "去看看",
         key: SnowMainOptionKey.IceMain_Icefall_5_5_1,
         result: () => ({
-          useTime: 0.5,
-          optionPics: [MAIN_PROLOAD.ICE_FALL],
+          effect: {
+            useTime: 30,
+            optionPics: [MAIN_PROLOAD.ICE_FALL],
+          },
         }),
       },
       {
@@ -453,9 +485,11 @@ const getBeastFightResult = (animal: string, equipments: Equipment[]) => {
   if (beHitted > MAX / 2) {
     achievements.push(AchievementKey.BEAR_KO);
     return {
-      toast,
-      endKey: SnowMainEventKey.IceMain_Common_BadEnd,
-      achievements,
+      effect: {
+        toast,
+        endKey: SnowMainEventKey.IceMain_Common_BadEnd,
+        achievements,
+      },
     };
   }
 
@@ -479,8 +513,10 @@ const getBeastFightResult = (animal: string, equipments: Equipment[]) => {
     achievements.push(AchievementKey.BEAR_DAMAGE);
   }
   return {
-    toast: `${toast}${effectToast}`,
-    ...effect,
-    achievements,
+    effect: {
+      toast: `${toast}${effectToast}`,
+      ...effect,
+      achievements,
+    },
   };
 };

@@ -9,6 +9,7 @@ import { Poison, San, SanValue, Speed, Warm, WarmValue } from "../status/type";
 import type { AchievementKey } from "../achievement/type";
 import { useAchievementStore } from "../achievement/store";
 import { useEventStore } from "../event/store";
+import { useSettingStore } from "../setting";
 
 export type SelectedEquipmentKeys =
   | "warm"
@@ -48,9 +49,14 @@ type ToastTextMap = {
   endTitle: string;
   achievements: AchievementKey[];
   toast: string;
+  optionPics: string[];
 };
 
 export type Effect = Partial<ToastTextMap>;
+
+export type Action = {
+  stove?: boolean;
+};
 
 // toast中各项对应的计算函数
 export const ToastText: {
@@ -111,6 +117,7 @@ export const useGameEffect = () => {
     useEquipmentStore();
   const { resetEventStore } = useEventStore();
   const { achieved, addAchieved } = useAchievementStore();
+  const { setIsStove } = useSettingStore();
 
   const resetAll = () => {
     resetEnvironmentStore();
@@ -118,26 +125,43 @@ export const useGameEffect = () => {
     resetEventStore();
     resetStatusStore();
   };
-  type Result = {
-    toast?: string;
-    endKey?: string;
-    endTitle?: string;
+  type Result = Effect & {
     newAchived?: boolean;
   };
-  const computeEffect = (obj: Option | Equipment | Effect): Result => {
-    let effect;
+  const computeEffect = (
+    obj:
+      | Option
+      | Equipment
+      | {
+          effect?: Effect;
+          action?: Action;
+        },
+  ): Result => {
+    let effect: Effect | undefined = undefined;
+    let action: Action | undefined = undefined;
     // 选项有result项，进行计算（Option的情况下）
+    // 给行为赋值
+    if ("action" in obj && obj.action) {
+      action = obj.action;
+    }
     if ("result" in obj && obj.result) {
-      effect = obj.result(equipments);
+      const result = obj.result(equipments);
+      effect = result.effect;
+      if (result.action) {
+        action = result.action;
+      }
     }
 
     // 选项有effect项（Equipment的情况下）
     else if ("effect" in obj) {
-      effect = obj.effect;
+      effect = obj.effect as Effect;
     }
-    // 如果都没有则是单Effect
-    else {
-      effect = obj as Effect;
+
+    if (action) {
+      if (action.stove) {
+        // 使用炉子
+        setIsStove(action.stove);
+      }
     }
 
     // 如果没有副作用，直接返回

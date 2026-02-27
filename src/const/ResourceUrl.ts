@@ -12,17 +12,34 @@ export const SELECT_EQUIPMENT_PRELOAD = {
   SELECT_EQUIPMENT_BK:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0c72a9ddbb1a407997383021a90a19c1.jpeg%7Etplv-a9rns2rl98-image_raw_b%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1).png",
   LIGHT_TENT:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/a9a6e98d1c534ebbbd3c3f6ef570cd16.jpeg%7Etplv-a9rns2rl98-image_raw_b.png",
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/8fd6f7d3f9b341f290fec4dbe18d87cb.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  // WIP
   WARM_TENT:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/8fd6f7d3f9b341f290fec4dbe18d87cb.jpeg%7Etplv-a9rns2rl98-image_raw_b.png",
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/8fd6f7d3f9b341f290fec4dbe18d87cb.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
   SLEEPING_BAG:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5f22f0ba94e84abe958fc4315d716a97.jpeg%7Etplv-a9rns2rl98-image_raw_b.png",
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5f22f0ba94e84abe958fc4315d716a97.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
   FIRST_AID_KIT:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/f1e23c2d67ba42f58e54537a221a3dc0.jpeg~tplv-a9rns2rl98-image_pre_watermark_1_5b.png",
-  SURVIAL_BLANKET:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/13821f95dd364c5b89e3fe0878d709b1.jpeg%7Etplv-a9rns2rl98-image_raw_b.png",
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/f1e23c2d67ba42f58e54537a221a3dc0.jpeg_tplv-a9rns2rl98-image_pre_watermark_1_5b-removebg-preview.png",
+  SURVIVAL_BLANKET:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/13821f95dd364c5b89e3fe0878d709b1.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  HIKING_POLE:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/92d30f20f1dc43ecb2af663b3c54867c.jpeg_tplv-a9rns2rl98-image_pre_watermark_1_5b-removebg-preview.png",
+  SPEAR:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/2c62f30de3e044f485695e11d31080e8.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  CRAMPONS:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/6098beb7bcbb45a6bc07a0f3089258fe.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  POWER_BANK:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/7c41fcaadde449d38351189152dbe90b.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  BEAR_BELL:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/e5cd0abe1e0042a48178066b5e8d7c24.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  HEAD_LAMP:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/e5cd0abe1e0042a48178066b5e8d7c24.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  GAS_STOVE:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/1611b14e6a3345fc89c84bf79aac1281.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+
+  // 食物
   SPORTS_DRINK:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/f7687b0575eb4b93bed2d507d9bf7469.jpeg~tplv-a9rns2rl98-image_raw_b.png",
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/f7687b0575eb4b93bed2d507d9bf7469.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
   MUSHROOM_JIYOU:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/780966a645e446098a715e6d9b424248.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
   MUSHROOM_XIANGGU:
@@ -34,19 +51,51 @@ export const SELECT_EQUIPMENT_PRELOAD = {
   MUSHROOM_JIANSHOUQING:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/bf14966b24764b789cd904a6dd91a20f.jpeg_tplv-a9rns2rl98-image_pre_watermark_1_5b-removebg-preview.png",
   COMPRESSED_BISCUIT:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/3496e6a51d6844c181b139902585ac63.jpeg%7Etplv-a9rns2rl98-image_raw_b.png",
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/3496e6a51d6844c181b139902585ac63.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
   SELF_HEATING_POT:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/a708a7c3a2144e008ebc9de3d92cc654.jpeg%7Etplv-a9rns2rl98-image_raw_b.png",
-  HIKING_POLE:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/92d30f20f1dc43ecb2af663b3c54867c.jpeg~tplv-a9rns2rl98-image_pre_watermark_1_5b.png",
-  CRAMPONS:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/6098beb7bcbb45a6bc07a0f3089258fe.jpeg%7Etplv-a9rns2rl98-image_raw_b.png",
-  POWER_BANK:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/fe9e901e20464deca6cc04ccb32dd21a.jpeg~tplv-a9rns2rl98-image_raw_b.png",
-  BEAR_BELL:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/e5cd0abe1e0042a48178066b5e8d7c24.jpeg%7Etplv-a9rns2rl98-image_raw_b.png",
-  HEAD_LAMP:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5f5e831e03f54acda4f83438d5d5c9d8.jpeg%7Etplv-a9rns2rl98-image_raw_b.png",
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/e751b96b02954ad499c75ee4d01945ab.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  BeastSteak:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/1ccd47844f9c43f1ae83461cc52ddd67.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1).png",
+  EGG: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/d5b7f8f6d4f94c07bbbfb305641d6d38.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+
+  // 菜肴
+  // 蘑菇系列
+  SCRAMBLED_MUSHROOM:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/be0454992d454b18801f309bf9ff4f40.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  POISON__MUSHROOM:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/7c4918ebbc80490bb1bad8d40203aab0.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  MUSHROOM_MIXED:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/cc9284016de24533ae4fadbd77228bee.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  POISON_MUSHROOM_MIXED:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0c01a0c555fb4eeaa6c405e15fb4d9ab.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  // 牛排系列
+  FRIED_STEAK:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/f7bba899a437406393f0e8207169893b.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  FRIED_STEAK_MIXED:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/b51f109e871440799e423fa0e6ce40a5.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  FRIED_STEAK_LUXURY:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/29721efce358486b9f8b6fd79b271fa8.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  // 鸡蛋系列
+  FRIED_STEAK_BREAKFAST:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/c82402c051094f6b993244dbc29f8e75.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  FRIED_EGG:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/c60c50b905564d42b4c3d2847dda0a47.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  SCRAMBLED_EGG:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/7360ac9dd9d64d94885d1889b4ce394b.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  // 饼干系列
+  FRIED_BISCUIT:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5898cd4d903248529d4edcabef65d436.jpeg_tplv-a9rns2rl98-image_pre_watermark_1_5b-removebg-preview.png",
+  FRIED_BISCUIT_LUXURY:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/92cd5a0603724e84a15da4da02e6ce59.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  // 炒菜
+  STIR_FRIED:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/fca201c4fdc340a4996c526ad52a33a8.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  STIR_FRIED_LUXURY:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/9f9764b8f6a04fb3a8b57d06120a6437.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+
+  EWW: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/be06dc54a2464a64baadf59616c5ea2e.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  SELF_HEATING_POT_MIXED:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/8266da3bc5934a9f85a53361cf703a6b.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
 };
 
 export const DIALOG_PROLOAD = {
@@ -80,13 +129,14 @@ export const STOVE_PRELOAD = {
   STOVE:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/50c1b855d4f64325857efc1c11f3ad25.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview%20(1).png",
   POT: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5a4d99334ca549518667704f19c29201.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview%20(1).png",
-  SELECTED: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5dc652631df1434e89a46859a3876f0f.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview%20(2).png"
+  SELECTED:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5dc652631df1434e89a46859a3876f0f.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview%20(2).png",
 };
 
 export const PANNEL_ITEM_PRELOAD = {
   BAG: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/e016fe0ccc334a97a5f6dfa5213f91ff.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
   INJURIED:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/受伤.png",
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/_受伤_-28.png",
   HUNGER:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/饥饿.png",
 };
