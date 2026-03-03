@@ -166,6 +166,10 @@ export const ACHIEVEMENT_PRELOAD = {
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/76ed75a052fa40bcbbc646856109a8c6.jpeg%7Etplv-a9rns2rl98-image_raw_b.png",
 };
 
+export const COMMON_PRELOAD = {
+  BACK: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/fdb400c84183498c97f88240b4f576e9.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1).png",
+};
+
 export const ALL_RESOURCE = [
   ...Object.values(ROUTE_SELECT_PRELOAD),
   ...Object.values(SELECT_EQUIPMENT_PRELOAD),
@@ -176,4 +180,5 @@ export const ALL_RESOURCE = [
   ...Object.values(PANNEL_ITEM_PRELOAD),
   ...Object.values(CENTER_CARD_PRELOAD),
   ...Object.values(ACHIEVEMENT_PRELOAD),
+  ...Object.values(COMMON_PRELOAD),
 ];

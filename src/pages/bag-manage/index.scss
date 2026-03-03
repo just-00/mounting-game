@@ -7,12 +7,6 @@
   z-index: 3;
   background: linear-gradient(to bottom, #1a5f7a, #147d73);
   //   background: radial-gradient(circle, #1a5f7a 0%, #0f4a5e 100%);
-  .headerWrapper {
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 0;
-    color: rgba(255, 255, 255, 0.7);
-  }
   .placeholderWrapper {
     margin-top: 30%;
     display: flex;
@@ -47,7 +41,6 @@
           max-height: 100%;
           max-width: 100%;
           display: block;
-          border-radius: 4px 4px 0 0;
         }
         height: calc((100vw - 80px) / 4);
         display: flex;
@@ -60,7 +53,7 @@
         background: #2e8b57;
         padding: 6px 0;
         text-align: center;
-        border-radius: 0 0 4px 4px;
+        border-radius: 4px;
         margin-top: 4px;
       }
       .num {

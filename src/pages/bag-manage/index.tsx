@@ -8,6 +8,7 @@ import { useGameEffect } from "@/store/effect";
 import { useNavigate } from "react-router-dom";
 import { useEventStore } from "@/store/event/store";
 import { useSettingStore } from "@/store/setting";
+import { TitleCom } from "@/components/title";
 
 const BagManage = () => {
   const { setMounting } = useSettingStore();
@@ -33,10 +34,6 @@ const BagManage = () => {
 
   const onSelectEquipment = (eq: Equipment) => {
     setEquipment(eq);
-  };
-
-  const returnPage = () => {
-    navigate(-1);
   };
 
   const onUse = () => {
@@ -78,17 +75,7 @@ const BagManage = () => {
 
   return (
     <section className="bagManagePage">
-      <section className="headerWrapper">
-        <div onClick={returnPage}>返回</div>
-        <div>背包</div>
-        <div
-          style={{
-            visibility: "hidden",
-          }}
-        >
-          占位
-        </div>
-      </section>
+      <TitleCom title="背包" />
       {!filterEquipments.length && (
         <section className="placeholderWrapper">
           <div

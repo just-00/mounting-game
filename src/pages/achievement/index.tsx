@@ -1,4 +1,3 @@
-import { useNavigate } from "react-router-dom";
 import "./index.scss";
 import {
   AchievementType,
@@ -13,13 +12,10 @@ import { Popup } from "react-vant";
 import { useState } from "react";
 import { Success } from "@react-vant/icons";
 import classNames from "classnames";
+import { TitleCom } from "@/components/title";
 
 const Achievement = () => {
   const { achieved } = useAchievementStore();
-  const navigate = useNavigate();
-  const returnPage = () => {
-    navigate(-1);
-  };
   const [visible, setVisible] = useState<boolean>(false);
   const [select, setSelect] = useState<
     AchievementTypeMapItem & TypeAchievementItem
@@ -32,17 +28,7 @@ const Achievement = () => {
 
   return (
     <section className="achievementPage">
-      <section className="headerWrapper">
-        <div onClick={returnPage}>返回</div>
-        <div>成就</div>
-        <div
-          style={{
-            visibility: "hidden",
-          }}
-        >
-          占位
-        </div>
-      </section>
+       <TitleCom title="成就" />
       <section className="typeWrapper">
         {Object.entries(getTypedAchievements(achieved)).map(([key, value]) => {
           return (
