@@ -8,6 +8,7 @@ import { STOVE_PRELOAD } from "@/const/ResourceUrl";
 import { CenterCard } from "@/pages/main/components/center-card";
 import { EQUIPMENTS } from "@/store/equipment/config";
 import { useSettingStore } from "@/store/setting";
+import { BagCom } from "../pannelItem";
 
 export const Stove = () => {
   const setIsStove = useSettingStore().setIsStove;
@@ -35,7 +36,7 @@ export const Stove = () => {
   const cookDisabled = !!animation || !selectedFoods.length;
 
   const onSelect = (key: EquipmentKey) => {
-    if (selectedFoods.length >= 4) return;
+    if (selectedFoods.length >= 3) return;
     setSelectedFoods([...selectedFoods, key]);
   };
   const onReturn = () => {
@@ -83,18 +84,21 @@ export const Stove = () => {
     <section className="stoveBkWrapper">
       <section className="stoveWrapper">
         <section className="storageWrapper">
-          {new Array(4).fill(0).map((_, index) => (
-            <section
-              key={index}
-              className="storageItemWrapper"
-              onClick={() => onUnSelect(index)}
-            >
-              {selectedFoods[index] && (
-                <img src={EQUIPMENTS[selectedFoods[index]].src} width="70%" />
-              )}
-              <img src={STOVE_PRELOAD.SELECTED} className="bk" />
-            </section>
-          ))}
+          <section className="mainWrapper">
+            {new Array(3).fill(0).map((_, index) => (
+              <section
+                key={index}
+                className="storageItemWrapper"
+                onClick={() => onUnSelect(index)}
+              >
+                {selectedFoods[index] && (
+                  <img src={EQUIPMENTS[selectedFoods[index]].src} width="70%" />
+                )}
+                <img src={STOVE_PRELOAD.SELECTED} className="bk" />
+              </section>
+            ))}
+          </section>
+          <BagCom />
         </section>
         <section className="imgWrapper">
           <img className="stove" width="300px" src={STOVE_PRELOAD.STOVE} />

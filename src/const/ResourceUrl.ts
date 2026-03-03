@@ -131,10 +131,12 @@ export const STOVE_PRELOAD = {
   POT: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5a4d99334ca549518667704f19c29201.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview%20(1).png",
   SELECTED:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5dc652631df1434e89a46859a3876f0f.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview%20(2).png",
+  PLATE:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/09b3f38ec65748c78c48f01d4693915b.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview%20(1)%20(1)%20(1)%20(1)%20(1)%20(1).png",
 };
 
 export const PANNEL_ITEM_PRELOAD = {
-  BAG: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/e016fe0ccc334a97a5f6dfa5213f91ff.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  BAG: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/3b5923c5d57d4941a654da9007e8a539.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
   INJURIED:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/_受伤_-28.png",
   HUNGER:

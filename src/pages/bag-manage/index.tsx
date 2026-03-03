@@ -121,10 +121,11 @@ const BagManage = () => {
                   onSelectEquipment(item);
                 }}
               >
-                <img src={item.src} className="img" />
-                <div className="itemTitle">
-                  {item.name}x{item.count}
-                </div>
+                <section className="imgWrapper">
+                  <img src={item.src} className="img" />
+                </section>
+                <div className="itemTitle">{item.name}</div>
+                <span className="num">{item.count}</span>
               </section>
             );
           })}

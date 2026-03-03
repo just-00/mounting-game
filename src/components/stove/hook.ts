@@ -1,6 +1,6 @@
 import { useGameEffect, type Effect } from "@/store/effect";
-import { EQUIPMENTS } from "@/store/equipment/config";
-import { EquipmentKey } from "@/store/equipment/type";
+import { EQUIPMENTS, EQUIPMENTS_INIT } from "@/store/equipment/config";
+import { EquipmentKey, EquipmentType } from "@/store/equipment/type";
 
 export const useCook = () => {
   const { computeEffect } = useGameEffect();
@@ -11,68 +11,106 @@ export const useCook = () => {
       equipments: {},
     };
     const equipments = effect.equipments!;
-    let doneDish: EquipmentKey;
+    let doneDish: EquipmentKey = EquipmentKey.Eww;
 
     // 所有使用的食物都减1
     select.forEach((item) => {
       equipments[item] = -1;
     });
-    while (true) {
-      // 放剧毒蘑菇
-      if (
-        select.find(
-          (item) =>
-            item === EquipmentKey.MushroomEGao ||
-            item === EquipmentKey.MushroomDuYing,
-        )
-      ) {
-        // 得到毒蘑菇杂烩
-        doneDish = EquipmentKey.PoisonMushroomMixed;
-        break;
-      }
 
-      // 做菜放运动饮料？喜提湿腻焦糊
-      if (select.includes(EquipmentKey.SportsDrink)) {
-        doneDish = EquipmentKey.Eww;
-        break;
-      }
+    const dishes = EQUIPMENTS_INIT.filter(
+      (item) => item.type === EquipmentType.DISH,
+    ).sort((a, b) => {
+      const ap = a.dishConfig?.priority ?? 0;
+      const bp = b.dishConfig?.priority ?? 0;
 
-      // 只要有自热锅
-      if (select.find((item) => item === EquipmentKey.SelfHeatingPot)) {
-        if (select.length === 1) {
-          doneDish = EquipmentKey.SelfHeatingPot;
+      if (!ap && !bp) {
+        return 0;
+      }
+      if (!ap) {
+        return -1;
+      }
+      if (!bp) {
+        return 1;
+      }
+      return ap - bp;
+    });
+
+    const selectMap = select.reduce(
+      (
+        total: {
+          [key in EquipmentKey]?: number;
+        },
+        current,
+      ) => {
+        total[current] = total[current] ? total[current] + 1 : 1;
+        return total;
+      },
+      {},
+    );
+    for (let i = 0; i < dishes.length; i++) {
+      const item = dishes[i];
+      const dishKey = item.key;
+      const dishConfig =
+        item.dishConfig || EQUIPMENTS[EquipmentKey.Eww].dishConfig!;
+      const configs = dishConfig.equipmentConfig;
+      const count = dishConfig.equipmentCount;
+
+      // 要求数量都对不上，下一个
+      if (count) {
+        if (typeof count === "number" && select.length !== count) {
+          continue;
         }
-        // 自热锅火锅杂烩
-        doneDish = EquipmentKey.SelfHeatingPotMixed;
-        break;
-      }
-
-      if (
-        select.every((item) =>
-          [
-            EquipmentKey.MushroomJiYou,
-            EquipmentKey.MushroomXiangGu,
-            EquipmentKey.MushroomJianShouQing,
-          ].includes(item),
-        )
-      ) {
-        // 蘑菇杂烩
-        doneDish = EquipmentKey.MushroomMixed;
-        break;
-      }
-
-      if (select.find((item) => item === EquipmentKey.BeastSteak)) {
-        if (select.length === 1) {
-          // 煎肉排
-          doneDish = EquipmentKey.FriedSteak;
+        if (
+          count instanceof Array &&
+          (select.length < count[0] || select.length > count[1])
+        ) {
+          continue;
         }
-        // 肉排杂烩
-        doneDish = EquipmentKey.FriedSteakMixed;
-        break;
       }
 
-      doneDish = EquipmentKey.Eww;
-      break;
+      // 没有装备配置要求，那就是这一个
+      if (!configs?.length) {
+        doneDish = dishKey;
+        break;
+      }
+      let isFound = true;
+      // 对每道菜判定，config是否能满足
+      for (let j = 0; j < configs.length; j++) {
+        const eItem = configs[j];
+        let min: number;
+        let max: number;
+        if (typeof eItem.count === "number") {
+          min = eItem.count;
+          max = eItem.count;
+        } else {
+          min = eItem.count[0];
+          max = eItem.count[1];
+        }
+        let equipments: EquipmentKey[] = [];
+        // 适配单或者多装备情况
+        if (typeof eItem.equipment !== "object") {
+          equipments = [eItem.equipment];
+        } else {
+          equipments = eItem.equipment;
+        }
+        let num = 0;
+        for (let k = 0; k < equipments.length; k++) {
+          const currentEquipmentKey = equipments[k];
+          // 提交的这个key的数量
+          num += selectMap[currentEquipmentKey] ?? 0;
+          // 如果数量不在要求之内则直接下一道菜
+        }
+        if (num > max || num < min) {
+          isFound = false;
+          break;
+        }
+      }
+      // 在前面都不break时执行
+      if (isFound) {
+        doneDish = dishKey;
+        break;
+      }
     }
 
     // 执行减去的菜的副作用，并且计算toast

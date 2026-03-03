@@ -41,10 +41,18 @@
       border: 4px solid transparent;
       border-radius: 8px;
       width: calc((100vw - 80px) / 4);
-      .img {
-        width: 100%;
-        display: block;
-        border-radius: 4px 4px 0 0;
+      position: relative;
+      .imgWrapper {
+        .img {
+          max-height: 100%;
+          max-width: 100%;
+          display: block;
+          border-radius: 4px 4px 0 0;
+        }
+        height: calc((100vw - 80px) / 4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
       .itemTitle {
         font-size: 13px;
@@ -53,6 +61,14 @@
         padding: 6px 0;
         text-align: center;
         border-radius: 0 0 4px 4px;
+        margin-top: 4px;
+      }
+      .num {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: #fff;
+        font-size: 18px;
       }
     }
     .itemWrapper.isSelected {

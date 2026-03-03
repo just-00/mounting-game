@@ -1,5 +1,18 @@
 import type { Effect } from "../effect";
 
+export type DishConfig = {
+  // 限定食材数量
+  equipmentCount?: number[] | number;
+  // 需要的食材类型以及数量，用other限制数量
+  equipmentConfig?: Array<{
+    // 这个用来表示或逻辑，且逻辑直接增加一项
+    equipment: EquipmentKey[] | EquipmentKey;
+    count: number[] | number;
+  }>;
+  // 优先级，数字越小越先被计算
+  priority: number;
+};
+
 export interface Equipment {
   key: EquipmentKey;
   // 类型
@@ -19,10 +32,10 @@ export interface Equipment {
   count?: number;
   // 只可用一次
   disposable?: boolean;
-  // 不可烹饪
-  cantCook?: boolean;
   // 使用后的副作用
   effect?: Effect;
+  // 菜肴特定配置
+  dishConfig?: DishConfig;
 }
 
 export enum EquipmentKey {
@@ -63,12 +76,16 @@ export enum EquipmentKey {
   PoisonMushroom = "PoisonMushroom",
   // 蘑菇杂烩
   MushroomMixed = "MushroomMixed",
+  // 大份蘑菇杂烩
+  MushroomMixedBig = "MushroomMixedBig",
   // 毒蘑菇杂烩
   PoisonMushroomMixed = "PoisonMushroomMixed",
   // 煎肉排
   FriedSteak = "FriedSteak",
   // 肉排杂烩
   FriedSteakMixed = "FriedSteakMixed",
+  // 大份肉排杂烩
+  FriedSteakMixedBig = "FriedSteakMixedBig",
   // 大肉汤
   FriedSteakLuxury = "FriedSteakLuxury",
   // 早餐锅
@@ -77,18 +94,26 @@ export enum EquipmentKey {
   FriedEgg = "FriedEgg",
   // 炒蛋
   ScrambledEgg = "ScrambledEgg",
+  // 大份炒蛋
+  ScrambledEggBig = "ScrambledEggBig",
   // 炒饼干
   FriedBiscuit = "FriedBiscuit",
   // 高能饼干条
   FriedBiscuitLuxury = "FriedBiscuitLuxury",
   // 炒菜
   StirFried = "StirFried",
+  // 大份炒菜
+  StirFriedBig = "StirFriedBig",
   // 美味炒菜
   StirFriedLuxury = "StirFriedLuxury",
+  // 大份美味炒菜
+  StirFriedLuxuryBig = "StirFriedLuxuryBig",
   // 湿腻焦糊
   Eww = "Eww",
   // 自热锅杂烩
   SelfHeatingPotMixed = "SelfHeatingPotMixed",
+  // 大份自热锅杂烩
+  SelfHeatingPotMixedBig = "SelfHeatingPotMixedBig",
 }
 
 export enum EquipmentType {

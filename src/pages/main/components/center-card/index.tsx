@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import "./index.scss";
+import { STOVE_PRELOAD } from "@/const/ResourceUrl";
 
 export const CenterCard = ({
   content,
@@ -22,11 +23,7 @@ export const CenterCard = ({
       <div className="pixelToast">
         <section className="imgWrapper">
           {needPlate && (
-            <img
-              className="plate"
-              height="180px"
-              src="https://raw.githubusercontent.com/just-00/game-image-cdn/main/b9d6cbf4533b4a2a9bc04b).png"
-            />
+            <img className="plate" height="160px" src={STOVE_PRELOAD.PLATE} />
           )}
           <img height="130px" src={imgSrc} className="img" />
         </section>

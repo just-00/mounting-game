@@ -3,6 +3,16 @@ import { SELECT_EQUIPMENT_PRELOAD } from "@/const/ResourceUrl";
 import { EquipmentKey, EquipmentType, type Equipment } from "./type";
 import { SnowMainEventKey } from "../event/config/type";
 
+const COOK_NOT_POISON_MUSHROOM = [
+  EquipmentKey.MushroomJiYou,
+  EquipmentKey.MushroomJianShouQing,
+  EquipmentKey.MushroomXiangGu,
+];
+const COOK_POISON_MUSHROOM = [
+  EquipmentKey.MushroomDuYing,
+  EquipmentKey.MushroomEGao,
+];
+
 export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
   // 食物
   [EquipmentKey.MushroomJiYou]: {
@@ -99,7 +109,6 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.Food,
     isSelectEquipmentShow: true,
-    cantCook: true,
   },
   [EquipmentKey.CompressedBiscuit]: {
     key: EquipmentKey.CompressedBiscuit,
@@ -128,10 +137,10 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
       warm: 10,
     },
   },
-  // 菜肴
+  // 菜肴 单蘑菇
   [EquipmentKey.ScrambledMushroom]: {
     key: EquipmentKey.ScrambledMushroom,
-    name: "蘑菇杂烩",
+    name: "炒蘑菇",
     weight: 0.2,
     size: 0.2,
     src: SELECT_EQUIPMENT_PRELOAD.SCRAMBLED_MUSHROOM,
@@ -140,10 +149,20 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     effect: {
       san: -10,
     },
+    dishConfig: {
+      priority: 0,
+      equipmentCount: 1,
+      equipmentConfig: [
+        {
+          equipment: COOK_NOT_POISON_MUSHROOM,
+          count: 1,
+        },
+      ],
+    },
   },
   [EquipmentKey.PoisonMushroom]: {
     key: EquipmentKey.PoisonMushroom,
-    name: "蘑菇杂烩",
+    name: "不妙的炒蘑菇",
     weight: 0.2,
     size: 0.2,
     src: SELECT_EQUIPMENT_PRELOAD.POISON__MUSHROOM,
@@ -151,6 +170,16 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     type: EquipmentType.DISH,
     effect: {
       san: -10,
+    },
+    dishConfig: {
+      priority: 0,
+      equipmentCount: 1,
+      equipmentConfig: [
+        {
+          equipment: COOK_POISON_MUSHROOM,
+          count: 1,
+        },
+      ],
     },
   },
   [EquipmentKey.MushroomMixed]: {
@@ -162,7 +191,39 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      san: -10,
+      hunger: 10,
+    },
+    dishConfig: {
+      priority: 10,
+      equipmentCount: 2,
+      equipmentConfig: [
+        {
+          equipment: COOK_NOT_POISON_MUSHROOM,
+          count: 2,
+        },
+      ],
+    },
+  },
+  [EquipmentKey.MushroomMixedBig]: {
+    key: EquipmentKey.MushroomMixedBig,
+    name: "大份蘑菇杂烩",
+    weight: 0.2,
+    size: 0.2,
+    src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_MIXED,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      hunger: 18,
+    },
+    dishConfig: {
+      priority: 10,
+      equipmentCount: 3,
+      equipmentConfig: [
+        {
+          equipment: COOK_NOT_POISON_MUSHROOM,
+          count: 3,
+        },
+      ],
     },
   },
   [EquipmentKey.PoisonMushroomMixed]: {
@@ -176,7 +237,18 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     effect: {
       san: -10,
     },
+    dishConfig: {
+      priority: 0,
+      equipmentCount: [2, 3],
+      equipmentConfig: [
+        {
+          equipment: COOK_POISON_MUSHROOM,
+          count: [1, 3],
+        },
+      ],
+    },
   },
+  // 单个肉
   [EquipmentKey.FriedSteak]: {
     key: EquipmentKey.FriedSteak,
     name: "煎肉排",
@@ -188,6 +260,16 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     effect: {
       warm: 15,
       hunger: 20,
+    },
+    dishConfig: {
+      priority: 0,
+      equipmentCount: 1,
+      equipmentConfig: [
+        {
+          equipment: EquipmentKey.BeastSteak,
+          count: 1,
+        },
+      ],
     },
   },
   [EquipmentKey.FriedSteakMixed]: {
@@ -202,10 +284,44 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
       warm: 15,
       hunger: 20,
     },
+    dishConfig: {
+      priority: 10,
+      equipmentCount: 2,
+      equipmentConfig: [
+        {
+          equipment: EquipmentKey.BeastSteak,
+          count: [1, 2],
+        },
+      ],
+    },
   },
+  [EquipmentKey.FriedSteakMixedBig]: {
+    key: EquipmentKey.FriedSteakMixedBig,
+    name: "大份肉排杂烩",
+    weight: 0.3,
+    size: 0.4,
+    src: SELECT_EQUIPMENT_PRELOAD.FRIED_STEAK_MIXED,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      warm: 15,
+      hunger: 20,
+    },
+    dishConfig: {
+      priority: 10,
+      equipmentCount: 3,
+      equipmentConfig: [
+        {
+          equipment: EquipmentKey.BeastSteak,
+          count: [1, 2],
+        },
+      ],
+    },
+  },
+  // 三个肉
   [EquipmentKey.FriedSteakLuxury]: {
     key: EquipmentKey.FriedSteakLuxury,
-    name: "肉排杂烩",
+    name: "大肉汤",
     weight: 0.3,
     size: 0.4,
     src: SELECT_EQUIPMENT_PRELOAD.FRIED_STEAK_LUXURY,
@@ -215,10 +331,21 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
       warm: 15,
       hunger: 20,
     },
+    dishConfig: {
+      priority: 10,
+      equipmentCount: 3,
+      equipmentConfig: [
+        {
+          equipment: EquipmentKey.BeastSteak,
+          count: 3,
+        },
+      ],
+    },
   },
+  // 有肉有蛋有蔬菜/菌菇
   [EquipmentKey.FriedSteakBreakfast]: {
     key: EquipmentKey.FriedSteakBreakfast,
-    name: "肉排杂烩",
+    name: "早餐锅",
     weight: 0.3,
     size: 0.4,
     src: SELECT_EQUIPMENT_PRELOAD.FRIED_STEAK_BREAKFAST,
@@ -228,11 +355,29 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
       warm: 15,
       hunger: 20,
     },
+    dishConfig: {
+      priority: 9,
+      equipmentCount: 3,
+      equipmentConfig: [
+        {
+          equipment: EquipmentKey.BeastSteak,
+          count: 1,
+        },
+        {
+          equipment: EquipmentKey.Egg,
+          count: 1,
+        },
+        {
+          equipment: COOK_NOT_POISON_MUSHROOM,
+          count: 1,
+        },
+      ],
+    },
   },
 
   [EquipmentKey.FriedEgg]: {
     key: EquipmentKey.FriedEgg,
-    name: "肉排杂烩",
+    name: "煎蛋",
     weight: 0.3,
     size: 0.4,
     src: SELECT_EQUIPMENT_PRELOAD.FRIED_EGG,
@@ -242,10 +387,20 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
       warm: 15,
       hunger: 20,
     },
+    dishConfig: {
+      priority: 0,
+      equipmentCount: 1,
+      equipmentConfig: [
+        {
+          equipment: EquipmentKey.Egg,
+          count: 1,
+        },
+      ],
+    },
   },
   [EquipmentKey.ScrambledEgg]: {
     key: EquipmentKey.ScrambledEgg,
-    name: "肉排杂烩",
+    name: "炒蛋",
     weight: 0.3,
     size: 0.4,
     src: SELECT_EQUIPMENT_PRELOAD.SCRAMBLED_EGG,
@@ -255,10 +410,43 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
       warm: 15,
       hunger: 20,
     },
+    dishConfig: {
+      priority: 10,
+      equipmentCount: 2,
+      equipmentConfig: [
+        {
+          equipment: EquipmentKey.Egg,
+          count: 2,
+        },
+      ],
+    },
+  },
+  [EquipmentKey.ScrambledEggBig]: {
+    key: EquipmentKey.ScrambledEggBig,
+    name: "大份炒蛋",
+    weight: 0.3,
+    size: 0.4,
+    src: SELECT_EQUIPMENT_PRELOAD.SCRAMBLED_EGG,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      warm: 15,
+      hunger: 20,
+    },
+    dishConfig: {
+      priority: 10,
+      equipmentCount: 3,
+      equipmentConfig: [
+        {
+          equipment: EquipmentKey.Egg,
+          count: 3,
+        },
+      ],
+    },
   },
   [EquipmentKey.FriedBiscuit]: {
     key: EquipmentKey.FriedBiscuit,
-    name: "肉排杂烩",
+    name: "饼干糊糊",
     weight: 0.3,
     size: 0.4,
     src: SELECT_EQUIPMENT_PRELOAD.FRIED_BISCUIT,
@@ -268,11 +456,21 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
       warm: 15,
       hunger: 20,
     },
+    dishConfig: {
+      priority: 10,
+      equipmentCount: [1, 2],
+      equipmentConfig: [
+        {
+          equipment: EquipmentKey.FriedBiscuit,
+          count: [1, 2],
+        },
+      ],
+    },
   },
 
   [EquipmentKey.FriedBiscuitLuxury]: {
     key: EquipmentKey.FriedBiscuitLuxury,
-    name: "肉排杂烩",
+    name: "高能饼干条",
     weight: 0.3,
     size: 0.4,
     src: SELECT_EQUIPMENT_PRELOAD.FRIED_BISCUIT_LUXURY,
@@ -282,11 +480,20 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
       warm: 15,
       hunger: 20,
     },
+    dishConfig: {
+      priority: 10,
+      equipmentCount: 3,
+      equipmentConfig: [
+        {
+          equipment: EquipmentKey.FriedBiscuit,
+          count: 3,
+        },
+      ],
+    },
   },
-
   [EquipmentKey.StirFried]: {
     key: EquipmentKey.StirFried,
-    name: "肉排杂烩",
+    name: "炒菜",
     weight: 0.3,
     size: 0.4,
     src: SELECT_EQUIPMENT_PRELOAD.STIR_FRIED,
@@ -296,11 +503,31 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
       warm: 15,
       hunger: 20,
     },
+    dishConfig: {
+      priority: 100,
+      equipmentCount: 2,
+    },
   },
-
+  [EquipmentKey.StirFriedBig]: {
+    key: EquipmentKey.StirFriedBig,
+    name: "大份炒菜",
+    weight: 0.3,
+    size: 0.4,
+    src: SELECT_EQUIPMENT_PRELOAD.STIR_FRIED,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      warm: 15,
+      hunger: 20,
+    },
+    dishConfig: {
+      priority: 100,
+      equipmentCount: 3,
+    },
+  },
   [EquipmentKey.StirFriedLuxury]: {
     key: EquipmentKey.StirFriedLuxury,
-    name: "肉排杂烩",
+    name: "美味炒菜",
     weight: 0.3,
     size: 0.4,
     src: SELECT_EQUIPMENT_PRELOAD.STIR_FRIED_LUXURY,
@@ -309,6 +536,39 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     effect: {
       warm: 15,
       hunger: 20,
+    },
+    dishConfig: {
+      priority: 20,
+      equipmentCount: 2,
+      equipmentConfig: [
+        {
+          equipment: [EquipmentKey.BeastSteak, EquipmentKey.Egg],
+          count: [1, 2],
+        },
+      ],
+    },
+  },
+  [EquipmentKey.StirFriedLuxuryBig]: {
+    key: EquipmentKey.StirFriedLuxuryBig,
+    name: "大份美味炒菜",
+    weight: 0.3,
+    size: 0.4,
+    src: SELECT_EQUIPMENT_PRELOAD.STIR_FRIED_LUXURY,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      warm: 15,
+      hunger: 20,
+    },
+    dishConfig: {
+      priority: 20,
+      equipmentCount: 3,
+      equipmentConfig: [
+        {
+          equipment: [EquipmentKey.BeastSteak, EquipmentKey.Egg],
+          count: [1, 3],
+        },
+      ],
     },
   },
   [EquipmentKey.Eww]: {
@@ -322,8 +582,16 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     effect: {
       san: -10,
     },
+    dishConfig: {
+      priority: 1,
+      equipmentConfig: [
+        {
+          equipment: EquipmentKey.SportsDrink,
+          count: [1, 3],
+        },
+      ],
+    },
   },
-
   [EquipmentKey.SelfHeatingPotMixed]: {
     key: EquipmentKey.SelfHeatingPotMixed,
     name: "自热锅杂烩",
@@ -336,7 +604,42 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
       warm: 15,
       hunger: 20,
     },
+    dishConfig: {
+      priority: 10,
+      equipmentCount: 2,
+      equipmentConfig: [
+        {
+          equipment: EquipmentKey.SelfHeatingPot,
+          count: 1,
+        },
+      ],
+    },
   },
+  [EquipmentKey.SelfHeatingPotMixedBig]: {
+    key: EquipmentKey.SelfHeatingPotMixedBig,
+    name: "大份自热锅杂烩",
+    weight: 0.3,
+    size: 0.4,
+    src: SELECT_EQUIPMENT_PRELOAD.SELF_HEATING_POT_MIXED,
+    disposable: true,
+    type: EquipmentType.DISH,
+    effect: {
+      warm: 15,
+      hunger: 20,
+    },
+    dishConfig: {
+      priority: 10,
+      equipmentCount: 3,
+      equipmentConfig: [
+        {
+          equipment: EquipmentKey.SelfHeatingPot,
+          count: [1, 2],
+        },
+      ],
+    },
+  },
+  // 菜肴结束
+
   [EquipmentKey.GasStove]: {
     key: EquipmentKey.GasStove,
     name: "汽炉",
@@ -461,4 +764,5 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     type: EquipmentType.Warmth,
   },
 };
+
 export const EQUIPMENTS_INIT = Object.values(EQUIPMENTS);

@@ -13,9 +13,14 @@
     .storageWrapper {
       display: flex;
       align-items: center;
-      padding-left: 16px;
-      padding-top: 32px;
-      column-gap: 8px;
+      justify-content: space-between;
+      padding: 32px 16px 0 16px;
+      .mainWrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        column-gap: 8px;
+      }
       .storageItemWrapper {
         position: relative;
         box-sizing: border-box;
