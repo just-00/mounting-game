@@ -143,12 +143,14 @@ export const Stove = () => {
       {toast?.text && (
         <CenterCard
           closable
-          mask
           onClose={() => {
             setToast(undefined);
           }}
-          needPlate
-          imgSrc={toast.img}
+          imgConfig={{
+            mask: true,
+            needPlate: true,
+            src: toast.img,
+          }}
           content={
             <div
               className="centerCardToastWrapper"

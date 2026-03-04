@@ -30,7 +30,10 @@ export const GameDialog = () => {
   const [mounting, setMounting] = useState<boolean>(true);
   const mountingRef = useRef<boolean>(true);
   const [toast, setToast] = useState<string | undefined>();
-  const [optionPic, setOptionPic] = useState<string>();
+  const [optionPic, setOptionPic] = useState<{
+    url: string;
+    position: "top" | "full";
+  }>();
   const navigate = useNavigate();
   const { currentEvent, setCurrentEventByCompute, setCurrentEventByKey } =
     useEventStore();
@@ -84,6 +87,7 @@ export const GameDialog = () => {
     // 一定时间后，toast变为空
     setTimeout(() => {
       setToast(undefined);
+      setOptionPic(undefined);
     }, TOAST_SHOW_TIME);
   }, [toast]);
 
@@ -109,23 +113,38 @@ export const GameDialog = () => {
   const onClick = async (option: Option) => {
     // 通过当前选项计算出toast
     const {
-      optionPics,
+      optionPics: originOptionPics,
       toast,
       endKey,
       endTitle,
       newAchived = false,
     } = computeEffect(option);
-    setNewAchived(newAchived);
-    if (optionPics?.length) {
-      for (let i = 0; i < optionPics.length; i++) {
-        setOptionPic(optionPics[i]);
+
+    // 如果全屏图片，先出图片再出toast
+    if (originOptionPics?.type === "full") {
+      for (let i = 0; i < originOptionPics.urls.length; i++) {
+        setOptionPic({
+          url: originOptionPics.urls[i],
+          position: originOptionPics.type,
+        });
         await timeoutPromise();
       }
       setOptionPic(undefined);
     }
+    setNewAchived(newAchived);
 
     if (toast) {
       setToast(toast);
+      // 如果局部图片，图片和toast一起出
+      if (originOptionPics?.type === "top") {
+        setOptionPic({
+          url:
+            typeof originOptionPics.urls === "string"
+              ? originOptionPics.urls
+              : originOptionPics.urls[0],
+          position: originOptionPics.type,
+        });
+      }
       endRef.current = {
         key: endKey,
         title: endTitle,
@@ -197,14 +216,22 @@ export const GameDialog = () => {
           {/* 事件图片展示 */}
           {currentEvent?.eventPic && !currentEvent.isEnd && (
             <section className="eventPicWrapper">
-              <img src={currentEvent.eventPic} width={100} />
+              <img src={currentEvent.eventPic} height={100} />
             </section>
           )}
         </div>
       )}
 
       {/* 展示中心卡片：动画、结局、toast */}
-      {CenterCardDefined && <CenterCard content={CenterCardDefined} />}
+      {CenterCardDefined && (
+        <CenterCard
+          content={CenterCardDefined}
+          imgConfig={{
+            needBorder: true,
+            src: optionPic?.position === "top" ? optionPic?.url : undefined,
+          }}
+        />
+      )}
 
       {currentEvent?.isEnd && (
         <div className="restartWrapper">
@@ -215,9 +242,9 @@ export const GameDialog = () => {
       )}
 
       {/* 点击选项后的图片展示 */}
-      {optionPic && (
+      {optionPic?.position === "full" && (
         <div className="optionPicWrapper">
-          <img src={optionPic} width="80%" className="optionPic" />
+          <img src={optionPic.url} width="80%" className="optionPic" />
         </div>
       )}
 

@@ -39,6 +39,7 @@
           width: 100%;
           height: 100%;
           z-index: -1;
+          filter: brightness(0.7);
         }
       }
     }
@@ -82,9 +83,13 @@
         border: 1px solid rgba(245, 240, 225);
         border-radius: 4px;
         width: calc((100vw - 32px - 68px) / 5);
+        height: calc((100vw - 32px - 68px) / 5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
         .img {
-          width: calc((100vw - 32px - 68px) / 5);
-          height: calc((100vw - 32px - 68px) / 5);
+          height: 100%;
+          max-width: 100%;
           display: flex;
           align-items: center;
           justify-content: center;

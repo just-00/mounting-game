@@ -43,13 +43,13 @@ export const SELECT_EQUIPMENT_PRELOAD = {
   MUSHROOM_JIYOU:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/780966a645e446098a715e6d9b424248.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
   MUSHROOM_XIANGGU:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/9adb33bf675943ebbb56aab1222ac96e.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/9adb33bf675943ebbb56aab12222ac96e.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
   MUSHROOM_EGAO:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5bd302dacae2404085b86e85b19d8672.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5bd302dadcae2404085b86e85b19d8672.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
   MUSHROOM_DUYING:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/4f3cd891c6bf4d8bbadaed9adeb1622c.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/4f3cd891c6bf4d8bbadaed9fdsaadeb1622c.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
   MUSHROOM_JIANSHOUQING:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/bf14966b24764b789cd904a6dd91a20f.jpeg_tplv-a9rns2rl98-image_pre_watermark_1_5b-removebg-preview.png",
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/bf14966b3123213224764b789cd904a6dd91a20f.jpeg_tplv-a9rns2rl98-image_pre_watermark_1_5b-removebg-preview.png",
   COMPRESSED_BISCUIT:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/3496e6a51d6844c181b139902585ac63.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
   SELF_HEATING_POT:
@@ -123,6 +123,7 @@ export const MAIN_PROLOAD = {
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/熊带武器.mp4",
   BAD_END:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/b2613cdc7aca4b70a9c5492e8dd6d62a.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  SPRING_POT: 'https://raw.githubusercontent.com/just-00/game-image-cdn/main/7997c02f-fe24-496c-b2.jpg',
 };
 
 export const STOVE_PRELOAD = {

@@ -49,7 +49,11 @@ type ToastTextMap = {
   endTitle: string;
   achievements: AchievementKey[];
   toast: string;
-  optionPics: string[];
+  optionPics: {
+    type: "top" | "full";
+    // 只有全屏可以多张图片，选项上方只能一张
+    urls: string[] | string;
+  };
 };
 
 export type Effect = Partial<ToastTextMap>;
@@ -221,6 +225,7 @@ export const useGameEffect = () => {
         setWarm(WarmValue[Warm.Hypothermia]);
       }
     }
+    console.log("effect=============", effect);
 
     // 如果动态计算出了toast，使用动态计算的
     const toast = effect.toast ?? getToast(effect);

@@ -176,6 +176,10 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
             useTime: 60,
             warm: 30,
             san: 5,
+            optionPics: {
+              type: "top",
+              urls: MAIN_PROLOAD.SPRING_POT,
+            },
           },
         }),
       },
@@ -344,7 +348,7 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
     key: SnowMainEventKey.IceMain_RestStop_3,
     title: "路遇休息亭",
     eventType: EventType.Main,
-    distance: 3,
+    distance: 4,
     options: [
       {
         title: "休息一下",
@@ -357,7 +361,7 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
       },
       {
         title: "使用炉子",
-        key: SnowMainOptionKey.IceMain_RestStop_3_1,
+        key: SnowMainOptionKey.IceMain_RestStop_3_2,
         result: () => ({
           action: {
             stove: true,
@@ -366,7 +370,7 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
       },
       {
         title: "不休息",
-        key: SnowMainOptionKey.IceMain_RestStop_3_2,
+        key: SnowMainOptionKey.IceMain_RestStop_3_3,
       },
     ],
   },
@@ -374,7 +378,7 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
     key: SnowMainEventKey.IceMain_Icefall_5_5,
     title: "附近有个冰瀑，要去看看吗？",
     eventType: EventType.Main,
-    distance: 5.5,
+    distance: 6.5,
     options: [
       {
         title: "去看看",
@@ -382,7 +386,10 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
         result: () => ({
           effect: {
             useTime: 30,
-            optionPics: [MAIN_PROLOAD.ICE_FALL],
+            optionPics: {
+              type: "full",
+              urls: [MAIN_PROLOAD.ICE_FALL],
+            },
           },
         }),
       },
@@ -393,28 +400,46 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
     ],
   },
   {
-    key: SnowMainEventKey.IceMain_RestStop_8,
-    title: "休息亭",
-    eventType: EventType.Main,
-    distance: 8,
-  },
-  {
     key: SnowMainEventKey.IceMain_IceLake_9,
     title: "登顶看到冰湖",
     eventType: EventType.Main,
-    distance: 9,
+    distance: 10,
   },
   {
     key: SnowMainEventKey.IceMain_RestStop_15,
     title: "休息亭",
     eventType: EventType.Main,
-    distance: 15,
+    distance: 16,
+    options: [
+      {
+        title: "休息一下",
+        key: SnowMainOptionKey.IceMain_RestStop_3_1,
+        result: () => ({
+          effect: {
+            useTime: 30,
+          },
+        }),
+      },
+      {
+        title: "使用炉子",
+        key: SnowMainOptionKey.IceMain_RestStop_3_2,
+        result: () => ({
+          action: {
+            stove: true,
+          },
+        }),
+      },
+      {
+        title: "不休息",
+        key: SnowMainOptionKey.IceMain_RestStop_3_3,
+      },
+    ],
   },
   {
     key: SnowMainEventKey.IceMain_Downhill_18,
     title: "下山到底",
     eventType: EventType.Main,
-    distance: 18,
+    distance: 20,
   },
 
   // 坏结局

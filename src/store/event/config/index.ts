@@ -16,10 +16,10 @@ export const ROUTES: {
     key: GameRoute.Ice,
     mainEvents: MAIN_ICE_EVENTS,
     otherEvents: OTHER_ICE_EVENTS,
-    distance: 18,
+    distance: 20,
     // 平均每个小时走多少距离（后续需要乘以速度系数）
-    averageDistancePerHour: 2.5,
+    averageDistancePerHour: 1.5,
     // 事件后走多少时间
-    afterEventDoHour: 30 
+    afterEventDoHour: 30,
   },
 ];

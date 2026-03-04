@@ -33,21 +33,32 @@
     border: 4px solid #8b5a2b;
     border-radius: 4px;
     box-shadow: inset -2px -2px 0 #7a522a;
-    .imgWrapper {
+    .plateWrapper {
       position: absolute;
-      top: -170px;
+      top: calc(-50% - 16px);
       left: 50%;
-      transform: translateX(-50%);
-      .plate{
+      transform: translate(-50%, -50%);
+      .plate {
         opacity: 0.9;
       }
-      .img{
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 1;
+    }
+    .imgWrapper {
+      position: absolute;
+      top: calc(-50% - 16px);
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      height: 130px;
+      padding: 8px;
+      .img {
+        height: 100%;
       }
+    }
+    .imgWrapper.imgBorderWrapper {
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
     .centerCardToastWrapper {
       font-size: 18px;
