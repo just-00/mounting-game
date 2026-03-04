@@ -8,6 +8,7 @@ import { useGameEffect } from "@/store/effect";
 import { useSettingStore } from "@/store/setting";
 import { AchievementToast } from "../achievement-toast";
 import { useNavigate } from "react-router-dom";
+import { useAchievementStore } from "@/store/achievement/store";
 
 // mounting的动画展示多久
 const MOUNTING_ANIMATION_SHOW_WARNING_TIME = 2000;
@@ -42,7 +43,22 @@ export const GameDialog = () => {
     key: string | undefined;
     title?: string;
   }>(null);
-  const [newAchived, setNewAchived] = useState<boolean>(false);
+  const [newAchieved, setNewAchieved] = useState<boolean>(false);
+
+  // 监听是否有新成就提示
+  useEffect(() => {
+    const subscribe = useAchievementStore.subscribe(
+      (state) => ({
+        newAchieved: state.newAchieved,
+      }),
+      ({ newAchieved: originNewAchieved }) => {
+        setNewAchieved(originNewAchieved);
+      },
+    );
+    return () => {
+      subscribe();
+    };
+  }, []);
 
   // 监听背包页是否关闭了动画
   useEffect(() => {
@@ -91,17 +107,6 @@ export const GameDialog = () => {
     }, TOAST_SHOW_TIME);
   }, [toast]);
 
-  // 如果有新成就提醒，3000ms后关闭
-  useEffect(() => {
-    if (!newAchived) return;
-
-    const inter = setTimeout(() => {
-      setNewAchived(false);
-    }, 3000);
-    return () => {
-      clearTimeout(inter);
-    };
-  }, [newAchived]);
 
   const restart = () => {
     resetAll();
@@ -117,7 +122,6 @@ export const GameDialog = () => {
       toast,
       endKey,
       endTitle,
-      newAchived = false,
     } = computeEffect(option);
 
     // 如果全屏图片，先出图片再出toast
@@ -131,7 +135,6 @@ export const GameDialog = () => {
       }
       setOptionPic(undefined);
     }
-    setNewAchived(newAchived);
 
     if (toast) {
       setToast(toast);
@@ -249,7 +252,7 @@ export const GameDialog = () => {
       )}
 
       {/* 新成就提醒 */}
-      {newAchived && <AchievementToast />}
+      {newAchieved && <AchievementToast />}
     </>
   );
 };

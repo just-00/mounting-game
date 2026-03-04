@@ -1,9 +1,12 @@
+import { useAchievementStore } from "@/store/achievement/store";
+import { AchievementKey } from "@/store/achievement/type";
 import { useGameEffect, type Effect } from "@/store/effect";
 import { EQUIPMENTS, EQUIPMENTS_INIT } from "@/store/equipment/config";
 import { EquipmentKey, EquipmentType } from "@/store/equipment/type";
 
 export const useCook = () => {
   const { computeEffect } = useGameEffect();
+  const { addAchieved } = useAchievementStore();
 
   // 根据选择的食物装备进行烹饪
   const cook = (select: EquipmentKey[]) => {
@@ -125,7 +128,17 @@ export const useCook = () => {
         },
       },
     });
-
+    // 做出有毒的菜
+    if (
+      doneDish === EquipmentKey.PoisonMushroomMixed ||
+      doneDish === EquipmentKey.PoisonMushroom
+    ) {
+      addAchieved([AchievementKey.POISON_DISH]);
+    }
+    // 做出早餐锅
+    if (doneDish === EquipmentKey.FriedSteakBreakfast) {
+      addAchieved([AchievementKey.BREAKFAST]);
+    }
     return {
       toast: `${toast}<br/><b>锵锵！${EQUIPMENTS[doneDish]?.name}做好了！</b>`,
       doneDish,

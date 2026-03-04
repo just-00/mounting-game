@@ -15,11 +15,8 @@ export const Stove = () => {
   const { equipments } = useEquipmentStore();
   const { cook } = useCook();
   const [selectedFoods, setSelectedFoods] = useState<EquipmentKey[]>([]);
+  const selectFoodsRef = useRef<EquipmentKey[]>([]);
   // 烹饪导致的toast
-  const toastRef = useRef<{
-    text?: string;
-    img?: string;
-  }>({});
   const [toast, setToast] = useState<
     | {
         text?: string;
@@ -49,21 +46,24 @@ export const Stove = () => {
 
     // 开始烹饪动画
     setAnimation(true);
-    const { toast, doneDish } = cook(selectedFoods);
-    toastRef.current = {
-      text: toast,
-      img: EQUIPMENTS[doneDish].src,
-    };
   };
+
+  useEffect(() => {
+    selectFoodsRef.current = selectedFoods;
+  }, [selectedFoods]);
 
   useEffect(() => {
     if (!animation) return;
 
     setTimeout(() => {
       // 动画结束后展示toast
-      setToast({ ...toastRef.current });
       setAnimation(false);
       setSelectedFoods([]);
+      const { toast, doneDish } = cook(selectFoodsRef.current);
+      setToast({
+        text: toast,
+        img: EQUIPMENTS[doneDish].src,
+      });
     }, 2000);
   }, [animation]);
 

@@ -28,7 +28,7 @@ const Achievement = () => {
 
   return (
     <section className="achievementPage">
-       <TitleCom title="成就" />
+      <TitleCom title="成就" />
       <section className="typeWrapper">
         {Object.entries(getTypedAchievements(achieved)).map(([key, value]) => {
           return (
@@ -74,7 +74,7 @@ const Achievement = () => {
               color: "#C8102E",
             }}
           >
-           &#xe63c;
+            &#xe63c;
           </span>
         }
       >
@@ -91,7 +91,7 @@ const Achievement = () => {
             </div>
             <section>
               <div className="title">{item.title}</div>
-              <div className="desc">{item.desc}</div>
+              <div className="desc">{item.isDone ? item.desc : ""}</div>
             </section>
           </section>
         ))}

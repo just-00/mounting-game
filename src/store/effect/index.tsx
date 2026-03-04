@@ -77,7 +77,7 @@ export const ToastText: {
       })
       .join("<br/>");
   },
-  injuried: (injuried: boolean) => (injuried ? `你受伤了` : ""),
+  injuried: (injuried: boolean) => (injuried ? `你受伤了` : "你治愈了"),
   hunger: (val: number) => `饥饿度提升了${val}`,
   poison: () =>
     `你中毒了<br/>你的精神值降低了<br/>你的体温降低了<br/>你的速度降低了`,
@@ -120,7 +120,7 @@ export const useGameEffect = () => {
   const { equipments, setEquipmentsCount, resetEquipmentStore } =
     useEquipmentStore();
   const { resetEventStore } = useEventStore();
-  const { achieved, addAchieved } = useAchievementStore();
+  const { addAchieved } = useAchievementStore();
   const { setIsStove } = useSettingStore();
 
   const resetAll = () => {
@@ -128,9 +128,6 @@ export const useGameEffect = () => {
     resetEquipmentStore();
     resetEventStore();
     resetStatusStore();
-  };
-  type Result = Effect & {
-    newAchived?: boolean;
   };
   const computeEffect = (
     obj:
@@ -140,7 +137,7 @@ export const useGameEffect = () => {
           effect?: Effect;
           action?: Action;
         },
-  ): Result => {
+  ): Effect => {
     let effect: Effect | undefined = undefined;
     let action: Action | undefined = undefined;
     // 选项有result项，进行计算（Option的情况下）
@@ -172,16 +169,6 @@ export const useGameEffect = () => {
     if (!effect) {
       return {};
     }
-
-    // 是否有新增成就
-    let newAchived: boolean = false;
-    // 增加成就
-    effect.achievements?.forEach((item) => {
-      if (!achieved.includes(item)) {
-        newAchived = true;
-        addAchieved(item);
-      }
-    });
 
     // 通过选项 获得或减少装备
     if (effect.equipments) {
@@ -225,11 +212,10 @@ export const useGameEffect = () => {
         setWarm(WarmValue[Warm.Hypothermia]);
       }
     }
-    console.log("effect=============", effect);
-
+    addAchieved(effect.achievements)
     // 如果动态计算出了toast，使用动态计算的
     const toast = effect.toast ?? getToast(effect);
-    return { ...effect, toast, newAchived };
+    return { ...effect, toast };
   };
 
   return { computeEffect, resetAll };

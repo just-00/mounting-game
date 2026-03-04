@@ -49,13 +49,13 @@ export enum San {
 // 中毒状态
 export enum Poison {
   // 效果：血量、体力狂减
-  EGao = 'EGao',
+  EGao = "EGao",
   // 效果：画面充满小人，以及小人的专属事件
-  JianShouQing = 'JianShouQing',
+  JianShouQing = "JianShouQing",
   // 效果：画面出现乱码，以及假敌人、控制不了选项
-  DuYing = 'DuYing',
+  DuYing = "DuYing",
   // 清除中毒状态
-  Clear = 'Clear'
+  Clear = "Clear",
 }
 
 // 每种精神值对应的数值
@@ -109,12 +109,15 @@ export enum Hunger {
   Full = "Full",
   // 饥饿
   Starved = "Starved",
+  // 低血糖
+  LowSuar = "LowSuar",
 }
 
 // 每种饥饿对应的数值
 export const HungerValue = {
   [Hunger.Full]: 100,
   [Hunger.Starved]: 50,
+  [Hunger.LowSuar]: 0,
 };
 
 // 计算饥饿类型
@@ -122,5 +125,8 @@ export const getHunger = (hunger: number) => {
   if (hunger > HungerValue[Hunger.Starved]) {
     return Hunger.Full;
   }
-  return Hunger.Starved;
+  if (hunger > HungerValue[Hunger.LowSuar]) {
+    return Hunger.Starved;
+  }
+  return Hunger.LowSuar;
 };

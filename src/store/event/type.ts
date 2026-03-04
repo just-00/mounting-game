@@ -1,9 +1,13 @@
 import type { Action, Effect } from "../effect";
 import type { Equipment } from "../equipment/type";
 
+export type IsShowParams = { equipments: Equipment[]; hunger: number };
+
 export enum EventType {
   // 主线相关
   Main = "Main",
+  // 状态相关
+  STATUS = "STATUS",
   // 偶遇蘑菇
   Mushroom = "Mushroom",
   // 偶遇物品
@@ -36,7 +40,7 @@ export interface Option {
   // 下一个必会触发的后置事件key
   mustTriggerAfterKey?: string;
   // 计算是否出现这个选项
-  isShow?: (equipments: Equipment[]) => boolean;
+  isShow?: (params: IsShowParams) => boolean;
 
   // 算结果，返回结局key、toast、副作用、成就
   result?: (equipments: Equipment[]) => { effect?: Effect; action?: Action };
@@ -57,7 +61,7 @@ export interface GameEvent {
   // 需要满足触发的前置选项key（简单场景下）
   preOptionKeys?: string[];
   // 计算是否出现这个事件，默认是true（复杂场景下）
-  isShow?: (equipments: Equipment[]) => boolean;
+  isShow?: (params: IsShowParams) => boolean;
 
   // true的话，只能通过mustTriggerAfterKey触发，不可以通过随机计算触发
   isForcedTriggerAfterKey?: boolean;

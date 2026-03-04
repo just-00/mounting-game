@@ -14,6 +14,7 @@ import {
   SnowOtherOptionKey,
 } from "./type";
 import { AchievementKey } from "@/store/achievement/type";
+import { getHunger, Hunger } from "@/store/status/type";
 
 export const OTHER_ICE_EVENTS: GameEvent[] = [
   // 野兽类相关
@@ -101,7 +102,7 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
       {
         key: SnowOtherOptionKey.FOX_1_2,
         title: "给它肉排",
-        isShow: (equipments: Equipment[]) =>
+        isShow: ({ equipments }) =>
           !!equipments.find((item) => item.key === EquipmentKey.BeastSteak)
             ?.count,
         result: () => ({
@@ -115,7 +116,7 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
       {
         key: SnowOtherOptionKey.FOX_1_3,
         title: "给它压缩饼干",
-        isShow: (equipments: Equipment[]) =>
+        isShow: ({ equipments }) =>
           !!equipments.find(
             (item) => item.key === EquipmentKey.CompressedBiscuit,
           )?.count,
@@ -180,6 +181,7 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
               type: "top",
               urls: MAIN_PROLOAD.SPRING_POT,
             },
+            achievements: [AchievementKey.SPRING_POT],
           },
         }),
       },
@@ -341,6 +343,21 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
   // 危险类
 
   // 假敌人事件 对应Poison中的DuYing
+];
+
+// 状态类相关事件（第一优先级）
+export const STATUS_ICE_EVENTS: GameEvent[] = [
+  {
+    key: SnowOtherEventKey.OtherIce_Stick,
+    title: "你晕倒了",
+    isShow: ({ hunger }) => {
+      if (getHunger(hunger) === Hunger.LowSuar) {
+        return true;
+      }
+      return false;
+    },
+    eventType: EventType.Item,
+  },
 ];
 
 export const MAIN_ICE_EVENTS: GameEvent[] = [

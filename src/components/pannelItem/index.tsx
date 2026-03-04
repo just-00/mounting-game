@@ -260,10 +260,10 @@ export const HungerCom = () => {
       <div
         className="tip"
         style={{
-          color: "#E49E00",
+          color: hungerType === Hunger.LowSuar ? "#E53935" : "#E49E00",
         }}
       >
-        饥饿
+        {hungerType === Hunger.LowSuar ? "低血糖" : "饥饿"}
       </div>
     </section>
   );

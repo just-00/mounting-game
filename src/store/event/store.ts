@@ -1,10 +1,15 @@
 import { create } from "zustand";
-import { EVENT_PRIORITY, type EventType, type GameEvent } from "./type";
+import {
+  EVENT_PRIORITY,
+  type EventType,
+  type GameEvent,
+  type IsShowParams,
+} from "./type";
 import { ROUTES } from "./config";
 import { useEnvironmenStore } from "@/store/environment/store";
-import type { Equipment } from "../equipment/type";
 import { useEquipmentStore } from "../equipment/store";
 import { GameRoute } from "./config/type";
+import { useStatusStore } from "../status/store";
 
 interface EventStore {
   currentEvent: GameEvent | null;
@@ -15,6 +20,11 @@ interface EventStore {
   resetEventStore: () => void;
   setCurrentEventByKey: (key: string, title?: string) => void;
   setCurrentEventByCompute: () => void;
+  computeEvent: (
+    event: GameEvent,
+    isShowParams: IsShowParams,
+    title?: string,
+  ) => GameEvent;
 }
 
 const INIT_STORE = {
@@ -43,20 +53,50 @@ export const useEventStore = create<EventStore>((set, get) => ({
       routeId,
     }));
   },
+  computeEvent: (
+    event: GameEvent,
+    isShowParams: IsShowParams,
+    title?: string,
+  ) => {
+    const options = event.options?.filter((item) => {
+      if (!item.isShow) {
+        return true;
+      }
+      return item.isShow(isShowParams);
+    });
+    const result = {
+      ...event,
+      options,
+    };
+    if (title) {
+      result.title = title;
+    }
+    return result;
+  },
+
   // 通过key设置当前事件
   setCurrentEventByKey: (afterEventKey: string, title?: string) => {
     set((state) => {
       const { routeId, doneEventKeys } = get();
       const { equipments } = useEquipmentStore.getState();
+      const { hunger } = useStatusStore.getState();
       const currentRoute = ROUTES.find((item) => item.key === routeId);
       const afterEvent = [
         ...currentRoute!.otherEvents,
+        ...currentRoute!.statusEvents,
         ...currentRoute!.mainEvents,
       ].find((item) => item.key === afterEventKey);
       return {
         ...state,
         doneEventKeys: doneEventKeys.concat(afterEventKey),
-        currentEvent: computeEvent(afterEvent!, equipments, title),
+        currentEvent: get().computeEvent(
+          afterEvent!,
+          {
+            equipments,
+            hunger,
+          },
+          title,
+        ),
       };
     });
   },
@@ -67,8 +107,29 @@ export const useEventStore = create<EventStore>((set, get) => ({
       const distance = useEnvironmenStore.getState().distance;
       const { routeId, eventPriority, doneEventKeys } = get();
       const { equipments } = useEquipmentStore.getState();
+      const { hunger } = useStatusStore.getState();
+
+      const isShowParams = {
+        equipments,
+        hunger,
+      };
       const currentRoute = ROUTES.find((item) => item.key === routeId);
+
       // 先看有无状态低导致的必发事件
+      // 状态事件无需判断doneKey
+      const statusEvents = currentRoute!.statusEvents.find((item) => {
+        if (!item.isShow) {
+          return true;
+        }
+        return item.isShow(isShowParams);
+      });
+
+      if (statusEvents) {
+        return {
+          ...state,
+          currentEvent: get().computeEvent(statusEvents, isShowParams),
+        };
+      }
 
       // 再看distance check导致的必发事件
       const originMain = currentRoute!.mainEvents.filter(
@@ -82,7 +143,7 @@ export const useEventStore = create<EventStore>((set, get) => ({
         return {
           ...state,
           doneEventKeys: doneEventKeys.concat(originMain.key),
-          currentEvent: computeEvent(originMain, equipments),
+          currentEvent: get().computeEvent(originMain, isShowParams),
         };
       }
 
@@ -155,29 +216,8 @@ export const useEventStore = create<EventStore>((set, get) => ({
         ...state,
         doneEventKeys: doneEventKeys.concat(events![eventRandom]!.key),
         eventPriority: { ...eventPriority },
-        currentEvent: computeEvent(events![eventRandom], equipments),
+        currentEvent: get().computeEvent(events![eventRandom], isShowParams),
       };
     });
   },
 }));
-
-const computeEvent = (
-  event: GameEvent,
-  equipments: Equipment[],
-  title?: string,
-) => {
-  const options = event.options?.filter((item) => {
-    if (!item.isShow) {
-      return true;
-    }
-    return item.isShow(equipments);
-  });
-  const result = {
-    ...event,
-    options,
-  };
-  if (title) {
-    result.title = title;
-  }
-  return result;
-};

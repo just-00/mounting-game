@@ -69,6 +69,10 @@ export enum AchievementKey {
   // 菜谱
   // 第一道菜
   FIRST_RECIEPT = "FIRST_RECIEPT",
+  // 早餐锅
+  BREAKFAST = "BREAKFAST",
+  // 有毒的菜品
+  POISON_DISH = "POISON_DISH",
 
   // 战斗
   // 打败熊
@@ -151,6 +155,18 @@ export const ACHIEVEMENTS: Achievement[] = [
     title: "山野厨神",
     key: AchievementKey.FIRST_RECIEPT,
     desc: "完成第一道菜谱",
+    type: AchievementType.Reciept,
+  },
+  {
+    title: "太丰盛了",
+    key: AchievementKey.BREAKFAST,
+    desc: "做出了早餐锅",
+    type: AchievementType.Reciept,
+  },
+  {
+    title: "不能吃吧...？",
+    key: AchievementKey.POISON_DISH,
+    desc: "做出了有毒的料理",
     type: AchievementType.Reciept,
   },
   {
