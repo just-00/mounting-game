@@ -1,7 +1,7 @@
 .achievementToast {
   position: fixed;
-  right: 0;
-  bottom: 16px;
+  left: 50%;
+  transform: translate(-50%, 0);
   z-index: 8;
   font-size: 24px;
   display: flex;
@@ -12,15 +12,16 @@
   @keyframes bounce {
     0%,
     100% {
-      transform: translateY(0);
-      filter: brightness(1.1);
+      transform: translate(-50%, 0);
+      filter: brightness(1.5);
     }
     50% {
-      transform: translateY(-2px);
-      filter: brightness(0.9);
+      transform: translateY(-50%, -2px);
+      filter: brightness(1.1);
     }
   }
   .text {
-    margin-left: 2px;
+    margin-left: 4px;
+    white-space: nowrap;
   }
 }

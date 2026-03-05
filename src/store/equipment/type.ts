@@ -1,3 +1,4 @@
+import type { AchievementKey } from "../achievement/type";
 import type { Effect } from "../effect";
 
 export type DishConfig = {
@@ -32,6 +33,8 @@ export interface Equipment {
   count?: number;
   // 只可用一次
   disposable?: boolean;
+  // 增加时获得的成就
+  addedAchievement?: AchievementKey[]
   // 使用后的副作用
   effect?: Effect;
   // 菜肴特定配置

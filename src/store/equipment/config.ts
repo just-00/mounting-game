@@ -2,6 +2,7 @@ import { Poison } from "../status/type";
 import { SELECT_EQUIPMENT_PRELOAD } from "@/const/ResourceUrl";
 import { EquipmentKey, EquipmentType, type Equipment } from "./type";
 import { SnowMainEventKey } from "../event/config/type";
+import { AchievementKey } from "../achievement/type";
 
 const COOK_NOT_POISON_MUSHROOM = [
   EquipmentKey.MushroomJiYou,
@@ -171,6 +172,7 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     effect: {
       san: -10,
     },
+    addedAchievement: [AchievementKey.POISON_DISH],
     dishConfig: {
       priority: 0,
       equipmentCount: 1,
@@ -237,6 +239,7 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     effect: {
       san: -10,
     },
+    addedAchievement: [AchievementKey.POISON_DISH],
     dishConfig: {
       priority: 0,
       equipmentCount: [2, 3],
@@ -355,6 +358,7 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
       warm: 15,
       hunger: 20,
     },
+    addedAchievement: [AchievementKey.BREAKFAST],
     dishConfig: {
       priority: 9,
       equipmentCount: 3,
@@ -581,6 +585,7 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     type: EquipmentType.DISH,
     effect: {
       san: -10,
+      achievements: [AchievementKey.EWW],
     },
     dishConfig: {
       priority: 1,

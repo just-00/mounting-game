@@ -122,6 +122,7 @@ export const useGameEffect = () => {
   const { resetEventStore } = useEventStore();
   const { addAchieved } = useAchievementStore();
   const { setIsStove } = useSettingStore();
+  const addedAchievement: AchievementKey[] = [];
 
   const resetAll = () => {
     resetEnvironmentStore();
@@ -175,6 +176,14 @@ export const useGameEffect = () => {
       Object.entries(effect.equipments).forEach(([key, value]) => {
         const current = equipments.find((item) => item.key === key);
         setEquipmentsCount(key, (current?.count || 0) + value);
+        if (
+          value > 0 &&
+          EQUIPMENTS[key as EquipmentKey].addedAchievement?.length
+        ) {
+          addedAchievement.push(
+            ...EQUIPMENTS[key as EquipmentKey].addedAchievement!,
+          );
+        }
       });
     }
 
@@ -212,7 +221,7 @@ export const useGameEffect = () => {
         setWarm(WarmValue[Warm.Hypothermia]);
       }
     }
-    addAchieved(effect.achievements)
+    addAchieved([...(effect.achievements || []), ...addedAchievement]);
     // 如果动态计算出了toast，使用动态计算的
     const toast = effect.toast ?? getToast(effect);
     return { ...effect, toast };

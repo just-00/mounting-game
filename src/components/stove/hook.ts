@@ -128,17 +128,6 @@ export const useCook = () => {
         },
       },
     });
-    // 做出有毒的菜
-    if (
-      doneDish === EquipmentKey.PoisonMushroomMixed ||
-      doneDish === EquipmentKey.PoisonMushroom
-    ) {
-      addAchieved([AchievementKey.POISON_DISH]);
-    }
-    // 做出早餐锅
-    if (doneDish === EquipmentKey.FriedSteakBreakfast) {
-      addAchieved([AchievementKey.BREAKFAST]);
-    }
     return {
       toast: `${toast}<br/><b>锵锵！${EQUIPMENTS[doneDish]?.name}做好了！</b>`,
       doneDish,

@@ -92,7 +92,7 @@ export const Stove = () => {
                 onClick={() => onUnSelect(index)}
               >
                 {selectedFoods[index] && (
-                  <img src={EQUIPMENTS[selectedFoods[index]].src} width="70%" />
+                  <img src={EQUIPMENTS[selectedFoods[index]].src} className="img"/>
                 )}
                 <img src={STOVE_PRELOAD.SELECTED} className="bk" />
               </section>

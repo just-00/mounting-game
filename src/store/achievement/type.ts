@@ -73,6 +73,8 @@ export enum AchievementKey {
   BREAKFAST = "BREAKFAST",
   // 有毒的菜品
   POISON_DISH = "POISON_DISH",
+  // 吃了湿腻焦糊
+  EWW = "EWW",
 
   // 战斗
   // 打败熊
@@ -167,6 +169,12 @@ export const ACHIEVEMENTS: Achievement[] = [
     title: "不能吃吧...？",
     key: AchievementKey.POISON_DISH,
     desc: "做出了有毒的料理",
+    type: AchievementType.Reciept,
+  },
+  {
+    title: "呕",
+    key: AchievementKey.EWW,
+    desc: "吃了湿腻焦糊",
     type: AchievementType.Reciept,
   },
   {

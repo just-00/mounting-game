@@ -6,9 +6,7 @@ import { MountingAnimationCom } from "../center-card/mounting-animation";
 import { useEventStore } from "@/store/event/store";
 import { useGameEffect } from "@/store/effect";
 import { useSettingStore } from "@/store/setting";
-import { AchievementToast } from "../achievement-toast";
 import { useNavigate } from "react-router-dom";
-import { useAchievementStore } from "@/store/achievement/store";
 
 // mounting的动画展示多久
 const MOUNTING_ANIMATION_SHOW_WARNING_TIME = 2000;
@@ -43,22 +41,6 @@ export const GameDialog = () => {
     key: string | undefined;
     title?: string;
   }>(null);
-  const [newAchieved, setNewAchieved] = useState<boolean>(false);
-
-  // 监听是否有新成就提示
-  useEffect(() => {
-    const subscribe = useAchievementStore.subscribe(
-      (state) => ({
-        newAchieved: state.newAchieved,
-      }),
-      ({ newAchieved: originNewAchieved }) => {
-        setNewAchieved(originNewAchieved);
-      },
-    );
-    return () => {
-      subscribe();
-    };
-  }, []);
 
   // 监听背包页是否关闭了动画
   useEffect(() => {
@@ -106,7 +88,6 @@ export const GameDialog = () => {
       setOptionPic(undefined);
     }, TOAST_SHOW_TIME);
   }, [toast]);
-
 
   const restart = () => {
     resetAll();
@@ -251,8 +232,6 @@ export const GameDialog = () => {
         </div>
       )}
 
-      {/* 新成就提醒 */}
-      {newAchieved && <AchievementToast />}
     </>
   );
 };
