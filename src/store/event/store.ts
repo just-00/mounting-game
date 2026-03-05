@@ -16,6 +16,7 @@ interface EventStore {
   routeId: GameRoute | null;
   eventPriority: Partial<Record<EventType, number>>;
   doneEventKeys: string[];
+  doneOptionKeys: string[];
   setRouteId: (routeId: GameRoute) => void;
   resetEventStore: () => void;
   setCurrentEventByKey: (key: string, title?: string) => void;
@@ -36,6 +37,8 @@ const INIT_STORE = {
   eventPriority: EVENT_PRIORITY,
   // 已经做过的eventKeys
   doneEventKeys: [],
+  // 已经做过的optionKeys
+  doneOptionKeys: [],
 };
 
 export const useEventStore = create<EventStore>((set, get) => ({
@@ -94,6 +97,7 @@ export const useEventStore = create<EventStore>((set, get) => ({
           {
             equipments,
             hunger,
+            doneEventKeys,
           },
           title,
         ),
@@ -105,36 +109,66 @@ export const useEventStore = create<EventStore>((set, get) => ({
     set((state) => {
       // 前置需要的数据
       const distance = useEnvironmenStore.getState().distance;
-      const { routeId, eventPriority, doneEventKeys } = get();
+      const { routeId, eventPriority, doneEventKeys, doneOptionKeys } = get();
       const { equipments } = useEquipmentStore.getState();
       const { hunger } = useStatusStore.getState();
-
+      // 用来计算事件和选项是否满足
       const isShowParams = {
         equipments,
         hunger,
+        doneEventKeys,
       };
+      // 当前选择
       const currentRoute = ROUTES.find((item) => item.key === routeId);
+
+      // 过滤掉 已做过的事件 | isShow返回false的事件 | prekey不满足的事件 | isForcedTriggerAfterKey的事件
+      // justOne默认事件只做一次，status事件可多次
+      const handleEvent = (events: GameEvent[], justOne: boolean = true) => {
+        return events.filter((item) => {
+          if (item.isForcedTriggerAfterKey) {
+            return false;
+          }
+          // 如果只能做一次，并且还做过了，不展示
+          if (justOne && doneEventKeys.includes(item.key)) {
+            return false;
+          }
+          // 只有有isShow，并且isShow返回false的情况下false
+          if (item.isShow && !item.isShow(isShowParams)) {
+            return false;
+          }
+          if (item.preEventKeys?.length) {
+            // 如果前置事件key有一个没做的话，false
+            if (
+              item.preEventKeys.every((key) => !doneEventKeys.includes(key))
+            ) {
+              return false;
+            }
+          }
+          if (item.preOptionKeys?.length) {
+            // 如果前置事件key有一个没做的话，false
+            if (
+              item.preOptionKeys.every((key) => !doneOptionKeys.includes(key))
+            ) {
+              return false;
+            }
+          }
+          return true;
+        });
+      };
 
       // 先看有无状态低导致的必发事件
       // 状态事件无需判断doneKey
-      const statusEvents = currentRoute!.statusEvents.find((item) => {
-        if (!item.isShow) {
-          return true;
-        }
-        return item.isShow(isShowParams);
-      });
-
-      if (statusEvents) {
+      const statusEvent = handleEvent(currentRoute!.statusEvents, false)[0];
+      if (statusEvent) {
         return {
           ...state,
-          currentEvent: get().computeEvent(statusEvents, isShowParams),
+          doneEventKeys: doneEventKeys.concat(statusEvent.key),
+          currentEvent: get().computeEvent(statusEvent, isShowParams),
         };
       }
 
       // 再看distance check导致的必发事件
-      const originMain = currentRoute!.mainEvents.filter(
-        (item) => !doneEventKeys.includes(item.key),
-      )?.[0];
+      const originMain = handleEvent(currentRoute!.mainEvents)[0];
       if (
         originMain &&
         typeof originMain.distance === "number" &&
@@ -149,10 +183,7 @@ export const useEventStore = create<EventStore>((set, get) => ({
 
       // 根据优先级和事件库随机出一个事件
       // 找出没有做过的事件
-      const originOtherEvents = currentRoute!.otherEvents.filter(
-        (item) =>
-          !doneEventKeys.includes(item.key) && !item.isForcedTriggerAfterKey,
-      );
+      const originOtherEvents = handleEvent(currentRoute!.otherEvents);
 
       // 计算出当前事件按eventType的分类
       const eventsMap = originOtherEvents!.reduce(

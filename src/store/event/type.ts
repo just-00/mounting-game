@@ -1,7 +1,11 @@
 import type { Action, Effect } from "../effect";
 import type { Equipment } from "../equipment/type";
 
-export type IsShowParams = { equipments: Equipment[]; hunger: number };
+export type IsShowParams = {
+  equipments: Equipment[];
+  hunger: number;
+  doneEventKeys: string[];
+};
 
 export enum EventType {
   // 主线相关
@@ -46,6 +50,10 @@ export interface Option {
   result?: (equipments: Equipment[]) => { effect?: Effect; action?: Action };
 }
 
+export enum EventPicType {
+
+}
+
 export interface GameEvent {
   // 唯一标识
   key: string;
@@ -55,9 +63,15 @@ export interface GameEvent {
   eventType: EventType;
   // 事件配的图片，类型：结局图片 / 非结局事件图片
   eventPic?: string;
+  // 事件图片位置
+  eventPicType?: EventPicType;
   // 事件选项
   options?: Option[];
+  // 副作用
+  effect?: Effect
 
+  // 需要满足触发的前置事件key（简单场景下）
+  preEventKeys?: string[];
   // 需要满足触发的前置选项key（简单场景下）
   preOptionKeys?: string[];
   // 计算是否出现这个事件，默认是true（复杂场景下）

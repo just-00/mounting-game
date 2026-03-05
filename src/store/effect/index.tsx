@@ -10,6 +10,7 @@ import type { AchievementKey } from "../achievement/type";
 import { useAchievementStore } from "../achievement/store";
 import { useEventStore } from "../event/store";
 import { useSettingStore } from "../setting";
+import { useNavigate } from "react-router-dom";
 
 export type SelectedEquipmentKeys =
   | "warm"
@@ -20,6 +21,7 @@ export type SelectedEquipmentKeys =
   | "injuried"
   | "hunger"
   | "poison"
+  | "dizzy"
   | "achievements"
   | "toast";
 
@@ -45,6 +47,7 @@ type ToastTextMap = {
   injuried: boolean;
   hunger: number;
   poison: Poison;
+  dizzy: boolean;
   endKey: string;
   endTitle: string;
   achievements: AchievementKey[];
@@ -60,6 +63,7 @@ export type Effect = Partial<ToastTextMap>;
 
 export type Action = {
   stove?: boolean;
+  bag?: boolean;
 };
 
 // toast中各项对应的计算函数
@@ -81,7 +85,7 @@ export const ToastText: {
   hunger: (val: number) => `饥饿度提升了${val}`,
   poison: () =>
     `你中毒了<br/>你的精神值降低了<br/>你的体温降低了<br/>你的速度降低了`,
-  toast: undefined,
+  dizzy: (val: boolean) => (val ? "你晕倒了" : ""),
 };
 
 // 获取装备使用的toast文案
@@ -108,12 +112,14 @@ export const useGameEffect = () => {
     resetStatusStore,
     warm,
     san,
+    hunger,
     setSan,
     setWarm,
     setInjuried,
     setPoison,
     addPoison,
     setSpeed,
+    setHunger,
   } = useStatusStore();
   const { timestamp, setTimestamp, setWeather, resetEnvironmentStore } =
     useEnvironmenStore();
@@ -122,6 +128,7 @@ export const useGameEffect = () => {
   const { resetEventStore } = useEventStore();
   const { addAchieved } = useAchievementStore();
   const { setIsStove } = useSettingStore();
+  const navigate = useNavigate();
   const addedAchievement: AchievementKey[] = [];
 
   const resetAll = () => {
@@ -138,7 +145,9 @@ export const useGameEffect = () => {
           effect?: Effect;
           action?: Action;
         },
-  ): Effect => {
+  ): Effect & {
+    hasAction: boolean;
+  } => {
     let effect: Effect | undefined = undefined;
     let action: Action | undefined = undefined;
     // 选项有result项，进行计算（Option的情况下）
@@ -164,11 +173,16 @@ export const useGameEffect = () => {
         // 使用炉子
         setIsStove(action.stove);
       }
+      if (action.bag) {
+        navigate("/main/bag-manage");
+      }
     }
 
     // 如果没有副作用，直接返回
     if (!effect) {
-      return {};
+      return {
+        hasAction: !!action,
+      };
     }
 
     // 通过选项 获得或减少装备
@@ -221,10 +235,14 @@ export const useGameEffect = () => {
         setWarm(WarmValue[Warm.Hypothermia]);
       }
     }
+    
+    if(effect.hunger){
+      setHunger(hunger + effect.hunger);
+    }
     addAchieved([...(effect.achievements || []), ...addedAchievement]);
     // 如果动态计算出了toast，使用动态计算的
     const toast = effect.toast ?? getToast(effect);
-    return { ...effect, toast };
+    return { ...effect, toast, hasAction: !!action };
   };
 
   return { computeEffect, resetAll };

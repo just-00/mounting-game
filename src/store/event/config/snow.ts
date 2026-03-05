@@ -4,17 +4,20 @@ import {
   type Equipment,
 } from "@/store/equipment/type";
 import { EventType, type GameEvent } from "../type";
-import { MAIN_PROLOAD, SELECT_EQUIPMENT_PRELOAD } from "@/const/ResourceUrl";
-import { getToast } from "@/store/effect";
+import { MAIN_PROLOAD, PIXEL_PRELOAD, SELECT_EQUIPMENT_PRELOAD } from "@/const/ResourceUrl";
+import { getToast, type Effect } from "@/store/effect";
 import { add } from "@/utils/number";
 import {
   SnowMainEventKey,
   SnowMainOptionKey,
   SnowOtherEventKey,
   SnowOtherOptionKey,
+  SnowStatusEventKey,
+  SnowStatusOptionKey,
 } from "./type";
 import { AchievementKey } from "@/store/achievement/type";
 import { getHunger, Hunger } from "@/store/status/type";
+import { EQUIPMENTS } from "@/store/equipment/config";
 
 export const OTHER_ICE_EVENTS: GameEvent[] = [
   // 野兽类相关
@@ -348,15 +351,59 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
 // 状态类相关事件（第一优先级）
 export const STATUS_ICE_EVENTS: GameEvent[] = [
   {
-    key: SnowOtherEventKey.OtherIce_Stick,
-    title: "你晕倒了",
-    isShow: ({ hunger }) => {
+    key: SnowStatusEventKey.Hunger_Before,
+    title: "你感觉非常非常的饿",
+    isShow: ({ hunger, doneEventKeys }) => {
+      if (doneEventKeys.includes(SnowStatusEventKey.Hunger_Before)) {
+        return false;
+      }
       if (getHunger(hunger) === Hunger.LowSuar) {
         return true;
       }
       return false;
     },
-    eventType: EventType.Item,
+    options: [
+      {
+        key: SnowStatusOptionKey.Hunger_Before_1,
+        title: "打开背包",
+        result: () => ({
+          action: {
+            bag: true,
+          },
+        }),
+      },
+      {
+        key: SnowStatusOptionKey.Hunger_Before_1,
+        title: "随便吃点什么",
+        result: (equipments: Equipment[]) => causualEating(equipments),
+      },
+      {
+        key: SnowStatusOptionKey.Hunger_Before_2,
+        title: "不管",
+      },
+    ],
+    eventType: EventType.STATUS,
+  },
+  {
+    key: SnowStatusEventKey.Hunger,
+    title: "你晕倒了",
+    eventPic: PIXEL_PRELOAD.PIXEL_DIZZY,
+    isShow: ({ hunger, doneEventKeys }) => {
+      if (!doneEventKeys.includes(SnowStatusEventKey.Hunger_Before)) {
+        return false;
+      }
+      if (getHunger(hunger) === Hunger.LowSuar) {
+        return true;
+      }
+      return false;
+    },
+    effect: {
+      dizzy: true,
+      useTime: 120,
+      hunger: 50,
+      toast: '你晕过去了2个小时<br/>你从背包里翻出了一些饼干屑缓解了饥饿'
+    },
+    eventType: EventType.STATUS,
   },
 ];
 
@@ -469,6 +516,45 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
     eventPic: MAIN_PROLOAD.BAD_END,
   },
 ];
+
+const causualEating = (equipments: Equipment[]) => {
+  const canEatList = equipments.filter(
+    (item) =>
+      (item.type === EquipmentType.Food || item.type === EquipmentType.DISH) &&
+      !!item.count,
+  );
+  if (canEatList.length === 0) {
+    return {
+      effect: {
+        toast: "没有能吃的东西",
+      },
+    };
+  }
+  // 随机出吃哪个东西
+  const len = canEatList.length;
+  const ran = Math.floor(Math.random() * (len - 1));
+  const currentEquipment = canEatList[ran];
+
+  const effect: Effect = {
+    equipments: {
+      [currentEquipment.key]: -1,
+    },
+  };
+
+  // 计算出物品减少的toast
+  let toast = getToast(effect);
+  // 如果物品本身有副作用，计算出副作用拼接
+  const equipEffect = EQUIPMENTS[currentEquipment.key].effect;
+  if (equipEffect) {
+    toast += "<br/>" + getToast(equipEffect);
+  }
+  return {
+    effect: {
+      ...effect,
+      toast,
+    },
+  };
+};
 
 const getBeastFightResult = (animal: string, equipments: Equipment[]) => {
   // 默认40%几率打中

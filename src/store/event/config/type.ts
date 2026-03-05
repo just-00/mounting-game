@@ -73,6 +73,18 @@ export enum SnowOtherOptionKey {
 }
 
 
+// 状态相关
+export enum SnowStatusEventKey {
+  Hunger_Before = "Hunger_Before",
+  Hunger = "Hunger",
+}
+
+
+export enum SnowStatusOptionKey {
+  Hunger_Before_1 = "Hunger_Before_1",
+  Hunger_Before_2 = "Hunger_Before_2",
+}
+
 // 主线相关
 export enum SnowMainEventKey {
   IceMain_RestStop_3 = "ice_main_rest_stop_3",

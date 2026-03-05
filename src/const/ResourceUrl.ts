@@ -144,11 +144,12 @@ export const PANNEL_ITEM_PRELOAD = {
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/饥饿.png",
 };
 
-export const CENTER_CARD_PRELOAD = {
+export const PIXEL_PRELOAD = {
   PIXEL_WALKING:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/下载.png",
   PIXEL_STOPPING:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/little-man-1%20(6).gif",
+  PIXEL_DIZZY: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/ab6148a9-fb49-4633-a660-118ce.png",
 };
 
 export const ACHIEVEMENT_PRELOAD = {
@@ -179,7 +180,7 @@ export const ALL_RESOURCE = [
   ...Object.values(MAIN_PROLOAD),
   ...Object.values(STOVE_PRELOAD),
   ...Object.values(PANNEL_ITEM_PRELOAD),
-  ...Object.values(CENTER_CARD_PRELOAD),
+  ...Object.values(PIXEL_PRELOAD),
   ...Object.values(ACHIEVEMENT_PRELOAD),
   ...Object.values(COMMON_PRELOAD),
 ];

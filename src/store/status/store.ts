@@ -24,6 +24,8 @@ interface StatusStore {
   injuried: boolean;
   // 中毒
   poison: Poison[];
+  // 晕倒
+  dizzy: boolean
   setSpeed: (speed: Speed) => void;
   setWarm: (warm: number) => void;
   setSan: (san: number) => void;
@@ -41,6 +43,7 @@ const INIT_STORE = {
   hunger: HungerValue[Hunger.Full],
   injuried: false,
   poison: [],
+  dizzy: false
 };
 
 export const useStatusStore = create<StatusStore>((set) => ({

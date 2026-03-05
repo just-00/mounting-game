@@ -14,6 +14,8 @@ const MOUNTING_ANIMATION_SHOW_WARNING_TIME = 2000;
 const MOUNTING_ANIMATION_CLOSE_TIME = 3000;
 // 点击选项后的toast展示多久
 const TOAST_SHOW_TIME = 2500;
+// 无选项事件展示多久
+const NO_OPTIONS_EVENT = 3000;
 
 // 逻辑
 
@@ -37,6 +39,7 @@ export const GameDialog = () => {
   const { currentEvent, setCurrentEventByCompute, setCurrentEventByKey } =
     useEventStore();
   const { resetAll, computeEffect } = useGameEffect();
+  const { setMounting: setSettingMouting } = useSettingStore();
   const endRef = useRef<{
     key: string | undefined;
     title?: string;
@@ -56,6 +59,28 @@ export const GameDialog = () => {
       subscribe();
     };
   }, []);
+
+  useEffect(() => {
+    // 如果事件有选项，不做处理
+    if (!currentEvent || currentEvent?.options?.length) {
+      return;
+    }
+
+    // 如果事件无选项，定时把事件关掉
+    setTimeout(() => {
+      let toast: string | undefined = "";
+      if (currentEvent?.effect) {
+        toast = computeEffect(currentEvent).toast;
+      }
+      // 如果有toast展示
+      if (toast) {
+        setToast(toast);
+      } else {
+        // 没有的话直接展示mounting动画
+        setSettingMouting(true);
+      }
+    }, NO_OPTIONS_EVENT);
+  }, [currentEvent]);
 
   useEffect(() => {
     // 展示动画变为展示时，或者之前mounting也是false时，不进行逻辑计算
@@ -103,6 +128,7 @@ export const GameDialog = () => {
       toast,
       endKey,
       endTitle,
+      hasAction,
     } = computeEffect(option);
 
     // 如果全屏图片，先出图片再出toast
@@ -138,7 +164,7 @@ export const GameDialog = () => {
       setCurrentEventByKey(endKey, endTitle);
     } else if (option?.mustTriggerAfterKey) {
       setCurrentEventByKey(option?.mustTriggerAfterKey);
-    } else {
+    } else if (!hasAction) {
       setMounting(true);
     }
   };
@@ -231,7 +257,6 @@ export const GameDialog = () => {
           <img src={optionPic.url} width="80%" className="optionPic" />
         </div>
       )}
-
     </>
   );
 };
