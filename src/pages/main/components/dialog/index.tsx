@@ -102,7 +102,7 @@ export const GameDialog = () => {
           setCurrentEventByKey(endRef.current.key);
           endRef.current = null;
         } else {
-          setMounting(true);
+          setSettingMouting(true);
         }
       });
       return;
@@ -130,7 +130,6 @@ export const GameDialog = () => {
       endTitle,
       hasAction,
     } = computeEffect(option);
-
     // 如果全屏图片，先出图片再出toast
     if (originOptionPics?.type === "full") {
       for (let i = 0; i < originOptionPics.urls.length; i++) {
@@ -165,7 +164,7 @@ export const GameDialog = () => {
     } else if (option?.mustTriggerAfterKey) {
       setCurrentEventByKey(option?.mustTriggerAfterKey);
     } else if (!hasAction) {
-      setMounting(true);
+      setSettingMouting(true);
     }
   };
 
@@ -177,7 +176,7 @@ export const GameDialog = () => {
         showWarningTime={MOUNTING_ANIMATION_SHOW_WARNING_TIME}
         closeTime={MOUNTING_ANIMATION_CLOSE_TIME}
         onClose={() => {
-          setMounting(false);
+          setSettingMouting(false);
         }}
       />
     );

@@ -2,6 +2,7 @@ import { create } from "zustand";
 import {
   getRandomWeather,
   getTimeByTimestamp,
+  START_HOUR,
   START_TIME,
   Time,
   Weather,
@@ -10,13 +11,14 @@ import type { Dayjs } from "dayjs";
 
 interface EnvironmentStore {
   weather: Weather;
+  hourWeather: number;
   time: Time;
   timestamp: Dayjs;
   distance: number;
   // 每小时预定可以爬多少distance
   averageDistancePerHour: number;
   setWeather: (weather: Weather) => void;
-  setNewRandomWeather: () => void;
+  setNewRandomWeather: (weather?: Weather) => void;
   setDistance: (d: number) => void;
   setTimestamp: (timestamp: Dayjs) => void;
   setAverageDistancePerHour: (averageDistancePerHour: number) => void;
@@ -25,6 +27,9 @@ interface EnvironmentStore {
 
 const INIT_STORE = {
   weather: getRandomWeather(),
+  // 随机生成天气的当前小时数
+  // 目前逻辑：最开始是8，每过两小时生成一次天气，并更新为10
+  hourWeather: START_HOUR,
   // 无初始距离，在选取路线后初始
   // WIP 测试方便
   distance: 0,
@@ -34,7 +39,7 @@ const INIT_STORE = {
   timestamp: START_TIME,
 };
 
-export const useEnvironmenStore = create<EnvironmentStore>((set) => ({
+export const useEnvironmenStore = create<EnvironmentStore>((set, get) => ({
   ...INIT_STORE,
   resetEnvironmentStore: () => {
     set(() => ({
@@ -60,8 +65,18 @@ export const useEnvironmenStore = create<EnvironmentStore>((set) => ({
     }));
   },
   setTimestamp: (timestamp: Dayjs) => {
+    const hour = timestamp.hour()
+    let weather = get().weather
+    let hourWeather =get().hourWeather 
+    // 如果距离上次更新天气已经过去2小时，则更新
+    if(hour >= hourWeather + 2){
+      hourWeather += 2
+      weather = getRandomWeather(weather)
+    }
     set((state) => ({
       ...state,
+      weather,
+      hourWeather,
       // 根据timestamp计算当前的time（白天 / 黄昏 / 夜晚..）
       time: getTimeByTimestamp(timestamp),
       timestamp,
