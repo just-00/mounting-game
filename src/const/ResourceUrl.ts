@@ -4,13 +4,13 @@ export const HOME_PRELOAD = {
 
 export const ROUTE_SELECT_PRELOAD = {
   ROUTE_SELECT_BK:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5137ede1b7cb4b55b457db812dc52d31.jpeg%7Etplv-a9rns2rl98-image_pre_watermark_1_5b.png",
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5137ede1b7cb4b55b457db812dc52d31.jpeg%7Etplv-a9rns2rl98-image_pre_watermark_1_5b.jpg",
   BEAR: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/7c1e03884b1b4d68b772b4283c857abf.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview%20(1).png",
 };
 
 export const SELECT_EQUIPMENT_PRELOAD = {
   SELECT_EQUIPMENT_BK:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0c72a9ddbb1a407997383021a90a19c1.jpeg%7Etplv-a9rns2rl98-image_raw_b%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1).png",
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0c72a9ddbb1a407997383021a90a19c1.jpeg%7Etplv-a9rns2rl98-image_raw_b%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1).jpg",
   LIGHT_TENT:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/8fd6f7d3f9b341f290fec4dbe18d87cb.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
   // WIP
@@ -113,8 +113,15 @@ export const MOUNTING_ANIMATION = {
 };
 
 export const MAIN_PROLOAD = {
-  MAIN_BK:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0255557287c44c29b93f9f5c0d7812f8.jpeg%7Etplv-a9rns2rl98-image_raw_b.png",
+  Sun_Day_BK: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0255557287c44c29b93f9f5c0d7812f8.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  Rain_Day_BK: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/31b5cc0ffc89466ea61cd31422ba1955.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  Snow_Day_BK: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/efd530f9be4f45d5936ec7995186a868.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  Sun_Dusk_BK: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/ed9c4d35c84044849cb44d820bad03d2.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  Rain_Dusk_BK: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/460ede5cd0664884bde866e1f02b37aa.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  Snow_Dusk_BK: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/3a16875aa2ee4fa9835a1f31eac4c848.jpeg%7Etplv-a9rns2rl98-image_raw_b%20(1).jpg",
+  Sun_Night_BK: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/154c0083bee24b6cae93e8298430d366.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  Rain_Night_BK: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5fcb99357da94792b5c3b40a2f37d2c9.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  Snow_Night_BK: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/600f1222acd34ad2a11034ba933269a6.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
   ICE_FALL:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0b636189b054471abb08f630f6af15db.jpeg%7Etplv-a9rns2rl98-image_raw_b%20(1).png",
   BEAR_NOT_WEAPON:

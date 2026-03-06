@@ -28,9 +28,9 @@ export enum Time {
 // 随机生成天气
 export const getTimeByTimestamp = (timestamp: Dayjs) => {
   const hour = timestamp.hour();
-  if (hour < 12) {
+  if (hour < 16) {
     return Time.Day;
-  } else if (hour < 16) {
+  } else if (hour < 19) {
     return Time.Dusk;
   } else {
     return Time.Night;

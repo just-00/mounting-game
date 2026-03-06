@@ -61,8 +61,8 @@ export const GameDialog = () => {
   }, []);
 
   useEffect(() => {
-    // 如果事件有选项，不做处理
-    if (!currentEvent || currentEvent?.options?.length) {
+    // 如果事件有选项或者是end事件，不做处理
+    if (!currentEvent || currentEvent?.options?.length || currentEvent.isEnd) {
       return;
     }
 

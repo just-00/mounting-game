@@ -8,12 +8,18 @@ import { useSettingStore } from "@/store/setting";
 import { useEffect, useState } from "react";
 import { useAchievementStore } from "@/store/achievement/store";
 import { AchievementToast } from "@/components/achievement-toast";
+import { useEnvironmenStore } from "@/store/environment/store";
+import { MAIN_PROLOAD } from "@/const/ResourceUrl";
 
 const Main = () => {
   const isStove = useSettingStore().isStove;
   const [newAchieved, setNewAchieved] = useState<boolean>(false);
   const location = useLocation();
   const currentPath = location.pathname;
+  const { weather, time } = useEnvironmenStore();
+
+  // 根据天气+时间出背景
+  const bk = MAIN_PROLOAD[`${weather}_${time}_BK` as "Sun_Day_BK"];
   // 监听是否有新成就提示
   useEffect(() => {
     const subscribe = useAchievementStore.subscribe(
@@ -29,7 +35,12 @@ const Main = () => {
     };
   }, []);
   return (
-    <section className="mainPage">
+    <section
+      className="mainPage"
+      style={{
+        background: `url(${bk}) right bottom / 100% 100% no-repeat`,
+      }}
+    >
       <GameDialog />
 
       <section className="pannel">
