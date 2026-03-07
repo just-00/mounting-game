@@ -64,12 +64,24 @@ export const useStatusStore = create<StatusStore>()(
       }));
     },
     setWarm: (warm: number) => {
+      // 到顶点就固定
+      if (warm > WarmValue[Warm.Normal]) {
+        warm = WarmValue[Warm.Normal];
+      } else if (warm < WarmValue[Warm.Hypothermia]) {
+        warm = WarmValue[Warm.Hypothermia];
+      }
       set((state) => ({
         ...state,
         warm,
       }));
     },
     setSan: (san: number) => {
+      // 到顶点就固定
+      if (san > SanValue[San.Normal]) {
+        san = SanValue[San.Normal];
+      } else if (san < SanValue[San.Fracture]) {
+        san = SanValue[San.Fracture];
+      }
       set((state) => ({
         ...state,
         san,

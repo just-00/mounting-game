@@ -1,6 +1,6 @@
 import {
   getHunger,
-  getSan,
+  getSanType,
   getWarm,
   Hunger,
   San,
@@ -161,7 +161,7 @@ export const SpeedCom = () => {
 
 export const SanCom = () => {
   const san = useStatusStore((state) => state.san);
-  const map = iconMap[`San${getSan(san)}`];
+  const map = iconMap[`San${getSanType(san)}`];
   return (
     <section
       className="speedIconWrapper"

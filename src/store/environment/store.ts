@@ -6,8 +6,11 @@ import {
   START_TIME,
   Time,
   Weather,
+  WEATHER_DAY_CONFIG,
 } from "./type";
 import type { Dayjs } from "dayjs";
+import { subscribeWithSelector } from "zustand/middleware";
+import { useStatusStore } from "../status/store";
 
 interface EnvironmentStore {
   weather: Weather;
@@ -18,11 +21,12 @@ interface EnvironmentStore {
   // 每小时预定可以爬多少distance
   averageDistancePerHour: number;
   setWeather: (weather: Weather) => void;
-  setNewRandomWeather: (weather?: Weather) => void;
+  // 执行天气改变时的副作用
+  setWeatherEffect: (weather: Weather) => void;
   setDistance: (d: number) => void;
   setTimestamp: (timestamp: Dayjs) => void;
   setAverageDistancePerHour: (averageDistancePerHour: number) => void;
-  resetEnvironmentStore: () => void
+  resetEnvironmentStore: () => void;
 }
 
 const INIT_STORE = {
@@ -39,53 +43,63 @@ const INIT_STORE = {
   timestamp: START_TIME,
 };
 
-export const useEnvironmenStore = create<EnvironmentStore>((set, get) => ({
-  ...INIT_STORE,
-  resetEnvironmentStore: () => {
-    set(() => ({
-      ...INIT_STORE,
-    }));
-  },
-  setWeather: (weather: Weather) => {
-    set((state) => ({
-      ...state,
-      weather,
-    }));
-  },
-  setNewRandomWeather: () => {
-    set((state) => ({
-      ...state,
-      weather: getRandomWeather(),
-    }));
-  },
-  setDistance: (distance: number) => {
-    set((state) => ({
-      ...state,
-      distance,
-    }));
-  },
-  setTimestamp: (timestamp: Dayjs) => {
-    const hour = timestamp.hour()
-    let weather = get().weather
-    let hourWeather =get().hourWeather 
-    // 如果距离上次更新天气已经过去2小时，则更新
-    if(hour >= hourWeather + 2){
-      hourWeather += 2
-      weather = getRandomWeather(weather)
-    }
-    set((state) => ({
-      ...state,
-      weather,
-      hourWeather,
-      // 根据timestamp计算当前的time（白天 / 黄昏 / 夜晚..）
-      time: getTimeByTimestamp(timestamp),
-      timestamp,
-    }));
-  },
-  setAverageDistancePerHour: (averageDistancePerHour: number) => {
-    set((state) => ({
-      ...state,
-      averageDistancePerHour,
-    }));
-  },
-}));
+export const useEnvironmenStore = create<EnvironmentStore>()(
+  subscribeWithSelector((set, get) => ({
+    ...INIT_STORE,
+    resetEnvironmentStore: () => {
+      set(() => ({
+        ...INIT_STORE,
+      }));
+    },
+    setWeather: (weather: Weather) => {
+      get().setWeatherEffect(weather);
+      set((state) => ({
+        ...state,
+        weather,
+      }));
+    },
+    setWeatherEffect: (weather: Weather) => {
+      const { warm, setWarm, san, setSan } = useStatusStore.getState();
+      const time = get().time;
+      const preWeather = get().weather;
+      // 根据配置看增减多少
+      const config = WEATHER_DAY_CONFIG[weather]?.[preWeather]?.[time];
+      if (config) {
+        const { sanChange, warmChange } = config;
+        setSan(san + sanChange);
+        setWarm(warm + warmChange);
+      }
+    },
+    setDistance: (distance: number) => {
+      set((state) => ({
+        ...state,
+        distance,
+      }));
+    },
+    setTimestamp: (timestamp: Dayjs) => {
+      const hour = timestamp.hour();
+      let weather = get().weather;
+      let hourWeather = get().hourWeather;
+      // 如果距离上次更新天气已经过去2小时，则更新
+      if (hour >= hourWeather + 2) {
+        hourWeather += 2;
+        weather = getRandomWeather(weather);
+        get().setWeatherEffect(weather);
+      }
+      set((state) => ({
+        ...state,
+        weather,
+        hourWeather,
+        // 根据timestamp计算当前的time（白天 / 黄昏 / 夜晚...）
+        time: getTimeByTimestamp(timestamp),
+        timestamp,
+      }));
+    },
+    setAverageDistancePerHour: (averageDistancePerHour: number) => {
+      set((state) => ({
+        ...state,
+        averageDistancePerHour,
+      }));
+    },
+  })),
+);

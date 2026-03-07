@@ -18,9 +18,9 @@ const Main = () => {
   const location = useLocation();
   const currentPath = location.pathname;
   const { weather, time } = useEnvironmenStore();
-  
+
   // 监听速度的改变
-  useSpeedSubscribe()
+  useSpeedSubscribe();
 
   // 根据天气+时间出背景
   const bk = MAIN_PROLOAD[`${weather}_${time}_BK` as "Sun_Day_BK"];

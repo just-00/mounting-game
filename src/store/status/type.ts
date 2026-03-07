@@ -80,7 +80,7 @@ export const SanValue = {
 };
 
 // 计算精神类型
-export const getSan = (san: number) => {
+export const getSanType = (san: number) => {
   if (san < SanValue[San.Unstable]) {
     return San.Normal;
   }
