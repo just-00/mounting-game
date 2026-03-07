@@ -4,7 +4,14 @@ import { useState } from "react";
 import { Stepper } from "react-vant";
 import { useEquipmentStore } from "@/store/equipment/store";
 import { useNavigate } from "react-router-dom";
-import { EQUIPMENT_MAX_SIZE, EQUIPMENT_MAX_WEIGHT } from "@/store/status/type";
+import {
+  EQUIPMENT_MAX_SIZE,
+  EQUIPMENT_MAX_WEIGHT,
+  getSpeed,
+  Hunger,
+  HungerValue,
+} from "@/store/status/type";
+import { useStatusStore } from "@/store/status/store";
 
 const SelectEquipment = () => {
   const [page, setPage] = useState(1);
@@ -14,6 +21,7 @@ const SelectEquipment = () => {
   const onPage = (p: number) => {
     setPage(p);
   };
+  const setSpeed = useStatusStore().setSpeed;
   const { equipments, setEquipmentsCount, totalSize, totalWeight } =
     useEquipmentStore();
 
@@ -21,6 +29,15 @@ const SelectEquipment = () => {
     setEquipmentsCount(key, count ?? 0);
   };
   const submit = () => {
+    // 计算速度
+    setSpeed(
+      getSpeed({
+        totalSize,
+        totalWeight,
+        hunger: HungerValue[Hunger.Full],
+        injuried: false,
+      }),
+    );
     navigate("/main");
   };
 
@@ -96,32 +113,35 @@ const SelectEquipment = () => {
           </section>
         </section>
         <section className="detailItemWrapper">
-          {equipments.filter(item => item.isSelectEquipmentShow).slice((page - 1) * 7, page * 7).map((item) => {
-            return (
-              <section key={item.name} className="detailItem">
-                <img className="img" src={item.src} width={40} />
-                <section className="mainWrapper">
-                  <div>
-                    <span className="space" />
-                    {item.name}
-                  </div>
-                  <div className="sizeAndWeight">
-                    V<span className="space" />
-                    {item.size} W<span className="space" />
-                    {item.weight}
-                  </div>
+          {equipments
+            .filter((item) => item.isSelectEquipmentShow)
+            .slice((page - 1) * 7, page * 7)
+            .map((item) => {
+              return (
+                <section key={item.name} className="detailItem">
+                  <img className="img" src={item.src} width={40} />
+                  <section className="mainWrapper">
+                    <div>
+                      <span className="space" />
+                      {item.name}
+                    </div>
+                    <div className="sizeAndWeight">
+                      V<span className="space" />
+                      {item.size} W<span className="space" />
+                      {item.weight}
+                    </div>
+                  </section>
+                  <Stepper
+                    value={item.count}
+                    min={0}
+                    integer
+                    allowEmpty={false}
+                    onChange={(v) => onValueChange(item.key, v)}
+                    className="step"
+                  />
                 </section>
-                <Stepper
-                  value={item.count}
-                  min={0}
-                  integer
-                  allowEmpty={false}
-                  onChange={(v) => onValueChange(item.key, v)}
-                  className="step"
-                />
-              </section>
-            );
-          })}
+              );
+            })}
         </section>
         <div className="submitButton" onClick={submit}>
           选择完毕

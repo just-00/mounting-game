@@ -21,16 +21,30 @@ export const SpeedValue = {
 export const getSpeed = ({
   totalSize,
   totalWeight,
+  injuried,
+  hunger,
 }: {
   totalSize: number;
   totalWeight: number;
+  injuried: boolean;
+  hunger: number;
 }) => {
+  // 一旦受伤，走路就慢
+  if (injuried) {
+    return Speed.Slow;
+  }
+  // 背的行李超重，慢
   if (totalSize > EQUIPMENT_MAX_SIZE || totalWeight > EQUIPMENT_MAX_WEIGHT) {
     return Speed.Slow;
   }
+  // 低血糖，慢
+  if (getHunger(hunger) === Hunger.LowSuar) {
+    return Speed.Slow;
+  }
   if (
-    totalSize < EQUIPMENT_MAX_SIZE / 2 ||
-    totalWeight < EQUIPMENT_MAX_WEIGHT / 2
+    (totalSize < EQUIPMENT_MAX_SIZE / 2 ||
+      totalWeight < EQUIPMENT_MAX_WEIGHT / 2) &&
+    getHunger(hunger) === Hunger.Full
   ) {
     return Speed.Fast;
   }

@@ -113,24 +113,36 @@ export const MOUNTING_ANIMATION = {
 };
 
 export const MAIN_PROLOAD = {
-  Sun_Day_BK: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0255557287c44c29b93f9f5c0d7812f8.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
-  Rain_Day_BK: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/31b5cc0ffc89466ea61cd31422ba1955.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
-  Snow_Day_BK: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/efd530f9be4f45d5936ec7995186a868.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
-  Sun_Dusk_BK: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/ed9c4d35c84044849cb44d820bad03d2.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
-  Rain_Dusk_BK: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/460ede5cd0664884bde866e1f02b37aa.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
-  Snow_Dusk_BK: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/3a16875aa2ee4fa9835a1f31eac4c848.jpeg%7Etplv-a9rns2rl98-image_raw_b%20(1).jpg",
-  Sun_Night_BK: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/154c0083bee24b6cae93e8298430d366.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
-  Rain_Night_BK: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5fcb99357da94792b5c3b40a2f37d2c9.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
-  Snow_Night_BK: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/600f1222acd34ad2a11034ba933269a6.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  Sun_Day_BK:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0255557287c44c29b93f9f5c0d7812f8.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  Rain_Day_BK:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/31b5cc0ffc89466ea61cd31422ba1955.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  Snow_Day_BK:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/efd530f9be4f45d5936ec7995186a868.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  Sun_Dusk_BK:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/ed9c4d35c84044849cb44d820bad03d2.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  Rain_Dusk_BK:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/460ede5cd0664884bde866e1f02b37aa.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  Snow_Dusk_BK:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/3a16875aa2ee4fa9835a1f31eac4c848.jpeg%7Etplv-a9rns2rl98-image_raw_b%20(1).jpg",
+  Sun_Night_BK:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/154c0083bee24b6cae93e8298430d366.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  Rain_Night_BK:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5fcb99357da94792b5c3b40a2f37d2c9.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  Snow_Night_BK:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/600f1222acd34ad2a11034ba933269a6.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
   ICE_FALL:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0b636189b054471abb08f630f6af15db.jpeg%7Etplv-a9rns2rl98-image_raw_b%20(1).png",
+  ICE_LAKE:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/66a8236fa8f2464da279c447ea8650e1.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
   BEAR_NOT_WEAPON:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/熊没带武器.mp4",
   BEAR_WEAPON:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/熊带武器.mp4",
   BAD_END:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/b2613cdc7aca4b70a9c5492e8dd6d62a.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
-  SPRING_POT: 'https://raw.githubusercontent.com/just-00/game-image-cdn/main/7997c02f-fe24-496c-b2.jpg',
+  SPRING_POT:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/7997c02f-fe24-496c-b2.jpg",
 };
 
 export const STOVE_PRELOAD = {
@@ -156,7 +168,8 @@ export const PIXEL_PRELOAD = {
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/下载.png",
   PIXEL_STOPPING:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/little-man-1%20(6).gif",
-  PIXEL_DIZZY: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/ab6148a9-fb49-4633-a660-118ce.png",
+  PIXEL_DIZZY:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/ab6148a9-fb49-4633-a660-118ce.png",
 };
 
 export const ACHIEVEMENT_PRELOAD = {

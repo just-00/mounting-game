@@ -468,6 +468,7 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
     title: "登顶看到冰湖",
     eventType: EventType.Main,
     distance: 10,
+    eventPic: MAIN_PROLOAD.ICE_LAKE
   },
   {
     key: SnowMainEventKey.IceMain_RestStop_15,

@@ -10,6 +10,7 @@ import { useAchievementStore } from "@/store/achievement/store";
 import { AchievementToast } from "@/components/achievement-toast";
 import { useEnvironmenStore } from "@/store/environment/store";
 import { MAIN_PROLOAD } from "@/const/ResourceUrl";
+import { useSpeedSubscribe } from "@/store/storeRelations/speed";
 
 const Main = () => {
   const isStove = useSettingStore().isStove;
@@ -17,6 +18,9 @@ const Main = () => {
   const location = useLocation();
   const currentPath = location.pathname;
   const { weather, time } = useEnvironmenStore();
+  
+  // 监听速度的改变
+  useSpeedSubscribe()
 
   // 根据天气+时间出背景
   const bk = MAIN_PROLOAD[`${weather}_${time}_BK` as "Sun_Day_BK"];
