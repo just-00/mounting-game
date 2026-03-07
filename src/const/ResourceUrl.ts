@@ -112,25 +112,27 @@ export const MOUNTING_ANIMATION = {
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/image-removebg-preview.png",
 };
 
+const Sun_Day_BK =
+  "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0255557287c44c29b93f9f5c0d7812f8.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg";
+const Sun_Dusk_BK =
+  "https://raw.githubusercontent.com/just-00/game-image-cdn/main/ed9c4d35c84044849cb44d820bad03d2.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg";
+const Sun_Night_BK =
+  "https://raw.githubusercontent.com/just-00/game-image-cdn/main/154c0083bee24b6cae93e8298430d366.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg";
+
+// 雪天用晴天的图 + 特供雪花特效
 export const MAIN_PROLOAD = {
-  Sun_Day_BK:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0255557287c44c29b93f9f5c0d7812f8.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  Sun_Day_BK,
   Rain_Day_BK:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/31b5cc0ffc89466ea61cd31422ba1955.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
-  Snow_Day_BK:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/efd530f9be4f45d5936ec7995186a868.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
-  Sun_Dusk_BK:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/ed9c4d35c84044849cb44d820bad03d2.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/8574453cfda9463c918c2685f745488c.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  Snow_Day_BK: Sun_Day_BK,
+  Sun_Dusk_BK,
   Rain_Dusk_BK:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/460ede5cd0664884bde866e1f02b37aa.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
-  Snow_Dusk_BK:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/3a16875aa2ee4fa9835a1f31eac4c848.jpeg%7Etplv-a9rns2rl98-image_raw_b%20(1).jpg",
-  Sun_Night_BK:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/154c0083bee24b6cae93e8298430d366.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/f0c0daf6156b414996d197ed2aae79a3.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  Snow_Dusk_BK: Sun_Dusk_BK,
+  Sun_Night_BK,
   Rain_Night_BK:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5fcb99357da94792b5c3b40a2f37d2c9.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
-  Snow_Night_BK:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/600f1222acd34ad2a11034ba933269a6.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/7a0fd9afb239442a9c1b82f9861382eb.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  Snow_Night_BK: Sun_Night_BK,
   ICE_FALL:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0b636189b054471abb08f630f6af15db.jpeg%7Etplv-a9rns2rl98-image_raw_b%20(1).png",
   ICE_LAKE:

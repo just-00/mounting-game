@@ -12,6 +12,9 @@ import { useEnvironmenStore } from "@/store/environment/store";
 import { MAIN_PROLOAD } from "@/const/ResourceUrl";
 import { useSpeedSubscribe } from "@/store/storeRelations/speed";
 import { useRegularCircultion } from "@/store/storeRelations/regularCirculation";
+import { SnowBk } from "./components/snow-bk";
+import { Weather } from "@/store/environment/type";
+import { RainBk } from "./components/rain-bk";
 
 const Main = () => {
   const isStove = useSettingStore().isStove;
@@ -23,7 +26,7 @@ const Main = () => {
   // 监听速度的改变
   useSpeedSubscribe();
   // 定期巡航对san值进行加减
-  useRegularCircultion()
+  useRegularCircultion();
 
   // 根据天气+时间出背景
   const bk = MAIN_PROLOAD[`${weather}_${time}_BK` as "Sun_Day_BK"];
@@ -41,6 +44,9 @@ const Main = () => {
       subscribe();
     };
   }, []);
+
+  const isSnow = weather === Weather.Snow
+  const isRain = weather === Weather.Rain
   return (
     <section
       className="mainPage"
@@ -48,6 +54,8 @@ const Main = () => {
         background: `url(${bk}) right bottom / 100% 100% no-repeat`,
       }}
     >
+      {isSnow && <SnowBk />}
+      {isRain && <RainBk />}
       <GameDialog />
 
       <section className="pannel">
