@@ -16,7 +16,7 @@ import {
   SnowStatusOptionKey,
 } from "./type";
 import { AchievementKey } from "@/store/achievement/type";
-import { getHunger, Hunger } from "@/store/status/type";
+import { getHungerType, Hunger } from "@/store/status/type";
 import { EQUIPMENTS } from "@/store/equipment/config";
 
 export const OTHER_ICE_EVENTS: GameEvent[] = [
@@ -357,7 +357,7 @@ export const STATUS_ICE_EVENTS: GameEvent[] = [
       if (doneEventKeys.includes(SnowStatusEventKey.Hunger_Before)) {
         return false;
       }
-      if (getHunger(hunger) === Hunger.LowSuar) {
+      if (getHungerType(hunger) === Hunger.LowSuar) {
         return true;
       }
       return false;
@@ -392,7 +392,7 @@ export const STATUS_ICE_EVENTS: GameEvent[] = [
       if (!doneEventKeys.includes(SnowStatusEventKey.Hunger_Before)) {
         return false;
       }
-      if (getHunger(hunger) === Hunger.LowSuar) {
+      if (getHungerType(hunger) === Hunger.LowSuar) {
         return true;
       }
       return false;

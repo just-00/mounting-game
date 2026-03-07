@@ -1,7 +1,7 @@
 import {
-  getHunger,
+  getHungerType,
   getSanType,
-  getWarm,
+  getWarmType,
   Hunger,
   San,
   Speed,
@@ -201,7 +201,7 @@ export const PoisonCom = () => {
 
 export const WarmCom = () => {
   const warm = useStatusStore((state) => state.warm);
-  const map = iconMap[`Warm${getWarm(warm)}`];
+  const map = iconMap[`Warm${getWarmType(warm)}`];
   return (
     <section
       className="speedIconWrapper"
@@ -244,7 +244,7 @@ export const InjuriedCom = () => {
 
 export const HungerCom = () => {
   const hunger = useStatusStore((state) => state.hunger);
-  const hungerType = getHunger(hunger);
+  const hungerType = getHungerType(hunger);
   if (hungerType === Hunger.Full) {
     return null;
   }

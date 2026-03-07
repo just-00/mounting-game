@@ -38,13 +38,13 @@ export const getSpeed = ({
     return Speed.Slow;
   }
   // 低血糖，慢
-  if (getHunger(hunger) === Hunger.LowSuar) {
+  if (getHungerType(hunger) === Hunger.LowSuar) {
     return Speed.Slow;
   }
   if (
     (totalSize < EQUIPMENT_MAX_SIZE / 2 ||
       totalWeight < EQUIPMENT_MAX_WEIGHT / 2) &&
-    getHunger(hunger) === Hunger.Full
+    getHungerType(hunger) === Hunger.Full
   ) {
     return Speed.Fast;
   }
@@ -74,17 +74,17 @@ export enum Poison {
 
 // 每种精神值对应的数值
 export const SanValue = {
-  [San.Normal]: 0,
-  [San.Unstable]: 10,
-  [San.Fracture]: 20,
+  [San.Normal]: 50,
+  [San.Unstable]: 25,
+  [San.Fracture]: 0,
 };
 
 // 计算精神类型
 export const getSanType = (san: number) => {
-  if (san < SanValue[San.Unstable]) {
+  if (san > SanValue[San.Unstable]) {
     return San.Normal;
   }
-  if (san < SanValue[San.Fracture]) {
+  if (san > SanValue[San.Fracture]) {
     return San.Unstable;
   }
   return San.Fracture;
@@ -100,13 +100,13 @@ export enum Warm {
 
 // 每种体温对应的数值
 export const WarmValue = {
-  [Warm.Normal]: 30,
-  [Warm.Low]: 20,
-  [Warm.Hypothermia]: 10,
+  [Warm.Normal]: 50,
+  [Warm.Low]: 25,
+  [Warm.Hypothermia]: 0,
 };
 
 // 计算体温类型
-export const getWarm = (warm: number) => {
+export const getWarmType = (warm: number) => {
   if (warm < WarmValue[Warm.Hypothermia]) {
     return Warm.Hypothermia;
   }
@@ -135,7 +135,7 @@ export const HungerValue = {
 };
 
 // 计算饥饿类型
-export const getHunger = (hunger: number) => {
+export const getHungerType = (hunger: number) => {
   if (hunger > HungerValue[Hunger.Starved]) {
     return Hunger.Full;
   }

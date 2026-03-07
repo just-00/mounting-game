@@ -11,6 +11,7 @@ import { AchievementToast } from "@/components/achievement-toast";
 import { useEnvironmenStore } from "@/store/environment/store";
 import { MAIN_PROLOAD } from "@/const/ResourceUrl";
 import { useSpeedSubscribe } from "@/store/storeRelations/speed";
+import { useRegularCircultion } from "@/store/storeRelations/regularCirculation";
 
 const Main = () => {
   const isStove = useSettingStore().isStove;
@@ -21,6 +22,8 @@ const Main = () => {
 
   // 监听速度的改变
   useSpeedSubscribe();
+  // 定期巡航对san值进行加减
+  useRegularCircultion()
 
   // 根据天气+时间出背景
   const bk = MAIN_PROLOAD[`${weather}_${time}_BK` as "Sun_Day_BK"];
