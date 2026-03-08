@@ -3,8 +3,12 @@ import {
   EquipmentType,
   type Equipment,
 } from "@/store/equipment/type";
-import { EventType, type GameEvent } from "../type";
-import { MAIN_PROLOAD, PIXEL_PRELOAD, SELECT_EQUIPMENT_PRELOAD } from "@/const/ResourceUrl";
+import { EventPicType, EventType, type GameEvent } from "../type";
+import {
+  MAIN_PROLOAD,
+  PIXEL_PRELOAD,
+  SELECT_EQUIPMENT_PRELOAD,
+} from "@/const/ResourceUrl";
 import { getToast, type Effect } from "@/store/effect";
 import { add } from "@/utils/number";
 import {
@@ -205,6 +209,7 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
     title: "路边有几丛蘑菇",
     eventType: EventType.Mushroom,
     eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIYOU,
+    eventPicType: EventPicType.TopSmall,
     options: [
       {
         key: SnowOtherOptionKey.MushroomJiYou_1,
@@ -229,6 +234,7 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
     title: "路边有几丛蘑菇",
     eventType: EventType.Mushroom,
     eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_XIANGGU,
+    eventPicType: EventPicType.TopSmall,
     options: [
       {
         key: SnowOtherOptionKey.MushroomXiangGu_1,
@@ -253,6 +259,7 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
     title: "路边有几丛蘑菇",
     eventType: EventType.Mushroom,
     eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_EGAO,
+    eventPicType: EventPicType.TopSmall,
     options: [
       {
         key: SnowOtherOptionKey.MushroomEGao_1,
@@ -277,6 +284,7 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
     title: "路边有几丛蘑菇",
     eventType: EventType.Mushroom,
     eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_DUYING,
+    eventPicType: EventPicType.TopSmall,
     options: [
       {
         key: SnowOtherOptionKey.MushroomDuYing_1,
@@ -301,6 +309,7 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
     title: "路边有几丛蘑菇",
     eventType: EventType.Mushroom,
     eventPic: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_JIANSHOUQING,
+    eventPicType: EventPicType.TopSmall,
     options: [
       {
         key: SnowOtherOptionKey.MushroomJianShouQing_1,
@@ -388,6 +397,7 @@ export const STATUS_ICE_EVENTS: GameEvent[] = [
     key: SnowStatusEventKey.Hunger,
     title: "你晕倒了",
     eventPic: PIXEL_PRELOAD.PIXEL_DIZZY,
+    eventPicType: EventPicType.DialogSmall,
     isShow: ({ hunger, doneEventKeys }) => {
       if (!doneEventKeys.includes(SnowStatusEventKey.Hunger_Before)) {
         return false;
@@ -401,7 +411,7 @@ export const STATUS_ICE_EVENTS: GameEvent[] = [
       dizzy: true,
       useTime: 120,
       hunger: 50,
-      toast: '你晕过去了2个小时<br/>你从背包里翻出了一些饼干屑缓解了饥饿'
+      toast: "你晕过去了2个小时<br/>你从背包里翻出了一些饼干屑缓解了饥饿",
     },
     eventType: EventType.STATUS,
   },
@@ -468,7 +478,8 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
     title: "登顶看到冰湖",
     eventType: EventType.Main,
     distance: 10,
-    eventPic: MAIN_PROLOAD.ICE_LAKE
+    eventPic: MAIN_PROLOAD.ICE_LAKE,
+    eventPicType: EventPicType.FullLarge,
   },
   {
     key: SnowMainEventKey.IceMain_RestStop_15,
@@ -515,6 +526,7 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
     eventType: EventType.Main,
     isEnd: true,
     eventPic: MAIN_PROLOAD.BAD_END,
+    eventPicType: EventPicType.DialogSmall,
   },
 ];
 

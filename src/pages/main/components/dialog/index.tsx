@@ -1,4 +1,4 @@
-import type { Option } from "@/store/event/type";
+import { EventPicType, type Option } from "@/store/event/type";
 import "./index.scss";
 import { useEffect, useRef, useState } from "react";
 import { CenterCard } from "../center-card";
@@ -14,27 +14,36 @@ const MOUNTING_ANIMATION_SHOW_WARNING_TIME = 2000;
 const MOUNTING_ANIMATION_CLOSE_TIME = 3000;
 // 点击选项后的toast展示多久
 const TOAST_SHOW_TIME = 2500;
-// 无选项事件展示多久
+// 点击选项后，如果有多张图片，一张图片展示多久
+const OPTION_PIC_TIME = 3500;
+// 无选项事件的对话框展示多久
 const NO_OPTIONS_EVENT = 3000;
 
 // 逻辑
 
 // 游戏主页
 //  初始看mounting动画
-//  mounting动画结束后，计算当前事件（由于mounting动画会减少distance增加timestamp）
-//  出现事件后
-//   选项点击后 计算toast，展示toast
-//   选项点击后 toast结束后，展示mounting动画
+//  mounting动画结束后，计算mounting事件（由于mounting动画会减少distance增加timestamp，timestamp又会改变天气）
+//  计算出下一个事件
+//   有选项
+//     选项点击后 计算toast，展示toast
+//     选项点击后 toast结束后，展示mounting动画
+//   无选项
+//     不是end则定时消失
+//     展示事件图片+toast
 
 export const GameDialog = () => {
   // 是否展示动画
   const [mounting, setMounting] = useState<boolean>(true);
   const mountingRef = useRef<boolean>(true);
   const [toast, setToast] = useState<string | undefined>();
+  // 点击选项后出现的图片，分为大幅 / 对话框上小图
   const [optionPic, setOptionPic] = useState<{
     url: string;
     position: "top" | "full";
   }>();
+  // 事件全幅图片
+  const [eventFullPic, setEventFullPic] = useState<string>();
   const navigate = useNavigate();
   const { currentEvent, setCurrentEventByCompute, setCurrentEventByKey } =
     useEventStore();
@@ -67,10 +76,19 @@ export const GameDialog = () => {
     }
 
     // 如果事件无选项，定时把事件关掉
-    setTimeout(() => {
+    setTimeout(async () => {
       let toast: string | undefined = "";
-      if (currentEvent?.effect) {
+      if (currentEvent.effect) {
         toast = computeEffect(currentEvent).toast;
+      }
+      // 如果有全幅图片，展示
+      if (
+        currentEvent.eventPicType === EventPicType.FullLarge &&
+        currentEvent.eventPic
+      ) {
+        setEventFullPic(currentEvent.eventPic);
+        await timeoutPromise();
+        setEventFullPic(undefined);
       }
       // 如果有toast展示
       if (toast) {
@@ -170,6 +188,7 @@ export const GameDialog = () => {
 
   // 出现card的时机：mounting动画 和 点击选项后的toast 和 到结局
   let CenterCardDefined = null;
+  // mounting动画
   if (mounting) {
     CenterCardDefined = (
       <MountingAnimationCom
@@ -180,16 +199,27 @@ export const GameDialog = () => {
         }}
       />
     );
-  } else if (currentEvent?.isEnd) {
+    // 对话框里展示人物状态
+  } else if (
+    currentEvent?.isEnd ||
+    currentEvent?.eventPicType === EventPicType.DialogSmall
+  ) {
     CenterCardDefined = (
       <section className="centerCardEndWrapper">
         <div
           dangerouslySetInnerHTML={{ __html: currentEvent.title }}
           className="title"
         ></div>
-        <img src={currentEvent.eventPic} width={60} />
+        <img
+          src={currentEvent.eventPic}
+          height={60}
+          style={{
+            marginTop: 4,
+          }}
+        />
       </section>
     );
+    // 展示toast（装备、状态结算）
   } else if (toast) {
     CenterCardDefined = (
       <div
@@ -222,8 +252,8 @@ export const GameDialog = () => {
             })}
           </section>
 
-          {/* 事件图片展示 */}
-          {currentEvent?.eventPic && !currentEvent.isEnd && (
+          {/* 对话框上方图片展示 */}
+          {currentEvent?.eventPicType === EventPicType.TopSmall && (
             <section className="eventPicWrapper">
               <img src={currentEvent.eventPic} height={100} />
             </section>
@@ -250,10 +280,17 @@ export const GameDialog = () => {
         </div>
       )}
 
-      {/* 点击选项后的图片展示 */}
+      {/* 大幅图片展示：选项点击后 */}
       {optionPic?.position === "full" && (
         <div className="optionPicWrapper">
-          <img src={optionPic.url} width="80%" className="optionPic" />
+          <img src={optionPic.url} height="100%" className="optionPic" />
+        </div>
+      )}
+
+      {/* 大幅图片展示：事件带的full图片 */}
+      {eventFullPic && (
+        <div className="optionPicWrapper">
+          <img src={eventFullPic} height="100%" className="optionPic" />
         </div>
       )}
     </>
@@ -264,5 +301,5 @@ const timeoutPromise = () =>
   new Promise((resolve) =>
     setTimeout(() => {
       resolve(true);
-    }, 2000),
+    }, OPTION_PIC_TIME),
   );

@@ -74,6 +74,7 @@
   align-items: center;
   justify-content: center;
   background: rgba(0, 0, 0, 0.2);
+  animation: opacity 0.6s ease-in-out forwards;
 }
 .restartWrapper {
   position: fixed;

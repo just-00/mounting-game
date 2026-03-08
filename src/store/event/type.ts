@@ -50,8 +50,14 @@ export interface Option {
   result?: (equipments: Equipment[]) => { effect?: Effect; action?: Action };
 }
 
+// 事件配的图片类型：
+//   对话框上方的小图（展示道具）
+//   对话框里的小图（展示人物状态）
+//   一整个大图，展示风景
 export enum EventPicType {
-
+  TopSmall = 'TopSmall',
+  DialogSmall = 'DialogSmall',
+  FullLarge = 'FullLarge'
 }
 
 export interface GameEvent {
@@ -61,7 +67,6 @@ export interface GameEvent {
   title: string;
   // 事件类型
   eventType: EventType;
-  // 事件配的图片，类型：结局图片 / 非结局事件图片
   eventPic?: string;
   // 事件图片位置
   eventPicType?: EventPicType;
