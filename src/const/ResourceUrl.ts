@@ -141,8 +141,6 @@ export const MAIN_PROLOAD = {
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/熊没带武器.mp4",
   BEAR_WEAPON:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/熊带武器.mp4",
-  BAD_END:
-    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/b2613cdc7aca4b70a9c5492e8dd6d62a.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
   SPRING_POT:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/7997c02f-fe24-496c-b2.jpg",
 };
@@ -172,6 +170,10 @@ export const PIXEL_PRELOAD = {
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/little-man-1%20(6).gif",
   PIXEL_DIZZY:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/ab6148a9-fb49-4633-a660-118ce.png",
+  PIXEL_DEAD:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/b2613cdc7aca4b70a9c5492e8dd6d_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  PIXEL_ARREST:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/ae7d84b0c2794075a872a3433212-removebg-preview.png",
 };
 
 export const ACHIEVEMENT_PRELOAD = {

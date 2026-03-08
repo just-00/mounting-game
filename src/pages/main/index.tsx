@@ -15,6 +15,7 @@ import { useRegularCircultion } from "@/store/storeRelations/regularCirculation"
 import { SnowBk } from "./components/snow-bk";
 import { Weather } from "@/store/environment/type";
 import { RainBk } from "./components/rain-bk";
+import { SunBk } from "./components/sun-bk";
 
 const Main = () => {
   const isStove = useSettingStore().isStove;
@@ -45,8 +46,9 @@ const Main = () => {
     };
   }, []);
 
-  const isSnow = weather === Weather.Snow
-  const isRain = weather === Weather.Rain
+  const isSun = weather === Weather.Sun;
+  const isSnow = weather === Weather.Snow;
+  const isRain = weather === Weather.Rain;
   return (
     <section
       className="mainPage"
@@ -54,6 +56,7 @@ const Main = () => {
         background: `url(${bk}) right bottom / 100% 100% no-repeat`,
       }}
     >
+      {isSun && <SunBk/>}
       {isSnow && <SnowBk />}
       {isRain && <RainBk />}
       <GameDialog />
@@ -61,7 +64,7 @@ const Main = () => {
       <section className="pannel">
         <MainPannel />
       </section>
-      <Bird isFlying />
+      {isSun && <Bird isFlying />}
       {isStove && <Stove />}
 
       {/* 展示背包管理 */}

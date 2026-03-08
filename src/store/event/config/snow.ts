@@ -140,8 +140,7 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
         title: "踹它一脚",
         result: () => ({
           effect: {
-            endKey: SnowMainEventKey.IceMain_Common_BadEnd,
-            endTitle: "你被逮捕了",
+            endKey: SnowMainEventKey.IceMain_Arrest_BadEnd,
           },
         }),
       },
@@ -525,7 +524,16 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
     title: "你死了",
     eventType: EventType.Main,
     isEnd: true,
-    eventPic: MAIN_PROLOAD.BAD_END,
+    eventPic: PIXEL_PRELOAD.PIXEL_DEAD,
+    eventPicType: EventPicType.DialogSmall,
+  },
+  // 你被逮捕了
+  {
+    key: SnowMainEventKey.IceMain_Arrest_BadEnd,
+    title: "你被逮捕了",
+    eventType: EventType.Main,
+    isEnd: true,
+    eventPic: PIXEL_PRELOAD.PIXEL_ARREST,
     eventPicType: EventPicType.DialogSmall,
   },
 ];

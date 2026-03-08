@@ -94,7 +94,7 @@ export enum SnowMainEventKey {
   IceMain_RestStop_15 = "ice_main_rest_stop_15",
   IceMain_Downhill_18 = "ice_main_downhill_18",
   IceMain_Common_BadEnd = "IceMain_Common_BadEnd",
-  IceMain_Poison_BadEnd = "IceMain_Poison_BadEnd",
+  IceMain_Arrest_BadEnd = "IceMain_Arrest_BadEnd",
 }
 
 export enum SnowMainOptionKey {

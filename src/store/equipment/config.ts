@@ -1,7 +1,6 @@
 import { Poison } from "../status/type";
 import { SELECT_EQUIPMENT_PRELOAD } from "@/const/ResourceUrl";
 import { EquipmentKey, EquipmentType, type Equipment } from "./type";
-import { SnowMainEventKey } from "../event/config/type";
 import { AchievementKey } from "../achievement/type";
 
 const COOK_NOT_POISON_MUSHROOM = [
@@ -61,9 +60,6 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     src: SELECT_EQUIPMENT_PRELOAD.MUSHROOM_EGAO,
     disposable: true,
     type: EquipmentType.Food,
-    effect: {
-      endKey: SnowMainEventKey.IceMain_Poison_BadEnd,
-    },
   },
   [EquipmentKey.MushroomJianShouQing]: {
     key: EquipmentKey.MushroomJianShouQing,
