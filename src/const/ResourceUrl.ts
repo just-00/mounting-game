@@ -1,7 +1,3 @@
-export const HOME_PRELOAD = {
-  BIRD: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/bird-removebg-preview.png",
-};
-
 export const ROUTE_SELECT_PRELOAD = {
   ROUTE_SELECT_BK:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5137ede1b7cb4b55b457db812dc52d31.jpeg%7Etplv-a9rns2rl98-image_pre_watermark_1_5b.jpg",
@@ -196,6 +192,16 @@ export const COMMON_PRELOAD = {
   BACK: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/fdb400c84183498c97f88240b4f576e9.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1).png",
 };
 
+export const BIRD_PRELOAD = {
+  BLUE_BIRD_1: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/2fe4b80449b84a4297dc72321ab2344d.jpeg_tplv-a9rns2rl98-image_raw_b-rem3ovebg-preview-removebg-preview.png",
+  BLUE_BIRD_2: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/b339bf95ad9c428abd51498306555a78.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview11.png", 
+  BLUE_BIRD_3: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/3bd5ac15d1434d0a8307b47b20cd5637.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-p3review.png", 
+  BLUE_BIRD_4: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/2b81beee3b454489bb214569f631a126.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-previe3w.png", 
+  BLUE_BIRD_5: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/35f27820b52e4c5bbc6984f5d3b842da.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-pr3eview-removebg-preview.png", 
+  BLUE_BIRD_6: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/9d11ea076f65407086332dfc044f174e.jpeg_tplv-a9rns2rl98-image3_raw_b-removebg-preview-removebg-preview.png", 
+  BLUE_BIRD_7: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0c61e3888bef492a9dd47179b8afe18f.jpeg_tplv-a9rns2rl98-image_raw_b-removebg2-preview.png", 
+}
+
 export const ALL_RESOURCE = [
   ...Object.values(ROUTE_SELECT_PRELOAD),
   ...Object.values(SELECT_EQUIPMENT_PRELOAD),
@@ -207,4 +213,5 @@ export const ALL_RESOURCE = [
   ...Object.values(PIXEL_PRELOAD),
   ...Object.values(ACHIEVEMENT_PRELOAD),
   ...Object.values(COMMON_PRELOAD),
+  ...Object.values(BIRD_PRELOAD),
 ];

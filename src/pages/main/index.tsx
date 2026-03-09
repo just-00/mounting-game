@@ -16,6 +16,7 @@ import { SnowBk } from "./components/snow-bk";
 import { Weather } from "@/store/environment/type";
 import { RainBk } from "./components/rain-bk";
 import { SunBk } from "./components/sun-bk";
+import { FadeBackground } from "./components/fade-background";
 
 const Main = () => {
   const isStove = useSettingStore().isStove;
@@ -30,7 +31,7 @@ const Main = () => {
   useRegularCircultion();
 
   // 根据天气+时间出背景
-  const bk = MAIN_PROLOAD[`${weather}_${time}_BK` as "Sun_Day_BK"];
+  const bk = MAIN_PROLOAD[`${weather}_${time}_BK` as keyof typeof MAIN_PROLOAD];
   // 监听是否有新成就提示
   useEffect(() => {
     const subscribe = useAchievementStore.subscribe(
@@ -50,21 +51,34 @@ const Main = () => {
   const isSnow = weather === Weather.Snow;
   const isRain = weather === Weather.Rain;
   return (
-    <section
-      className="mainPage"
-      style={{
-        background: `url(${bk}) right bottom / 100% 100% no-repeat`,
-      }}
-    >
-      {isSun && <SunBk/>}
+    <section className="mainPage">
+      <FadeBackground bk={bk} />
+      <div
+        className="shade"
+        style={{
+          opacity: isSnow ? 1 : 0,
+        }}
+      />
+
+      {isSun && <SunBk />}
       {isSnow && <SnowBk />}
       {isRain && <RainBk />}
+
+      {isSun && (
+        <Bird
+          isFlying
+          upPercent={0.8}
+          initPosition={{
+            top: 150,
+          }}
+        />
+      )}
+
       <GameDialog />
 
       <section className="pannel">
         <MainPannel />
       </section>
-      {isSun && <Bird isFlying />}
       {isStove && <Stove />}
 
       {/* 展示背包管理 */}

@@ -4,9 +4,17 @@
   right: 0;
   bottom: 0;
   top: 0;
-  animation:
-    flash 0.5s ease-in-out infinite alternate,
-    opacity 1s ease-in-out forwards;
+  .shade {
+    background: rgba(0, 0, 0, 0.3);
+    transition: opacity 0.5s;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
   .pannel {
     position: absolute;
     top: 12px;
@@ -39,7 +47,7 @@
     mask-image: linear-gradient(to top, black 90%, transparent 100%);
 
     animation: water-flow 2s linear infinite;
-    opacity: 0.45;
+    opacity: 0.4;
   }
 
   @keyframes water-flow {

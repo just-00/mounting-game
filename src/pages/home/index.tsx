@@ -43,9 +43,7 @@ export const Home = () => {
           </a>
         </div>
 
-        <div className="birdWrapper">
-          <Bird isFlying={true} />
-        </div>
+        <Bird isFlying upPercent={0.4} />
       </div>
     </div>
   );

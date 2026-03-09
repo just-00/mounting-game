@@ -1,25 +1,29 @@
-.pixel-bird {
-  position: absolute;
-  .like {
+.pixelBirdWrapper {
+  position: fixed;
+  z-index: 1;
+  animation: birdFlash 0.5s ease-in-out infinite alternate;
+  .pixelBird {
     position: absolute;
-    top: -24px;
-    left: 24px;
-    transition: color 0.5s;
-    transform-origin: center bottom;
+    .like {
+      position: absolute;
+      top: -18px;
+      left: 10px;
+      transition: color 0.5s;
+      transform-origin: center bottom;
+      font-size: 24px;
+    }
+    .body {
+      width: 40px;
+      height: 40px;
+      z-index: -1;
+    }
   }
-  .body {
-    width: 60px;
-    height: 60px;
-    animation: birdFlash 0.5s ease-in-out infinite alternate;
-    z-index: -1;
-
-    @keyframes birdFlash {
-      from {
-        filter: brightness(0.9);
-      }
-      to {
-        filter: brightness(1.1);
-      }
+  @keyframes birdFlash {
+    from {
+      filter: brightness(0.9);
+    }
+    to {
+      filter: brightness(1.2);
     }
   }
 }

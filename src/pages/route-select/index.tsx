@@ -39,9 +39,14 @@ const RouteSelect = () => {
       <div className="bearWrapper">
         <BEAR width={200} />
       </div>
-      <div className="birdWrapper">
-        <Bird />
-      </div>
+      <Bird
+        isFlying={false}
+        isFlip
+        initPosition={{
+          bottom: 294,
+          right: 50,
+        }}
+      />
     </div>
   );
 };

@@ -590,21 +590,20 @@ const getBeastFightResult = (animal: string, equipments: Equipment[]) => {
   // 默认情况
   let side = DEFAULT_SIDE;
   let weapon;
-  // 如果有长矛的情况下
-  const hasSpear = equipments.find((item) => item.key === EquipmentKey.Spear);
-  if (hasSpear?.count) {
-    side = HIKING_SIDE;
-    weapon = hasSpear?.name;
-  }
   // 如果有登山杖的情况下
   const hasHikingPole = equipments.find(
     (item) => item.key === EquipmentKey.HikingPole,
   );
   if (hasHikingPole?.count) {
-    side = SPEAR_SIDE;
+    side = HIKING_SIDE;
     weapon = hasHikingPole?.name;
   }
-
+  // 如果有长矛的情况下
+  const hasSpear = equipments.find((item) => item.key === EquipmentKey.Spear);
+  if (hasSpear?.count) {
+    side = SPEAR_SIDE;
+    weapon = hasSpear?.name;
+  }
   const youBeat = `你${weapon ? "击中" : "打中"}了${animal}`;
   const itBeat = `${animal}打中了你`;
   let beatStr = "";

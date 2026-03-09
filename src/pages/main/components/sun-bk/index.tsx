@@ -9,7 +9,7 @@ export const SunBk = () => {
       left: Math.random() * 100,    
       top: Math.random() * 100,           
       size: 4 + Math.random() * 8,         
-      duration: 15 + Math.random() * 20,  
+      duration: 10 + Math.random() * 20,  
       delay: Math.random() * 10,           
       opacity: 0.3 + Math.random() * 0.5,   
       rotate: Math.random() * 360,          

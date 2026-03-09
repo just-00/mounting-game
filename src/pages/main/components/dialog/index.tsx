@@ -132,6 +132,10 @@ export const GameDialog = () => {
     }, TOAST_SHOW_TIME);
   }, [toast]);
 
+  const toHome = () => {
+    navigate("/home");
+  };
+
   const restart = () => {
     resetAll();
     navigate("/route-select", {
@@ -241,7 +245,7 @@ export const GameDialog = () => {
             {currentEvent.options?.map((item) => {
               return (
                 <section
-                  className="buttonWrapper"
+                  className="optionButtonWrapper"
                   key={item.key}
                   onClick={() => onClick(item)}
                 >
@@ -272,13 +276,23 @@ export const GameDialog = () => {
         />
       )}
 
-      {currentEvent?.isEnd && (
-        <div className="restartWrapper">
-          <div className="button" onClick={restart}>
-            重新开始
+      <section className="endButtonWrapper">
+        {currentEvent?.isEnd && (
+          <div className="restartWrapper">
+            <div className="button" onClick={toHome}>
+              回到首页
+            </div>
           </div>
-        </div>
-      )}
+        )}
+
+        {currentEvent?.isEnd && (
+          <div className="restartWrapper">
+            <div className="button" onClick={restart}>
+              重新开始
+            </div>
+          </div>
+        )}
+      </section>
 
       {/* 大幅图片展示：选项点击后 */}
       {optionPic?.position === "full" && (
