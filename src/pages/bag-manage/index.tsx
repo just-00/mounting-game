@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { useEventStore } from "@/store/event/store";
 import { useSettingStore } from "@/store/setting";
 import { TitleCom } from "@/components/title";
+import { IconFontCom } from "@/components/icon-font-com";
 
 const BagManage = () => {
   const { setMounting } = useSettingStore();
@@ -77,10 +78,7 @@ const BagManage = () => {
       <TitleCom title="背包" />
       {!filterEquipments.length && (
         <section className="placeholderWrapper">
-          <div
-            className="fontIcon emptyIcon"
-            dangerouslySetInnerHTML={{ __html: "&#xe502;" }}
-          ></div>
+          <IconFontCom code="&#xe502;" className="emptyIcon" />
           <div className="placeholder">背包无物品</div>
         </section>
       )}

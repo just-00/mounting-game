@@ -374,7 +374,6 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
       ],
     },
   },
-
   [EquipmentKey.FriedEgg]: {
     key: EquipmentKey.FriedEgg,
     name: "煎蛋",
@@ -703,6 +702,18 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     type: EquipmentType.Tool,
     isSelectEquipmentShow: true,
   },
+  [EquipmentKey.Herbs]: {
+    key: EquipmentKey.Herbs,
+    name: "药草",
+    weight: 0.2,
+    size: 0.2,
+    src: SELECT_EQUIPMENT_PRELOAD.FIRST_AID_KIT,
+    disposable: true,
+    type: EquipmentType.Medical,
+    effect: {
+      injuried: true,
+    },
+  },
   [EquipmentKey.FirstAidKit]: {
     key: EquipmentKey.FirstAidKit,
     name: "急救包",
@@ -713,6 +724,7 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     type: EquipmentType.Medical,
     isSelectEquipmentShow: true,
     effect: {
+      injuried: true,
       useTime: 10,
     },
   },

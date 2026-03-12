@@ -18,6 +18,7 @@ import { div, sub } from "@/utils/number";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { PANNEL_ITEM_PRELOAD } from "@/const/ResourceUrl";
+import { IconFontCom } from "../icon-font-com";
 
 const iconMap: {
   [key: string]: {
@@ -131,10 +132,7 @@ export const WeatherCom = () => {
         color: map.color,
       }}
     >
-      <div
-        className="fontIcon"
-        dangerouslySetInnerHTML={{ __html: map.icon }}
-      ></div>
+      <IconFontCom code={map.icon} />
       {<div className="tip">{map.tip}</div>}
     </section>
   );
@@ -150,10 +148,7 @@ export const SpeedCom = () => {
         color: map.color,
       }}
     >
-      <div
-        className="fontIcon"
-        dangerouslySetInnerHTML={{ __html: map.icon }}
-      ></div>
+      <IconFontCom code={map.icon} />
       {<div className="tip">{map.tip}</div>}
     </section>
   );
@@ -169,10 +164,8 @@ export const SanCom = () => {
         color: map.color,
       }}
     >
-      <div
-        className="fontIcon"
-        dangerouslySetInnerHTML={{ __html: map.icon }}
-      ></div>
+      <IconFontCom code={map.icon} />
+
       {<div className="tip">{map.tip}</div>}
     </section>
   );
@@ -190,10 +183,8 @@ export const PoisonCom = () => {
         color: map.color,
       }}
     >
-      <div
-        className="fontIcon"
-        dangerouslySetInnerHTML={{ __html: map.icon }}
-      ></div>
+      <IconFontCom code={map.icon} />
+
       {<div className="tip">{map.tip}</div>}
     </section>
   );
@@ -209,10 +200,7 @@ export const WarmCom = () => {
         color: map.color,
       }}
     >
-      <div
-        className="fontIcon"
-        dangerouslySetInnerHTML={{ __html: map.icon }}
-      ></div>
+      <IconFontCom code={map.icon} />
       {<div className="tip">{map.tip}</div>}
     </section>
   );

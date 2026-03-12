@@ -54,7 +54,7 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
         title: "战斗！！！",
         result: (equipments: Equipment[]) => {
           // 返回toast供给展示，并且结算战斗结果
-          return getBeastFightResult("熊", equipments);
+          return getBeastFightResult(BeastFightAnimal.Bear, equipments);
         },
       },
       {
@@ -112,13 +112,21 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
         isShow: ({ equipments }) =>
           !!equipments.find((item) => item.key === EquipmentKey.BeastSteak)
             ?.count,
-        result: () => ({
-          effect: {
+        result: () => {
+          const effect: Effect = {
             equipments: {
-              [EquipmentKey.BeastSteak]: -1,
+              [EquipmentKey.Herbs]: 1,
             },
-          },
-        }),
+          };
+          const toast = `雪狐吃掉了肉排，指引你到一株草旁<br/>${getToast(effect)}`;
+          effect.equipments![EquipmentKey.BeastSteak] = -1;
+          return {
+            effect: {
+              ...effect,
+              toast,
+            },
+          };
+        },
       },
       {
         key: SnowOtherOptionKey.FOX_1_3,
@@ -127,22 +135,23 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
           !!equipments.find(
             (item) => item.key === EquipmentKey.CompressedBiscuit,
           )?.count,
-        result: () => ({
-          effect: {
-            equipments: {
-              [EquipmentKey.CompressedBiscuit]: -1,
+        result: () => {
+          return {
+            effect: {
+              toast: `雪狐嗅了嗅，走开了`,
+              equipments: {
+                [EquipmentKey.CompressedBiscuit]: -1,
+              },
             },
-          },
-        }),
+          };
+        },
       },
       {
         key: SnowOtherOptionKey.FOX_1_3,
-        title: "踹它一脚",
-        result: () => ({
-          effect: {
-            endKey: SnowMainEventKey.IceMain_Arrest_BadEnd,
-          },
-        }),
+        title: "和它战斗",
+        result: (equipments: Equipment[]) => {
+          return getBeastFightResult(BeastFightAnimal.Fox, equipments);
+        },
       },
       {
         key: SnowOtherOptionKey.FOX_1_4,
@@ -577,35 +586,71 @@ const causualEating = (equipments: Equipment[]) => {
   };
 };
 
-const getBeastFightResult = (animal: string, equipments: Equipment[]) => {
-  // 默认40%几率打中
-  const DEFAULT_SIDE = 0.4;
-  // 有登山杖60%
-  const HIKING_SIDE = 0.6;
-  // 有长矛80%
-  const SPEAR_SIDE = 0.8;
+enum BeastFightAnimal {
+  Bear,
+  Fox,
+}
+
+const BeastFightAnimalMap: {
+  [key in BeastFightAnimal]: {
+    default: number;
+    text: string;
+    achievement?: {
+      success?: AchievementKey;
+      fail?: AchievementKey;
+      successNoDamage?: AchievementKey;
+      damage?: AchievementKey;
+    };
+  };
+} = {
+  [BeastFightAnimal.Bear]: {
+    default: 0.4,
+    text: "熊",
+    achievement: {
+      success: AchievementKey.BEAT_BEAR,
+      successNoDamage: AchievementKey.BEAT_BEAR_NO_DAMAGE,
+      fail: AchievementKey.BEAR_KO,
+      damage: AchievementKey.BEAR_DAMAGE,
+    },
+  },
+  [BeastFightAnimal.Fox]: {
+    default: 0.6,
+    text: "雪狐",
+    achievement: {
+      success: AchievementKey.BEAT_FOX,
+    },
+  },
+};
+
+const getBeastFightResult = (
+  animal: BeastFightAnimal,
+  equipments: Equipment[],
+) => {
   // 搏斗次数
   const MAX = 4;
+  const current = BeastFightAnimalMap[animal];
 
   // 默认情况
-  let side = DEFAULT_SIDE;
+  let side = current.default;
   let weapon;
   // 如果有登山杖的情况下
   const hasHikingPole = equipments.find(
     (item) => item.key === EquipmentKey.HikingPole,
   );
   if (hasHikingPole?.count) {
-    side = HIKING_SIDE;
+    // 有登山杖，默认的1.5倍击中几率
+    side = 1.5 * side;
     weapon = hasHikingPole?.name;
   }
   // 如果有长矛的情况下
   const hasSpear = equipments.find((item) => item.key === EquipmentKey.Spear);
   if (hasSpear?.count) {
-    side = SPEAR_SIDE;
+    // 有长矛，默认的1.8倍击中几率
+    side = 1.8 * side;
     weapon = hasSpear?.name;
   }
-  const youBeat = `你${weapon ? "击中" : "打中"}了${animal}`;
-  const itBeat = `${animal}打中了你`;
+  const youBeat = `你${weapon ? "击中" : "打中"}了${current.text}`;
+  const itBeat = `${current.text}打中了你`;
   let beatStr = "";
   let beHitted = 0;
 
@@ -621,17 +666,20 @@ const getBeastFightResult = (animal: string, equipments: Equipment[]) => {
       beatStr += "<br/>";
     }
   }
-  // 拼凑toast
-  const toast = `你${weapon ? `拿起${weapon}` : "赤手空拳"},和${animal}进行搏斗<br/>${beatStr}`;
+  // 生成toast
+  const toast = `你${weapon ? `拿起${weapon}` : "赤手空拳"},和${current.text}进行搏斗<br/>${beatStr}`;
 
   const achievements: AchievementKey[] = [];
+  const achi = BeastFightAnimalMap[animal].achievement;
   if (!weapon) {
     achievements.push(AchievementKey.BARE_HANDS);
   }
 
   // 如果被打中的次数多，则死亡
   if (beHitted > MAX / 2) {
-    achievements.push(AchievementKey.BEAR_KO);
+    if (achi?.fail) {
+      achievements.push(achi.fail);
+    }
     return {
       effect: {
         toast,
@@ -641,12 +689,14 @@ const getBeastFightResult = (animal: string, equipments: Equipment[]) => {
     };
   }
 
-  const effect = {
-    injuried: beHitted > 0,
+  const effect: Effect = {
     equipments: {
       [EquipmentKey.BeastSteak]: add(Math.floor(Math.random() * 3), 2),
     },
   };
+  if (beHitted > 0) {
+    effect.injuried = true;
+  }
   // 效果影响事件
   let effectToast = "";
   const computeToast = getToast(effect);
@@ -654,11 +704,17 @@ const getBeastFightResult = (animal: string, equipments: Equipment[]) => {
     effectToast += `<br/>${computeToast}`;
   }
 
-  achievements.push(AchievementKey.BEAT_BEAR);
+  if (achi?.success) {
+    achievements.push(achi.success);
+  }
   if (beHitted === 0) {
-    achievements.push(AchievementKey.BEAT_BEAR_NO_DAMAGE);
+    if (achi?.successNoDamage) {
+      achievements.push(achi.successNoDamage);
+    }
   } else {
-    achievements.push(AchievementKey.BEAR_DAMAGE);
+    if (achi?.damage) {
+      achievements.push(achi.damage);
+    }
   }
   return {
     effect: {

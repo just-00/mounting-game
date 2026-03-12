@@ -2,7 +2,7 @@ import "./index.scss";
 import { Bird } from "@/components/bird/bird";
 import { GameDialog } from "./components/dialog";
 import { Outlet, useLocation } from "react-router-dom";
-import { MainPannel } from "@/components/pannelItem";
+import { MainPannel } from "@/components/pannel-item";
 import { Stove } from "@/components/stove";
 import { useSettingStore } from "@/store/setting";
 import { useEffect, useState } from "react";

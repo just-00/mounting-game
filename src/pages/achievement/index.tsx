@@ -13,6 +13,7 @@ import { useState } from "react";
 import { Success } from "@react-vant/icons";
 import classNames from "classnames";
 import { TitleCom } from "@/components/title";
+import { IconFontCom } from "@/components/icon-font-com";
 
 const Achievement = () => {
   const { achieved } = useAchievementStore();
@@ -68,14 +69,13 @@ const Achievement = () => {
         round
         closeable
         closeIcon={
-          <span
-            className="fontIcon"
+          <IconFontCom
+            code="&#xe63c;"
             style={{
               color: "#C8102E",
             }}
-          >
-            &#xe63c;
-          </span>
+            className="snow"
+          />
         }
       >
         <div className="popTitle">{select?.title}类成就</div>

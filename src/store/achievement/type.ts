@@ -85,6 +85,9 @@ export enum AchievementKey {
   BEAR_DAMAGE = "BEAR_DAMAGE",
   // 被熊打败
   BEAR_KO = "BEAR_KO",
+  // 打败雪狐
+  BEAT_FOX = 'BEAT_FOX',
+
   // 无武器战斗
   BARE_HANDS = "BARE_HANDS",
 

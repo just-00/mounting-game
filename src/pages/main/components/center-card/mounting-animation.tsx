@@ -4,6 +4,7 @@ import { useEnvironmenStore } from "@/store/environment/store";
 import { add, div, mul } from "@/utils/number";
 import { useStatusStore } from "@/store/status/store";
 import { PIXEL_PRELOAD } from "@/const/ResourceUrl";
+import { IconFontCom } from "@/components/icon-font-com";
 
 // 在动画期间会走多长时间（h）
 // 设定0.5小时
@@ -38,7 +39,7 @@ export const MountingAnimationCom = ({
     hasClose.current = true;
     // 小人头上出现感叹号，表示有事件
     setTimeout(() => {
-      setHunger(hunger - 15)
+      setHunger(hunger - 15);
       setIsWarning(true);
     }, showWarningTime);
 
@@ -92,12 +93,7 @@ export const MountingAnimationCom = ({
         {!isWarning ? "爬山中..." : <span>&nbsp;</span>}
       </div>
       <div className="desc">
-        {isWarning && (
-          <div
-            className="fontIcon warningFont"
-            dangerouslySetInnerHTML={{ __html: "&#xe640;" }}
-          ></div>
-        )}
+        {isWarning && <IconFontCom code="&#xe640;" className="warningFont" />}
         <img
           src={
             isWarning

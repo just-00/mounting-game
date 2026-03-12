@@ -8,7 +8,7 @@ import { STOVE_PRELOAD } from "@/const/ResourceUrl";
 import { CenterCard } from "@/pages/main/components/center-card";
 import { EQUIPMENTS } from "@/store/equipment/config";
 import { useSettingStore } from "@/store/setting";
-import { BagCom } from "../pannelItem";
+import { BagCom } from "../pannel-item";
 
 export const Stove = () => {
   const setIsStove = useSettingStore().setIsStove;

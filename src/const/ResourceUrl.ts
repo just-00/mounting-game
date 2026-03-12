@@ -170,6 +170,16 @@ export const PIXEL_PRELOAD = {
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/b2613cdc7aca4b70a9c5492e8dd6d_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
   PIXEL_ARREST:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/ae7d84b0c2794075a872a3433212-removebg-preview.png",
+  PIXEL_FIEST:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/65465.png",
+  PIXEL_DANCE:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/54354.png",
+  PIXEL_YE:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/321213321.png",
+  PIXEL_HAPPY:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/8567567.png",
+  PIXEL_NORMAL:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/312543.png",
 };
 
 export const ACHIEVEMENT_PRELOAD = {
@@ -193,14 +203,21 @@ export const COMMON_PRELOAD = {
 };
 
 export const BIRD_PRELOAD = {
-  BLUE_BIRD_1: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/2fe4b80449b84a4297dc72321ab2344d.jpeg_tplv-a9rns2rl98-image_raw_b-rem3ovebg-preview-removebg-preview.png",
-  BLUE_BIRD_2: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/b339bf95ad9c428abd51498306555a78.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview11.png", 
-  BLUE_BIRD_3: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/3bd5ac15d1434d0a8307b47b20cd5637.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-p3review.png", 
-  BLUE_BIRD_4: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/2b81beee3b454489bb214569f631a126.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-previe3w.png", 
-  BLUE_BIRD_5: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/35f27820b52e4c5bbc6984f5d3b842da.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-pr3eview-removebg-preview.png", 
-  BLUE_BIRD_6: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/9d11ea076f65407086332dfc044f174e.jpeg_tplv-a9rns2rl98-image3_raw_b-removebg-preview-removebg-preview.png", 
-  BLUE_BIRD_7: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0c61e3888bef492a9dd47179b8afe18f.jpeg_tplv-a9rns2rl98-image_raw_b-removebg2-preview.png", 
-}
+  BLUE_BIRD_1:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/2fe4b80449b84a4297dc72321ab2344d.jpeg_tplv-a9rns2rl98-image_raw_b-rem3ovebg-preview-removebg-preview.png",
+  BLUE_BIRD_2:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/b339bf95ad9c428abd51498306555a78.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview11.png",
+  BLUE_BIRD_3:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/3bd5ac15d1434d0a8307b47b20cd5637.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-p3review.png",
+  BLUE_BIRD_4:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/2b81beee3b454489bb214569f631a126.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-previe3w.png",
+  BLUE_BIRD_5:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/35f27820b52e4c5bbc6984f5d3b842da.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-pr3eview-removebg-preview.png",
+  BLUE_BIRD_6:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/9d11ea076f65407086332dfc044f174e.jpeg_tplv-a9rns2rl98-image3_raw_b-removebg-preview-removebg-preview.png",
+  BLUE_BIRD_7:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0c61e3888bef492a9dd47179b8afe18f.jpeg_tplv-a9rns2rl98-image_raw_b-removebg2-preview.png",
+};
 
 export const ALL_RESOURCE = [
   ...Object.values(ROUTE_SELECT_PRELOAD),

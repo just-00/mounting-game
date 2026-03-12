@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import "./index.scss";
-import { Like } from "@react-vant/icons";
 import { BIRD_PRELOAD } from "@/const/ResourceUrl";
+import { IconFontCom } from "../icon-font-com";
 
-const COLOR_ONE_CLICK = "deeppink";
+const COLOR_ONE_CLICK = "red";
 const COLOR_DOUBLE_CLICK = "gold";
 
 type Props = {
@@ -30,7 +30,9 @@ export const Bird = ({
 }: Props) => {
   const BIRD = "BLUE_BIRD";
   // 随机生成一个颜色，每次鸟色都不一样！
-  const [hueRotate] = useState(() => Math.random() * 360);
+  const [hueRotate, setHueRotate] = useState(() => Math.random() * 360);
+  // 稍微随机一点鸟的大小
+  const [width, setWidth] = useState(() => Math.random() * 10 + 40);
   const [frame, setFrame] = useState<number>(1);
   const frameRef = useRef<number>(1);
   const [position, setPosition] = useState<{
@@ -83,9 +85,11 @@ export const Bird = ({
       let left = position.left;
       let top = position.top;
       // 飞出屏幕了就从头开始飞
-      if (position.left > 420) {
-        left = -40;
+      if (position.left > 480) {
+        left = -1 * Math.random() * 80 - 120;
         top = Math.random() * 100;
+        setHueRotate(() => Math.random() * 360);
+        setWidth(() => Math.random() * 10 + 40);
       }
       times.current = times.current - 1;
       const param: number = 0.5;
@@ -126,12 +130,22 @@ export const Bird = ({
           style={{
             // 通过随机色相翻转
             filter: `hue-rotate(${hueRotate}deg) saturate(1.2) contrast(1.2)`,
+            width,
+            height: width,
           }}
           // 根据帧数决定显示哪张，如果isFlying:false只显示第一帧
           src={BIRD_PRELOAD?.[`${BIRD}_${frame}` as keyof typeof BIRD_PRELOAD]}
         />
         {/* 点击显示爱心 */}
-        {showLike && <Like className="like" color={color} />}
+        {showLike && (
+          <IconFontCom
+            className="like"
+            code="&#xe660;"
+            style={{
+              color,
+            }}
+          />
+        )}
       </div>
     </div>
   );

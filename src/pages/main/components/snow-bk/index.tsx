@@ -1,12 +1,9 @@
 import { useState } from "react";
 import "./index.scss";
+import { IconFontCom } from "@/components/icon-font-com";
 
 const Snow = ({ style }: { style: React.CSSProperties }) => (
-  <div
-    className="fontIcon snow"
-    style={style}
-    dangerouslySetInnerHTML={{ __html: "&#xe608;" }}
-  />
+  <IconFontCom code="&#xe608;" style={style} className="snow" />
 );
 
 export const SnowBk = () => {

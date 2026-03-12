@@ -45,6 +45,7 @@ export enum EquipmentKey {
   LightTent = "LightTent",
   WarmTent = "WarmTent",
   SleepingBag = "SleepingBag",
+  Herbs = "Herbs",
   FirstAidKit = "FirstAidKit",
   SurvivalBlanket = "SurvivalBlanket",
   Spear = "Spear",
