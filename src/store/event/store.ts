@@ -83,6 +83,7 @@ export const useEventStore = create<EventStore>((set, get) => ({
       const { routeId, doneEventKeys } = get();
       const { equipments } = useEquipmentStore.getState();
       const { hunger } = useStatusStore.getState();
+      const { weather } = useEnvironmenStore.getState();
       const currentRoute = ROUTES.find((item) => item.key === routeId);
       const afterEvent = [
         ...currentRoute!.otherEvents,
@@ -98,6 +99,7 @@ export const useEventStore = create<EventStore>((set, get) => ({
             equipments,
             hunger,
             doneEventKeys,
+            weather
           },
           title,
         ),
@@ -112,11 +114,13 @@ export const useEventStore = create<EventStore>((set, get) => ({
       const { routeId, eventPriority, doneEventKeys, doneOptionKeys } = get();
       const { equipments } = useEquipmentStore.getState();
       const { hunger } = useStatusStore.getState();
+      const { weather } = useEnvironmenStore.getState();
       // 用来计算事件和选项是否满足
       const isShowParams = {
         equipments,
         hunger,
         doneEventKeys,
+        weather,
       };
       // 当前选择
       const currentRoute = ROUTES.find((item) => item.key === routeId);

@@ -140,7 +140,7 @@ export const Bird = ({
         {showLike && (
           <IconFontCom
             className="like"
-            code="&#xe660;"
+            code="&#xed19;"
             style={{
               color,
             }}

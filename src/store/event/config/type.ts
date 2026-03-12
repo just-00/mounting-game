@@ -36,7 +36,12 @@ export enum SnowOtherEventKey {
   // 见手青
   MushroomJianShouQing = "MushroomJianShouQing",
   // 尖尖的棍子
-  OtherIce_Stick = "OtherIce_Stick",
+  Stick = "Stick",
+
+  // 危险类
+  // 山体滑坡
+  LandSlide = 'LandSlide',
+  
 }
 
 export enum SnowOtherOptionKey {
@@ -67,9 +72,13 @@ export enum SnowOtherOptionKey {
   MushroomEGao_2 = "MushroomEGao_2",
   MushroomJianShouQing_1 = "MushroomJianShouQing_1",
   MushroomJianShouQing_2 = "MushroomJianShouQing_2",
-
-  OtherIce_Stick_1 = "OtherIce_Stick_1",
-  OtherIce_Stick_2 = "OtherIce_Stick_2",
+  // 物品
+  Stick_1 = "Stick_1",
+  Stick_2 = "Stick_2",
+  // 危险类
+  LandSlide_1 = 'LandSlide_1',
+  LandSlide_2 = 'LandSlide_2',
+  LandSlide_3 = 'LandSlide_3',
 }
 
 

@@ -113,6 +113,7 @@ export const useGameEffect = () => {
     warm,
     san,
     hunger,
+    speed,
     setSan,
     setWarm,
     setInjuried,
@@ -156,7 +157,10 @@ export const useGameEffect = () => {
       action = obj.action;
     }
     if ("result" in obj && obj.result) {
-      const result = obj.result(equipments);
+      const result = obj.result({
+        equipments,
+        speed,
+      });
       effect = result.effect;
       if (result.action) {
         action = result.action;
@@ -235,8 +239,8 @@ export const useGameEffect = () => {
         setWarm(WarmValue[Warm.Hypothermia]);
       }
     }
-    
-    if(effect.hunger){
+
+    if (effect.hunger) {
       setHunger(hunger + effect.hunger);
     }
     addAchieved([...(effect.achievements || []), ...addedAchievement]);

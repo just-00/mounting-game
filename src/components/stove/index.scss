@@ -112,10 +112,16 @@
       right: 0;
       display: flex;
       justify-content: space-between;
-      padding: 0 32px;
+      padding: 0 16px;
+      column-gap: 8px;
       .button {
         @extend .third;
         font-size: 32px;
+        flex: 1;
+      }
+      .button:first-child{
+        filter: invert(1);
+        box-shadow: none;
       }
       .button.disabled {
         background: linear-gradient(

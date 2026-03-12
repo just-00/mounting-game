@@ -1,9 +1,12 @@
 import type { Action, Effect } from "../effect";
+import type { Weather } from "../environment/type";
 import type { Equipment } from "../equipment/type";
+import type { Speed } from "../status/type";
 
 export type IsShowParams = {
   equipments: Equipment[];
   hunger: number;
+  weather: Weather;
   doneEventKeys: string[];
 };
 
@@ -47,7 +50,16 @@ export interface Option {
   isShow?: (params: IsShowParams) => boolean;
 
   // 算结果，返回结局key、toast、副作用、成就
-  result?: (equipments: Equipment[]) => { effect?: Effect; action?: Action };
+  result?: ({
+    equipments,
+    speed,
+  }: {
+    equipments: Equipment[];
+    speed: Speed;
+  }) => {
+    effect?: Effect;
+    action?: Action;
+  };
 }
 
 // 事件配的图片类型：
@@ -55,9 +67,9 @@ export interface Option {
 //   对话框里的小图（展示人物状态）
 //   一整个大图，展示风景
 export enum EventPicType {
-  TopSmall = 'TopSmall',
-  DialogSmall = 'DialogSmall',
-  FullLarge = 'FullLarge'
+  TopSmall = "TopSmall",
+  DialogSmall = "DialogSmall",
+  FullLarge = "FullLarge",
 }
 
 export interface GameEvent {
@@ -73,7 +85,7 @@ export interface GameEvent {
   // 事件选项
   options?: Option[];
   // 副作用
-  effect?: Effect
+  effect?: Effect;
 
   // 需要满足触发的前置事件key（简单场景下）
   preEventKeys?: string[];

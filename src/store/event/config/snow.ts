@@ -20,11 +20,12 @@ import {
   SnowStatusOptionKey,
 } from "./type";
 import { AchievementKey } from "@/store/achievement/type";
-import { getHungerType, Hunger } from "@/store/status/type";
+import { getHungerType, Hunger, Speed } from "@/store/status/type";
 import { EQUIPMENTS } from "@/store/equipment/config";
+import { Weather } from "@/store/environment/type";
 
 export const OTHER_ICE_EVENTS: GameEvent[] = [
-  // 野兽类相关
+  // 野兽相关
   // 熊
   {
     key: SnowOtherEventKey.Bear_1,
@@ -52,7 +53,7 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
       {
         key: SnowOtherOptionKey.Bear_2_1,
         title: "战斗！！！",
-        result: (equipments: Equipment[]) => {
+        result: ({ equipments }) => {
           // 返回toast供给展示，并且结算战斗结果
           return getBeastFightResult(BeastFightAnimal.Bear, equipments);
         },
@@ -71,7 +72,7 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
       {
         key: SnowOtherOptionKey.Bear_2_3,
         title: "向它投掷食物",
-        result: (equipments: Equipment[]) => {
+        result: ({ equipments }) => {
           const foods = equipments.filter(
             (item) => item.type === EquipmentType.Food && item.count,
           );
@@ -118,7 +119,7 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
               [EquipmentKey.Herbs]: 1,
             },
           };
-          const toast = `雪狐吃掉了肉排，指引你到一株草旁<br/>${getToast(effect)}`;
+          const toast = `雪狐吃掉了肉排，叼了草给你<br/>${getToast(effect)}`;
           effect.equipments![EquipmentKey.BeastSteak] = -1;
           return {
             effect: {
@@ -149,7 +150,7 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
       {
         key: SnowOtherOptionKey.FOX_1_3,
         title: "和它战斗",
-        result: (equipments: Equipment[]) => {
+        result: ({ equipments }) => {
           return getBeastFightResult(BeastFightAnimal.Fox, equipments);
         },
       },
@@ -336,15 +337,17 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
       },
     ],
   },
+
+  // 物品类
   // 棍子
   {
-    key: SnowOtherEventKey.OtherIce_Stick,
+    key: SnowOtherEventKey.Stick,
     title: "路边有一根削得尖尖的棍子",
     eventType: EventType.Item,
     options: [
       {
         title: "拿",
-        key: SnowOtherOptionKey.OtherIce_Stick_1,
+        key: SnowOtherOptionKey.Stick_1,
         result: () => ({
           effect: {
             equipments: {
@@ -355,12 +358,108 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
       },
       {
         title: "不拿",
-        key: SnowOtherOptionKey.OtherIce_Stick_2,
+        key: SnowOtherOptionKey.Stick_2,
       },
     ],
   },
 
   // 危险类
+  {
+    key: SnowOtherEventKey.LandSlide,
+    title: "下雨导致山体滑坡！",
+    isShow: ({ weather }) => {
+      // 只有下雨的时候会出现
+      if (weather === Weather.Rain) {
+        return true;
+      }
+      return false;
+    },
+    eventType: EventType.Danger,
+    options: [
+      {
+        title: "逃跑",
+        key: SnowOtherOptionKey.LandSlide_1,
+        result: ({ speed }) => {
+          const badEnd = {
+            effect: {
+              endKey: SnowMainEventKey.IceMain_Common_BadEnd,
+              endTitle: "跑得太慢了",
+            },
+          };
+          if (speed === Speed.Slow) {
+            return badEnd;
+          }
+          if (speed === Speed.Normal) {
+            const ran = Math.random();
+            if (ran > 0.5) {
+              return badEnd;
+            }
+          }
+          return {
+            effect: {
+              toast: "锻炼身体是有用的<br/>你幸运的躲过了山体滑坡",
+            },
+          };
+        },
+      },
+      {
+        title: "背包挡住乱石",
+        key: SnowOtherOptionKey.LandSlide_2,
+        result: ({ equipments }) => {
+          const effect: Effect = {
+            equipments: {},
+          };
+          const count = Math.random() > 0.5 ? 3 : 2;
+          equipments = equipments.filter((item) => !!item.count);
+          const len = equipments.length;
+          let toast = `你侥幸躲过了山体滑坡`;
+
+          if (!len) {
+            return {
+              effect: {
+                toast,
+              },
+            };
+            // 如果装备很少的话，只丢一样
+          } else if (len <= count) {
+            const ran = Math.floor(Math.random() * len);
+            effect.equipments![equipments[ran].key] = -1;
+          } else {
+            // 正常的话就打乱然后丢
+            const shuffled = [...equipments];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+              const j = Math.floor(Math.random() * (i + 1));
+              [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            shuffled.slice(0, count).forEach((item) => {
+              effect.equipments![item.key] = -1;
+            });
+          }
+          toast += "<br/>";
+          toast += Object.entries(effect.equipments!)
+            .map(([key]) => {
+              return `${EQUIPMENTS[key as EquipmentKey].name}丢失了`;
+            })
+            .join("<br/>");
+          return {
+            effect: {
+              ...effect,
+              toast,
+            },
+          };
+        },
+      },
+      {
+        title: "不动",
+        key: SnowOtherOptionKey.LandSlide_3,
+        result: () => ({
+          effect: {
+            endKey: SnowMainEventKey.IceMain_Common_BadEnd,
+          },
+        }),
+      },
+    ],
+  },
 
   // 假敌人事件 对应Poison中的DuYing
 ];
@@ -392,7 +491,7 @@ export const STATUS_ICE_EVENTS: GameEvent[] = [
       {
         key: SnowStatusOptionKey.Hunger_Before_1,
         title: "随便吃点什么",
-        result: (equipments: Equipment[]) => causualEating(equipments),
+        result: ({ equipments }) => causualEating(equipments),
       },
       {
         key: SnowStatusOptionKey.Hunger_Before_2,
