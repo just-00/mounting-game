@@ -21,8 +21,8 @@ export enum EventType {
   Item = "Item",
   // 野兽遭遇
   Beast = "Beast",
-  // 碰到人
-  Human = "Human",
+  // 邂逅
+  Encounter = "Encounter",
   // 探索类
   Explore = "Explore",
   // 遇到危险
@@ -35,7 +35,7 @@ export const EVENT_PRIORITY: Partial<Record<EventType, number>> = {
   [EventType.Mushroom]: 2,
   [EventType.Item]: 5,
   [EventType.Beast]: 5,
-  [EventType.Human]: 5,
+  [EventType.Encounter]: 5,
   [EventType.Explore]: 3,
   [EventType.Danger]: 3,
 };

@@ -180,6 +180,8 @@ export const PIXEL_PRELOAD = {
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/8567567.png",
   PIXEL_NORMAL:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/312543.png",
+  PIXEL_DOG:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/djwikadNnnkl.png",
 };
 
 export const ACHIEVEMENT_PRELOAD = {
@@ -218,6 +220,10 @@ export const BIRD_PRELOAD = {
   BLUE_BIRD_7:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0c61e3888bef492a9dd47179b8afe18f.jpeg_tplv-a9rns2rl98-image_raw_b-removebg2-preview.png",
 };
+
+export const AUDIO_PRELOAD = {
+  RAIN: 'https://raw.githubusercontent.com/just-00/game-image-cdn/main/rain1.mp3',
+}
 
 export const ALL_RESOURCE = [
   ...Object.values(ROUTE_SELECT_PRELOAD),

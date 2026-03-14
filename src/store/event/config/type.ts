@@ -1,4 +1,3 @@
-
 export enum GameRoute {
   Ice = "Ice",
   Sea = "Sea",
@@ -13,16 +12,20 @@ export enum SnowOtherEventKey {
   // 雪狐
   FOX_1 = "FOX_1",
 
-  // 小狗 喂摸3次后得到XX
-
   // 探索相关
   // 温泉
   HotSpring_1 = "ice_enc_hot_spring_1",
   HotSpring_2 = "ice_enc_hot_spring_2",
 
-  // 人相关
+  // 邂逅
   // 叔叔 送食物 => 失温急救
   Uncle = "Uncle_1",
+  // 小女孩
+
+  // 小狗 喂摸3次后得到XX
+  DOG = "DOG",
+
+  // 小鸡
 
   // 物品相关
   // 鸡油菌
@@ -40,11 +43,13 @@ export enum SnowOtherEventKey {
 
   // 危险类
   // 山体滑坡
-  LandSlide = 'LandSlide',
-  
+  LandSlide = "LandSlide",
+  // 冰道
+  IceRoad = "IceRoad",
 }
 
 export enum SnowOtherOptionKey {
+  // 野兽类
   // 熊
   Bear_1_1 = "Bear_1_1",
   Bear_1_2 = "Bear_1_2",
@@ -56,11 +61,14 @@ export enum SnowOtherOptionKey {
   FOX_1_2 = "FOX_1_2",
   FOX_1_3 = "FOX_1_3",
   FOX_1_4 = "FOX_1_4",
+
+  // 探索类
   // 温泉
   HotSpring_1_1 = "HotSpring_1_1",
   HotSpring_1_2 = "HotSpring_1_2",
   HotSpring_2_1 = "HotSpring_2_1",
   HotSpring_2_2 = "HotSpring_2_2",
+
   // 蘑菇
   MushroomJiYou_1 = "MushroomJiYou_1",
   MushroomJiYou_2 = "MushroomJiYou_2",
@@ -72,22 +80,29 @@ export enum SnowOtherOptionKey {
   MushroomEGao_2 = "MushroomEGao_2",
   MushroomJianShouQing_1 = "MushroomJianShouQing_1",
   MushroomJianShouQing_2 = "MushroomJianShouQing_2",
-  // 物品
+
+  // 物品累
+  //长矛
   Stick_1 = "Stick_1",
   Stick_2 = "Stick_2",
-  // 危险类
-  LandSlide_1 = 'LandSlide_1',
-  LandSlide_2 = 'LandSlide_2',
-  LandSlide_3 = 'LandSlide_3',
-}
 
+  // 危险类
+  // 山体滑坡
+  LandSlide_1 = "LandSlide_1",
+  LandSlide_2 = "LandSlide_2",
+  LandSlide_3 = "LandSlide_3",
+
+  // 冰路
+  IceRoad_1 = "IceRoad_1",
+  IceRoad_2 = "IceRoad_2",
+  IceRoad_3 = "IceRoad_3",
+}
 
 // 状态相关
 export enum SnowStatusEventKey {
   Hunger_Before = "Hunger_Before",
   Hunger = "Hunger",
 }
-
 
 export enum SnowStatusOptionKey {
   Hunger_Before_1 = "Hunger_Before_1",
@@ -102,6 +117,7 @@ export enum SnowMainEventKey {
   IceMain_IceLake_9 = "ice_main_ice_lake_9",
   IceMain_RestStop_15 = "ice_main_rest_stop_15",
   IceMain_Downhill_18 = "ice_main_downhill_18",
+  IceMain_Common_GoodEnd = "IceMain_Common_GoodEnd",
   IceMain_Common_BadEnd = "IceMain_Common_BadEnd",
   IceMain_Arrest_BadEnd = "IceMain_Arrest_BadEnd",
 }

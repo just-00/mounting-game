@@ -13,6 +13,31 @@ const COOK_POISON_MUSHROOM = [
   EquipmentKey.MushroomEGao,
 ];
 
+// 给食物回的饥饿值定档
+enum FOOD_HUNGER {
+  LOW_LOW = 3,
+  LOW = 5,
+  LOW_MIDDLE = 8,
+  MIDDLE = 10,
+  MIDDLE_LARGE = 12,
+  LARGE = 15,
+  LUXURY = 20,
+}
+
+// 给食物回的体温值定档
+enum FOOD_WARM {
+  LOW = 5,
+  MIDDLE = 10,
+  LARGE = 15,
+}
+
+// 给食物回的精神值定档
+enum FOOD_SAN {
+  LOW = 5,
+  MIDDLE = 10,
+  LARGE = 15,
+}
+
 export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
   // 食物
   [EquipmentKey.MushroomJiYou]: {
@@ -24,7 +49,7 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.Food,
     effect: {
-      hunger: 10,
+      hunger: FOOD_HUNGER.LOW_LOW,
     },
   },
   [EquipmentKey.MushroomXiangGu]: {
@@ -36,7 +61,7 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.Food,
     effect: {
-      hunger: 10,
+      hunger: FOOD_HUNGER.LOW_LOW,
     },
   },
   [EquipmentKey.MushroomDuYing]: {
@@ -49,7 +74,7 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     type: EquipmentType.Food,
     effect: {
       poison: Poison.DuYing,
-      hunger: 5,
+      hunger: FOOD_HUNGER.LOW_LOW,
     },
   },
   [EquipmentKey.MushroomEGao]: {
@@ -71,18 +96,20 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     type: EquipmentType.Food,
     effect: {
       poison: Poison.JianShouQing,
+      hunger: FOOD_HUNGER.LOW_LOW,
     },
   },
   [EquipmentKey.Egg]: {
     key: EquipmentKey.Egg,
     name: "鸡蛋",
     weight: 0.2,
-    size: 1,
+    size: 0.3,
     src: SELECT_EQUIPMENT_PRELOAD.EGG,
     disposable: true,
     type: EquipmentType.Food,
     effect: {
-      hunger: 5,
+      hunger: FOOD_HUNGER.LOW,
+      san: -FOOD_SAN.LOW,
     },
   },
   [EquipmentKey.BeastSteak]: {
@@ -94,18 +121,22 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.Food,
     effect: {
-      hunger: 20,
+      hunger: FOOD_HUNGER.LOW_MIDDLE,
+      san: -FOOD_HUNGER.LOW,
     },
   },
   [EquipmentKey.SportsDrink]: {
     key: EquipmentKey.SportsDrink,
     name: "运动饮料",
-    weight: 0.55,
-    size: 0.5,
+    weight: 0.4,
+    size: 0.4,
     src: SELECT_EQUIPMENT_PRELOAD.SPORTS_DRINK,
     disposable: true,
     type: EquipmentType.Food,
     isSelectEquipmentShow: true,
+    effect: {
+      san: FOOD_HUNGER.LOW,
+    },
   },
   [EquipmentKey.CompressedBiscuit]: {
     key: EquipmentKey.CompressedBiscuit,
@@ -117,7 +148,7 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     type: EquipmentType.Food,
     isSelectEquipmentShow: true,
     effect: {
-      hunger: 5,
+      hunger: FOOD_HUNGER.LOW,
     },
   },
   [EquipmentKey.SelfHeatingPot]: {
@@ -131,7 +162,8 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     isSelectEquipmentShow: true,
     effect: {
       useTime: 10,
-      warm: 10,
+      warm: FOOD_WARM.MIDDLE,
+      hunger: FOOD_HUNGER.MIDDLE,
     },
   },
   // 菜肴 单蘑菇
@@ -144,7 +176,8 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      san: -10,
+      warm: FOOD_WARM.MIDDLE,
+      hunger: FOOD_HUNGER.LOW_MIDDLE,
     },
     dishConfig: {
       priority: 0,
@@ -166,7 +199,9 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      san: -10,
+      warm: FOOD_WARM.MIDDLE,
+      hunger: FOOD_HUNGER.LOW_MIDDLE,
+      // WIP
     },
     addedAchievement: [AchievementKey.POISON_DISH],
     dishConfig: {
@@ -189,7 +224,8 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      hunger: 10,
+      warm: FOOD_WARM.MIDDLE,
+      hunger: FOOD_HUNGER.MIDDLE,
     },
     dishConfig: {
       priority: 10,
@@ -211,7 +247,8 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      hunger: 18,
+      warm: FOOD_WARM.MIDDLE,
+      hunger: FOOD_HUNGER.MIDDLE_LARGE,
     },
     dishConfig: {
       priority: 10,
@@ -233,7 +270,8 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      san: -10,
+      warm: FOOD_WARM.MIDDLE,
+      hunger: FOOD_HUNGER.MIDDLE,
     },
     addedAchievement: [AchievementKey.POISON_DISH],
     dishConfig: {
@@ -257,8 +295,8 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      warm: 15,
-      hunger: 20,
+      warm: FOOD_WARM.MIDDLE,
+      hunger: FOOD_HUNGER.MIDDLE,
     },
     dishConfig: {
       priority: 0,
@@ -280,8 +318,9 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      warm: 15,
-      hunger: 20,
+      warm: FOOD_WARM.MIDDLE,
+      hunger: FOOD_HUNGER.MIDDLE_LARGE,
+      san: FOOD_SAN.LOW,
     },
     dishConfig: {
       priority: 10,
@@ -303,8 +342,9 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      warm: 15,
-      hunger: 20,
+      warm: FOOD_WARM.MIDDLE,
+      hunger: FOOD_HUNGER.LARGE,
+      san: FOOD_SAN.MIDDLE,
     },
     dishConfig: {
       priority: 10,
@@ -327,8 +367,9 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      warm: 15,
-      hunger: 20,
+      warm: FOOD_WARM.LARGE,
+      hunger: FOOD_HUNGER.LUXURY,
+      san: FOOD_SAN.LARGE,
     },
     dishConfig: {
       priority: 10,
@@ -351,8 +392,9 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      warm: 15,
-      hunger: 20,
+      warm: FOOD_WARM.LARGE,
+      hunger: FOOD_HUNGER.LUXURY,
+      san: FOOD_SAN.LARGE,
     },
     addedAchievement: [AchievementKey.BREAKFAST],
     dishConfig: {
@@ -383,8 +425,8 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      warm: 15,
-      hunger: 20,
+      warm: FOOD_WARM.MIDDLE,
+      hunger: FOOD_HUNGER.LOW_MIDDLE,
     },
     dishConfig: {
       priority: 0,
@@ -406,8 +448,8 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      warm: 15,
-      hunger: 20,
+      warm: FOOD_WARM.MIDDLE,
+      hunger: FOOD_HUNGER.MIDDLE,
     },
     dishConfig: {
       priority: 10,
@@ -429,8 +471,9 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      warm: 15,
-      hunger: 20,
+      warm: FOOD_WARM.MIDDLE,
+      hunger: FOOD_HUNGER.MIDDLE_LARGE,
+      san: FOOD_SAN.LOW,
     },
     dishConfig: {
       priority: 10,
@@ -452,8 +495,8 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      warm: 15,
-      hunger: 20,
+      warm: FOOD_WARM.LOW,
+      hunger: FOOD_HUNGER.MIDDLE,
     },
     dishConfig: {
       priority: 10,
@@ -476,8 +519,8 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      warm: 15,
-      hunger: 20,
+      warm: FOOD_WARM.LOW,
+      hunger: FOOD_HUNGER.LARGE,
     },
     dishConfig: {
       priority: 10,
@@ -499,8 +542,8 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      warm: 15,
-      hunger: 20,
+      warm: FOOD_WARM.MIDDLE,
+      hunger: FOOD_HUNGER.MIDDLE,
     },
     dishConfig: {
       priority: 100,
@@ -516,8 +559,8 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      warm: 15,
-      hunger: 20,
+      warm: FOOD_WARM.MIDDLE,
+      hunger: FOOD_HUNGER.MIDDLE_LARGE,
     },
     dishConfig: {
       priority: 100,
@@ -533,8 +576,9 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      warm: 15,
-      hunger: 20,
+      san: FOOD_SAN.LOW,
+      warm: FOOD_WARM.MIDDLE,
+      hunger: FOOD_HUNGER.MIDDLE,
     },
     dishConfig: {
       priority: 20,
@@ -556,8 +600,9 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      warm: 15,
-      hunger: 20,
+      san: FOOD_SAN.MIDDLE,
+      warm: FOOD_WARM.MIDDLE,
+      hunger: FOOD_HUNGER.MIDDLE_LARGE,
     },
     dishConfig: {
       priority: 20,
@@ -579,8 +624,9 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      san: -10,
+      san: -FOOD_SAN.MIDDLE,
       achievements: [AchievementKey.EWW],
+      hunger: FOOD_HUNGER.LOW_LOW,
     },
     dishConfig: {
       priority: 1,
@@ -601,8 +647,9 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      warm: 15,
-      hunger: 20,
+      san: FOOD_SAN.MIDDLE,
+      warm: FOOD_SAN.MIDDLE,
+      hunger: FOOD_HUNGER.LARGE,
     },
     dishConfig: {
       priority: 10,
@@ -624,8 +671,9 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.DISH,
     effect: {
-      warm: 15,
-      hunger: 20,
+      san: FOOD_SAN.LARGE,
+      warm: FOOD_SAN.LARGE,
+      hunger: FOOD_HUNGER.LUXURY,
     },
     dishConfig: {
       priority: 10,

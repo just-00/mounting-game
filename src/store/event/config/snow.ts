@@ -208,7 +208,33 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
     ],
   },
 
-  // 碰到人相关
+  // 邂逅相关
+  // 小狗
+  // {
+  //   key: SnowOtherEventKey.DOG,
+  //   title: "有一只小狗跟上了你",
+  //   eventType: EventType.Encounter,
+  //   eventPic: PIXEL_PRELOAD.PIXEL_DOG,
+  //   eventPicType: EventPicType.TopSmall,
+  //   options: [
+  //     {
+  //       key: SnowOtherOptionKey.MushroomJiYou_1,
+  //       title: "摸摸它",
+  //       result: () => ({
+  //         effect: {},
+  //       }),
+  //     },
+  //     {
+  //       key: SnowOtherOptionKey.MushroomJiYou_2,
+  //       title: "给它吃东西",
+  //     },
+  //     {
+  //       key: SnowOtherOptionKey.MushroomJiYou_2,
+  //       title: "无视",
+  //     },
+  //   ],
+  // },
+
   // 小女孩
 
   // 蘑菇相关
@@ -364,6 +390,7 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
   },
 
   // 危险类
+  // 山体滑坡
   {
     key: SnowOtherEventKey.LandSlide,
     title: "下雨导致山体滑坡！",
@@ -457,6 +484,61 @@ export const OTHER_ICE_EVENTS: GameEvent[] = [
             endKey: SnowMainEventKey.IceMain_Common_BadEnd,
           },
         }),
+      },
+    ],
+  },
+  // 冰路
+  {
+    key: SnowOtherEventKey.IceRoad,
+    title: "前方的路被冰覆盖了",
+    eventType: EventType.Encounter,
+    options: [
+      {
+        title: "使用冰爪",
+        key: SnowOtherOptionKey.IceRoad_1,
+        isShow: ({ equipments }) => {
+          return !!equipments.find((item) => item.key === EquipmentKey.Crampons)
+            ?.count;
+        },
+        result: () => ({
+          effect: {
+            toast: "你使用了冰爪，安全的走过了结冰区域",
+          },
+        }),
+      },
+      {
+        title: "直接上去",
+        key: SnowOtherOptionKey.IceRoad_2,
+        result: ({ equipments }) => {
+          const hasHikingPole = !!equipments.find(
+            (item) => item.key === EquipmentKey.HikingPole,
+          )?.count;
+          const ran = Math.random();
+          // 如果有登山杖，40%概率摔倒，没有的话，60%概率摔倒
+          const isFall = ran > (hasHikingPole ? 0.6 : 0.4);
+          const effect: Effect = {};
+          if (isFall) {
+            effect.injuried = true;
+            effect.san = -10;
+          }
+          return {
+            effect: {
+              ...effect,
+              toast: `${hasHikingPole ? "你使用了登山杖<br/>" : ""}${isFall ? `${hasHikingPole ? "但你还是摔倒了" : "你摔倒了"}<br/>` : "很幸运，你没有摔倒"}${getToast(effect)}`,
+            },
+          };
+        },
+      },
+      {
+        title: "另找路上去",
+        key: SnowOtherOptionKey.IceRoad_3,
+        result: () => {
+          return {
+            effect: {
+              distance: -(Math.floor(Math.random() * 2) + 2),
+            },
+          };
+        },
       },
     ],
   },
@@ -592,7 +674,7 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
     key: SnowMainEventKey.IceMain_RestStop_15,
     title: "休息亭",
     eventType: EventType.Main,
-    distance: 16,
+    distance: 14,
     options: [
       {
         title: "休息一下",
@@ -619,12 +701,17 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
     ],
   },
   {
-    key: SnowMainEventKey.IceMain_Downhill_18,
-    title: "下山到底",
-    eventType: EventType.Main,
+    key: SnowMainEventKey.IceMain_Common_GoodEnd,
+    title: "顺利下山",
     distance: 20,
+    eventType: EventType.Main,
+    isEnd: true,
+    eventPic: PIXEL_PRELOAD.PIXEL_HAPPY,
+    eventPicType: EventPicType.DialogSmall,
+    effect: {
+      achievements: [AchievementKey.COMPLETE],
+    },
   },
-
   // 坏结局
   // 你死了
   {

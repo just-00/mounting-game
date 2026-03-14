@@ -12,19 +12,6 @@ import { useEventStore } from "../event/store";
 import { useSettingStore } from "../setting";
 import { useNavigate } from "react-router-dom";
 
-export type SelectedEquipmentKeys =
-  | "warm"
-  | "san"
-  | "useTime"
-  | "weather"
-  | "equipments"
-  | "injuried"
-  | "hunger"
-  | "poison"
-  | "dizzy"
-  | "achievements"
-  | "toast";
-
 type EquipmentValueType =
   | number
   | Weather
@@ -37,6 +24,7 @@ type EquipmentValueType =
     };
 
 type ToastTextMap = {
+  distance: number;
   useTime: number;
   warm: number;
   san: number;
@@ -68,12 +56,14 @@ export type Action = {
 
 // toast中各项对应的计算函数
 export const ToastText: {
-  [K in SelectedEquipmentKeys]?: (val: ToastTextMap[K]) => string;
+  [K in keyof ToastTextMap]?: (val: ToastTextMap[K]) => string;
 } = {
+  distance: (val: number) =>
+    `${val > 0 ? "缩短" : "增加"}了${Math.abs(val)}km的路程`,
   useTime: (val: number) => `使用了${val}分钟`,
   weather: (val: Weather) => `天气变成${val}了`,
-  warm: (val: number) => `体温${val > 0 ? "升高" : "降低"}了${val}°`,
-  san: (val: number) => `精神值${val > 0 ? "升高" : "降低"}了${val}`,
+  warm: (val: number) => `体温${val > 0 ? "升高" : "降低"}了${Math.abs(val)}°`,
+  san: (val: number) => `精神值${val > 0 ? "升高" : "降低"}了${Math.abs(val)}`,
   equipments: (val: { [key: string]: number }) => {
     return Object.entries(val)
       .map(([key, value]) => {
@@ -90,11 +80,11 @@ export const ToastText: {
 
 // 获取装备使用的toast文案
 export const getToast = (eq: Effect) => {
-  const keys = Object.keys(ToastText) as SelectedEquipmentKeys[];
+  const keys = Object.keys(ToastText) as (keyof ToastTextMap)[];
   return keys
     .map((item) => {
       // 找到eq中对应的项目
-      const value = eq[item];
+      const value = eq[item] as EquipmentValueType;
       if (value === undefined) return "";
       // 产出toast
       const text = (ToastText[item] as (val: EquipmentValueType) => string)(
@@ -122,8 +112,14 @@ export const useGameEffect = () => {
     setSpeed,
     setHunger,
   } = useStatusStore();
-  const { timestamp, setTimestamp, setWeather, resetEnvironmentStore } =
-    useEnvironmenStore();
+  const {
+    timestamp,
+    setTimestamp,
+    setWeather,
+    resetEnvironmentStore,
+    distance,
+    setDistance,
+  } = useEnvironmenStore();
   const { equipments, setEquipmentsCount, resetEquipmentStore } =
     useEquipmentStore();
   const { resetEventStore } = useEventStore();
@@ -187,6 +183,11 @@ export const useGameEffect = () => {
       return {
         hasAction: !!action,
       };
+    }
+
+    // 通过选项，增加或缩短路程
+    if (effect.distance) {
+      setDistance(distance + effect.distance);
     }
 
     // 通过选项 获得或减少装备

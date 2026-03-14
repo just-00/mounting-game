@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { useAchievementStore } from "@/store/achievement/store";
 import { AchievementToast } from "@/components/achievement-toast";
 import { useEnvironmenStore } from "@/store/environment/store";
-import { MAIN_PROLOAD } from "@/const/ResourceUrl";
+import { AUDIO_PRELOAD, MAIN_PROLOAD } from "@/const/ResourceUrl";
 import { useSpeedSubscribe } from "@/store/storeRelations/speed";
 import { useRegularCircultion } from "@/store/storeRelations/regularCirculation";
 import { SnowBk } from "./components/snow-bk";
@@ -17,6 +17,7 @@ import { Weather } from "@/store/environment/type";
 import { RainBk } from "./components/rain-bk";
 import { SunBk } from "./components/sun-bk";
 import { FadeBackground } from "./components/fade-background";
+import { AudioPlay } from "@/components/audio-play";
 
 const Main = () => {
   const isStove = useSettingStore().isStove;
@@ -46,10 +47,16 @@ const Main = () => {
       subscribe();
     };
   }, []);
+  let audioBk = "";
 
   const isSun = weather === Weather.Sun;
   const isSnow = weather === Weather.Snow;
   const isRain = weather === Weather.Rain;
+
+  if (isRain) {
+    audioBk = AUDIO_PRELOAD.RAIN;
+  }
+
   return (
     <section className="mainPage">
       <FadeBackground bk={bk} />
@@ -96,6 +103,7 @@ const Main = () => {
           }
         />
       )}
+      <AudioPlay src={audioBk} />
     </section>
   );
 };

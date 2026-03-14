@@ -94,6 +94,8 @@ export enum AchievementKey {
   // 主线
   // 冰瀑
   ICE_FALL = "ICE_FALL",
+  ICE_LAKE = 'ICE_LAKE',
+  COMPLETE = 'COMPLETE',
 
   // 友谊
   // 和小狗做朋友
@@ -124,6 +126,18 @@ export const ACHIEVEMENTS: Achievement[] = [
     title: "哇！冰瀑！",
     key: AchievementKey.ICE_FALL,
     desc: "邂逅冰瀑的绝美瞬间",
+    type: AchievementType.Main,
+  },
+  {
+    title: "山顶绝景",
+    key: AchievementKey.ICE_LAKE,
+    desc: "登顶看到冰湖",
+    type: AchievementType.Main,
+  },
+  {
+    title: "圆满完成",
+    key: AchievementKey.COMPLETE,
+    desc: "顺利完成一次爬山",
     type: AchievementType.Main,
   },
   {
