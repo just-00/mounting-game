@@ -16,9 +16,11 @@ import { useEventStore } from "@/store/event/store";
 import { ROUTES } from "@/store/event/config";
 import { div, sub } from "@/utils/number";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { PANNEL_ITEM_PRELOAD } from "@/const/ResourceUrl";
+import { useEffect, useState } from "react";
+import { AUDIO_PRELOAD, PANNEL_ITEM_PRELOAD } from "@/const/ResourceUrl";
 import { IconFontCom } from "../icon-font-com";
+import { AudioPlay } from "../audio-play";
+import { useSettingStore } from "@/store/setting";
 
 const iconMap: {
   [key: string]: {
@@ -61,7 +63,7 @@ const iconMap: {
   [`Warm${[Warm.Hypothermia]}`]: {
     icon: "&#xe51f;",
     tip: "失温",
-    color: "#F4D03F",
+    color: "#34B59C",
   },
   [`Warm${[Warm.Low]}`]: {
     icon: "&#xe51f;",
@@ -69,9 +71,9 @@ const iconMap: {
     color: "#4ABAA8",
   },
   [`Warm${[Warm.Normal]}`]: {
-    icon: "&#xe51f;",
+    icon: "&#xe642;",
     tip: "舒适",
-    color: "#34B59C",
+    color: "#E6C018",
   },
 };
 
@@ -257,8 +259,44 @@ export const HungerCom = () => {
   );
 };
 
+export const EyeCom = () => {
+  const [see, setSee] = useState<boolean>(useSettingStore().see);
+  const setSeeOrigin = useSettingStore().setSee;
+
+  useEffect(() => {
+    const unsubscribe = useSettingStore.subscribe(
+      (data) => ({
+        see: data.see,
+      }),
+      ({ see: seeSubscribe }) => {
+        setSee(seeSubscribe);
+      },
+    );
+    return () => {
+      unsubscribe();
+    };
+  });
+
+  const handleSee = () => {
+    setSeeOrigin(!see);
+  };
+  
+  return (
+    <section onClick={handleSee} className="centerWrapper">
+      <IconFontCom
+        code={see ? "&#xe6d1;" : "&#xe6cf;"}
+        style={{
+          color: "#616161",
+        }}
+      />
+    </section>
+  );
+};
+
 export const MainPannel = () => {
   const { currentEvent } = useEventStore();
+  const { weather } = useEnvironmenStore();
+  const audioBk = AUDIO_PRELOAD[weather];
   return (
     <>
       <section className="pannelRow">
@@ -288,6 +326,10 @@ export const MainPannel = () => {
       </section>
       <section className="bagRow">
         <BagCom />
+        <section className="rightWrapper">
+          <EyeCom />
+          <AudioPlay src={audioBk} />
+        </section>
       </section>
     </>
   );

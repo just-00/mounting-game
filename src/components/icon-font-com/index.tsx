@@ -11,7 +11,7 @@ export const IconFontCom = ({
 }) => {
   return (
     <div
-      className={`fontIcon ${className}`}
+      className={`fontIcon ${className ?? ""}`}
       style={style}
       dangerouslySetInnerHTML={{ __html: code }}
     ></div>

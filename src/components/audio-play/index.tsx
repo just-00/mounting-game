@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import "./index.scss";
 import { add, sub } from "./../../utils/number";
+import { IconFontCom } from "../icon-font-com";
 const VOLUMN = 1;
 
 export const AudioPlay = ({ src, loop }: { src?: string; loop?: boolean }) => {
@@ -102,9 +102,27 @@ export const AudioPlay = ({ src, loop }: { src?: string; loop?: boolean }) => {
   if (!src) return;
 
   return (
-    <section className="audioWrapper">
+    <section>
       <audio loop={loop} ref={audioRef} />
-      <div onClick={togglePlay}>{isPlaying ? "暂停" : "播放"}</div>
+      <div onClick={togglePlay}>
+        {isPlaying ? (
+          <IconFontCom
+            code="&#xe604;"
+            style={{
+              color: "#24c344",
+              fontSize: 34,
+            }}
+          />
+        ) : (
+          <IconFontCom
+            code="&#xe67a;"
+            style={{
+              color: "#24c344",
+              fontSize: 36,
+            }}
+          />
+        )}
+      </div>
     </section>
   );
 };

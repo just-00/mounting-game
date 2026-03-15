@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { useAchievementStore } from "@/store/achievement/store";
 import { AchievementToast } from "@/components/achievement-toast";
 import { useEnvironmenStore } from "@/store/environment/store";
-import { AUDIO_PRELOAD, MAIN_PROLOAD } from "@/const/ResourceUrl";
+import { MAIN_PROLOAD } from "@/const/ResourceUrl";
 import { useSpeedSubscribe } from "@/store/storeRelations/speed";
 import { useRegularCircultion } from "@/store/storeRelations/regularCirculation";
 import { SnowBk } from "./components/snow-bk";
@@ -17,10 +17,11 @@ import { Weather } from "@/store/environment/type";
 import { RainBk } from "./components/rain-bk";
 import { SunBk } from "./components/sun-bk";
 import { FadeBackground } from "./components/fade-background";
-import { AudioPlay } from "@/components/audio-play";
 
 const Main = () => {
   const isStove = useSettingStore().isStove;
+  const see = useSettingStore().see;
+  const setSee = useSettingStore().setSee;
   const [newAchieved, setNewAchieved] = useState<boolean>(false);
   const location = useLocation();
   const currentPath = location.pathname;
@@ -47,18 +48,20 @@ const Main = () => {
       subscribe();
     };
   }, []);
-  let audioBk = "";
 
   const isSun = weather === Weather.Sun;
   const isSnow = weather === Weather.Snow;
   const isRain = weather === Weather.Rain;
 
-  if (isRain) {
-    audioBk = AUDIO_PRELOAD.RAIN;
-  }
-
   return (
-    <section className="mainPage">
+    <section
+      className="mainPage"
+      onClick={() => {
+        if (!see) {
+          setSee(true);
+        }
+      }}
+    >
       <FadeBackground bk={bk} />
       <div
         className="shade"
@@ -81,29 +84,35 @@ const Main = () => {
         />
       )}
 
-      <GameDialog />
+      {/* 如果纯享模式，看不到这些 */}
+      <section
+        style={{
+          display: see ? "block" : "none",
+        }}
+      >
+        <GameDialog />
 
-      <section className="pannel">
-        <MainPannel />
+        <section className="pannel">
+          <MainPannel />
+        </section>
+        {isStove && <Stove />}
+
+        {/* 展示背包管理 */}
+        <Outlet />
+
+        {/* 新成就提醒 */}
+        {newAchieved && (
+          <AchievementToast
+            type={
+              isStove
+                ? "stove"
+                : currentPath === "/main/bag-manage"
+                  ? "bag"
+                  : "main"
+            }
+          />
+        )}
       </section>
-      {isStove && <Stove />}
-
-      {/* 展示背包管理 */}
-      <Outlet />
-
-      {/* 新成就提醒 */}
-      {newAchieved && (
-        <AchievementToast
-          type={
-            isStove
-              ? "stove"
-              : currentPath === "/main/bag-manage"
-                ? "bag"
-                : "main"
-          }
-        />
-      )}
-      <AudioPlay src={audioBk} />
     </section>
   );
 };

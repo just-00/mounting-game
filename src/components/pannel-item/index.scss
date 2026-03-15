@@ -8,15 +8,15 @@
     color: rgba(0, 0, 0, 0.6);
   }
   .speedIconWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    .tip {
-      font-size: 12px;
-      text-align: center;
-      margin-top: 2px;
-    }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  .tip {
+    font-size: 12px;
+    text-align: center;
+    margin-top: 2px;
   }
+}
   .mainPannel {
     flex: 1;
     display: flex;
@@ -68,11 +68,21 @@
 }
 .bagRow {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 12px;
   .bagWrapper {
     width: 48px;
     height: 48px;
     animation: bagFlash 0.5s ease-in-out infinite alternate;
+  }
+  .rightWrapper {
+    display: flex;
+    align-content: center;
+    column-gap: 8px;
+  }
+  .centerWrapper{
+    display: flex;
+    align-items: center;
   }
 }

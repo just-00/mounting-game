@@ -1,3 +1,5 @@
+import { Weather } from "@/store/environment/type";
+
 export const ROUTE_SELECT_PRELOAD = {
   ROUTE_SELECT_BK:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/5137ede1b7cb4b55b457db812dc52d31.jpeg%7Etplv-a9rns2rl98-image_pre_watermark_1_5b.jpg",
@@ -222,8 +224,11 @@ export const BIRD_PRELOAD = {
 };
 
 export const AUDIO_PRELOAD = {
-  RAIN: 'https://raw.githubusercontent.com/just-00/game-image-cdn/main/rain1.mp3',
-}
+  [Weather.Rain]:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/rain1.mp3",
+  [Weather.Snow]: "",
+  [Weather.Sun]: "",
+};
 
 export const ALL_RESOURCE = [
   ...Object.values(ROUTE_SELECT_PRELOAD),
