@@ -141,6 +141,14 @@ export const MAIN_PROLOAD = {
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/熊带武器.mp4",
   SPRING_POT:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/7997c02f-fe24-496c-b2.jpg",
+  COLORFUL_TREES:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/15ef4d7357054fef910bd252d52aaf62.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  NIGHT_LAKE:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/0d39e1c25fb948ee99089fc4fe43e8ab.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  SNOW_MOUNTAIN_1:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/e52b0b7f57fa4cf5bd8f2f35ac0db3fe.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
+  SNOW_MOUNTAIN_2:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/a17e5db01264486880271a55474fe6ed.jpeg%7Etplv-a9rns2rl98-image_raw_b.jpg",
 };
 
 export const STOVE_PRELOAD = {

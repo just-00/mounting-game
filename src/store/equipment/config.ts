@@ -134,6 +134,7 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.Food,
     isSelectEquipmentShow: true,
+    emptyRubish: EquipmentKey.EmptyDrink,
     effect: {
       san: FOOD_HUNGER.LOW,
     },
@@ -160,6 +161,7 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.Food,
     isSelectEquipmentShow: true,
+    emptyRubish: EquipmentKey.EmptySelfHeatingPot,
     effect: {
       useTime: 10,
       warm: FOOD_WARM.MIDDLE,
@@ -687,7 +689,24 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     },
   },
   // 菜肴结束
-
+  // 垃圾类
+  [EquipmentKey.EmptyDrink]: {
+    key: EquipmentKey.EmptyDrink,
+    name: "空瓶子",
+    weight: 0.1,
+    size: 0.4,
+    src: SELECT_EQUIPMENT_PRELOAD.SPORTS_DRINK,
+    type: EquipmentType.RUBISH,
+  },
+  [EquipmentKey.EmptySelfHeatingPot]: {
+    key: EquipmentKey.EmptySelfHeatingPot,
+    name: "空自热锅",
+    weight: 0.2,
+    size: 2,
+    src: SELECT_EQUIPMENT_PRELOAD.SELF_HEATING_POT,
+    type: EquipmentType.RUBISH,
+  },
+  // 工具类
   [EquipmentKey.GasStove]: {
     key: EquipmentKey.GasStove,
     name: "汽炉",
@@ -696,6 +715,10 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     src: SELECT_EQUIPMENT_PRELOAD.GAS_STOVE,
     type: EquipmentType.Tool,
     isSelectEquipmentShow: true,
+    // 打开炉子
+    action: {
+      stove: true,
+    },
   },
   [EquipmentKey.Spear]: {
     key: EquipmentKey.Spear,

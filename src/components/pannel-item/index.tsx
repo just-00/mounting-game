@@ -61,12 +61,12 @@ const iconMap: {
   },
 
   [`Warm${[Warm.Hypothermia]}`]: {
-    icon: "&#xe51f;",
+    icon: "&#xe642;",
     tip: "失温",
     color: "#34B59C",
   },
   [`Warm${[Warm.Low]}`]: {
-    icon: "&#xe51f;",
+    icon: "&#xe642;",
     tip: "低温",
     color: "#4ABAA8",
   },
@@ -77,26 +77,26 @@ const iconMap: {
   },
 };
 
-export const BagCom = () => {
+export const BagCom = ({ width = 40 }: { width?: number }) => {
   const [isClicked, setIsClicked] = useState(false);
   const navigate = useNavigate();
   const onClick = () => {
     setIsClicked(true);
     navigate("/main/bag-manage");
   };
+  const style: React.CSSProperties = {
+    width,
+    height: width,
+  };
+  if (isClicked) {
+    style.animation = "none";
+  }
   return (
     <img
-      style={
-        isClicked
-          ? {
-              animation: "none",
-            }
-          : {}
-      }
+      style={style}
       className="bagWrapper"
       onClick={onClick}
       src={PANNEL_ITEM_PRELOAD.BAG}
-      width={48}
     />
   );
 };
@@ -280,7 +280,7 @@ export const EyeCom = () => {
   const handleSee = () => {
     setSeeOrigin(!see);
   };
-  
+
   return (
     <section onClick={handleSee} className="centerWrapper">
       <IconFontCom

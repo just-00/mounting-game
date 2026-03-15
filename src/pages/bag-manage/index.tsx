@@ -1,7 +1,11 @@
 import { useEquipmentStore } from "@/store/equipment/store";
 import "./index.scss";
 import { useEffect, useState } from "react";
-import { EquipmentType, type Equipment } from "@/store/equipment/type";
+import {
+  EquipmentKey,
+  EquipmentType,
+  type Equipment,
+} from "@/store/equipment/type";
 import classNames from "classnames";
 import { GameToast } from "../main/components/toast";
 import { useGameEffect } from "@/store/effect";
@@ -45,18 +49,25 @@ const BagManage = () => {
       navigate(-1);
       return;
     }
-    const final = equipment.count! - 1;
-    setEquipmentsCount(equipment.key, final);
-    setEquipment({
-      ...equipment,
-      count: final,
-    });
     const { toast } = computeEffect(equipment);
+    // 如果要开启炉子的话，就把背包页关掉
+    if (equipment.action?.stove) {
+      navigate(-1);
+      return;
+    }
     if (toast) {
       setToast(toast);
     }
-    if (!final) {
-      setEquipment(undefined);
+    if (equipment.disposable) {
+      const final = equipment.count! - 1;
+      setEquipmentsCount(equipment.key, final);
+      setEquipment({
+        ...equipment,
+        count: final,
+      });
+      if (!final) {
+        setEquipment(undefined);
+      }
     }
   };
 
@@ -116,16 +127,36 @@ const BagManage = () => {
       </section>
       {!!filterEquipments.length && (
         <section className="buttonWrapper">
-          {!equipment || equipment?.type === EquipmentType.Tool ? (
-            <div />
-          ) : (
-            <div className="button confirm" onClick={onUse}>
-              使用
+          {!!equipment && (
+            <div className="detailWrapper">
+              重量：{equipment?.weight}&nbsp; 体积：{equipment?.size}
             </div>
           )}
-          <div className="button distory" onClick={onDestory}>
-            丢弃
-          </div>
+          <section className="buttonMainWrapper">
+            {/* 只有菜肴、食品、汽炉可以使用 */}
+            {!equipment ||
+            (equipment?.type === EquipmentType.Tool &&
+              equipment.key !== EquipmentKey.GasStove) ? (
+              <div />
+            ) : (
+              <div className="button confirm" onClick={onUse}>
+                使用
+              </div>
+            )}
+            {/* 只有菜肴、食品、垃圾可以丢弃 */}
+            {equipment &&
+            [
+              EquipmentType.DISH,
+              EquipmentType.Food,
+              EquipmentType.RUBISH,
+            ].includes(equipment?.type) ? (
+              <div className="button distory" onClick={onDestory}>
+                丢弃
+              </div>
+            ) : (
+              <div />
+            )}
+          </section>
         </section>
       )}
       {toast && (

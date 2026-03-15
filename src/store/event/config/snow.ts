@@ -701,7 +701,19 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
     ],
   },
   {
-    key: SnowMainEventKey.IceMain_Common_GoodEnd,
+    key: SnowMainEventKey.IceMain_NightLake_18,
+    title: "夜间的雪山也非常美",
+    distance: 18,
+    eventType: EventType.Main,
+    eventPic: MAIN_PROLOAD.NIGHT_LAKE,
+    eventPicType: EventPicType.FullLarge,
+    isShow: ({ timestamp }) => {
+      return timestamp.hour() > 20;
+    },
+  },
+  // 迷失山中
+  {
+    key: SnowMainEventKey.IceMain_Lost_BadEnd,
     title: "顺利下山",
     distance: 20,
     eventType: EventType.Main,

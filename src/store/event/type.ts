@@ -1,3 +1,4 @@
+import type { Dayjs } from "dayjs";
 import type { Action, Effect } from "../effect";
 import type { Weather } from "../environment/type";
 import type { Equipment } from "../equipment/type";
@@ -5,6 +6,7 @@ import type { Speed } from "../status/type";
 
 export type IsShowParams = {
   equipments: Equipment[];
+  timestamp: Dayjs;
   hunger: number;
   weather: Weather;
   doneEventKeys: string[];

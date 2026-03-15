@@ -116,10 +116,11 @@ export enum SnowMainEventKey {
   IceMain_RestStop_8 = "ice_main_rest_stop_8",
   IceMain_IceLake_9 = "ice_main_ice_lake_9",
   IceMain_RestStop_15 = "ice_main_rest_stop_15",
-  IceMain_Downhill_18 = "ice_main_downhill_18",
+  IceMain_NightLake_18 = "IceMain_NightLake_18",
   IceMain_Common_GoodEnd = "IceMain_Common_GoodEnd",
   IceMain_Common_BadEnd = "IceMain_Common_BadEnd",
   IceMain_Arrest_BadEnd = "IceMain_Arrest_BadEnd",
+  IceMain_Lost_BadEnd = "IceMain_Lost_BadEnd",
 }
 
 export enum SnowMainOptionKey {

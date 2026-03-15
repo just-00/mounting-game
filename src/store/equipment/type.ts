@@ -1,5 +1,5 @@
 import type { AchievementKey } from "../achievement/type";
-import type { Effect } from "../effect";
+import type { Action, Effect } from "../effect";
 
 export type DishConfig = {
   // 限定食材数量
@@ -34,9 +34,13 @@ export interface Equipment {
   // 只可用一次
   disposable?: boolean;
   // 增加时获得的成就
-  addedAchievement?: AchievementKey[]
+  addedAchievement?: AchievementKey[];
   // 使用后的副作用
   effect?: Effect;
+  // 使用后的动作
+  action?: Action;
+  // 使用后会变成的垃圾key
+  emptyRubish?: EquipmentKey;
   // 菜肴特定配置
   dishConfig?: DishConfig;
 }
@@ -56,6 +60,9 @@ export enum EquipmentKey {
   Headlamp = "Headlamp",
   // 汽炉
   GasStove = "GasStove",
+  // 垃圾类
+  EmptyDrink = "EmptyDrink",
+  EmptySelfHeatingPot = "EmptySelfHeatingPot",
 
   // 食物
   // 鸡油菌
@@ -131,6 +138,8 @@ export enum EquipmentType {
   Food = "food",
   // 菜肴类
   DISH = "DISH",
+  // 垃圾类
+  RUBISH = "RUBISH",
   // 工具类
   Tool = "tool",
 }
