@@ -40,7 +40,7 @@ export interface Equipment {
   // 使用后的动作
   action?: Action;
   // 使用后会变成的垃圾key
-  emptyRubish?: EquipmentKey;
+  emptyRubbish?: EquipmentKey;
   // 菜肴特定配置
   dishConfig?: DishConfig;
 }
@@ -139,7 +139,7 @@ export enum EquipmentType {
   // 菜肴类
   DISH = "DISH",
   // 垃圾类
-  RUBISH = "RUBISH",
+  RUBBISH = "RUBBISH",
   // 工具类
   Tool = "tool",
 }

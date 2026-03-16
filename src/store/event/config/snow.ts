@@ -606,36 +606,49 @@ export const STATUS_ICE_EVENTS: GameEvent[] = [
   },
 ];
 
+const REST_STOP: Omit<GameEvent, "distance" | "key"> = {
+  title: "路遇休息亭",
+  eventType: EventType.Main,
+  options: [
+    {
+      title: "休息一会儿",
+      key: SnowMainOptionKey.IceMain_RestStop_3_1,
+      result: () => ({
+        effect: {
+          useTime: 30,
+        },
+      }),
+    },
+    {
+      title: "使用炉子",
+      key: SnowMainOptionKey.IceMain_RestStop_3_2,
+      result: () => ({
+        action: {
+          stove: true,
+        },
+      }),
+    },
+    {
+      title: "扔掉包中垃圾",
+      key: SnowMainOptionKey.IceMain_RestStop_3_3,
+      result: () => ({
+        action: {
+          bagRubbish: true,
+        },
+      }),
+    },
+    {
+      title: "离开",
+      key: SnowMainOptionKey.IceMain_RestStop_3_4,
+    },
+  ],
+};
+
 export const MAIN_ICE_EVENTS: GameEvent[] = [
   {
+    ...REST_STOP,
+    distance: 0,
     key: SnowMainEventKey.IceMain_RestStop_3,
-    title: "路遇休息亭",
-    eventType: EventType.Main,
-    distance: 4,
-    options: [
-      {
-        title: "休息一下",
-        key: SnowMainOptionKey.IceMain_RestStop_3_1,
-        result: () => ({
-          effect: {
-            useTime: 30,
-          },
-        }),
-      },
-      {
-        title: "使用炉子",
-        key: SnowMainOptionKey.IceMain_RestStop_3_2,
-        result: () => ({
-          action: {
-            stove: true,
-          },
-        }),
-      },
-      {
-        title: "不休息",
-        key: SnowMainOptionKey.IceMain_RestStop_3_3,
-      },
-    ],
   },
   {
     key: SnowMainEventKey.IceMain_Icefall_5_5,
@@ -671,34 +684,9 @@ export const MAIN_ICE_EVENTS: GameEvent[] = [
     eventPicType: EventPicType.FullLarge,
   },
   {
+    ...REST_STOP,
     key: SnowMainEventKey.IceMain_RestStop_15,
-    title: "休息亭",
-    eventType: EventType.Main,
     distance: 14,
-    options: [
-      {
-        title: "休息一下",
-        key: SnowMainOptionKey.IceMain_RestStop_3_1,
-        result: () => ({
-          effect: {
-            useTime: 30,
-          },
-        }),
-      },
-      {
-        title: "使用炉子",
-        key: SnowMainOptionKey.IceMain_RestStop_3_2,
-        result: () => ({
-          action: {
-            stove: true,
-          },
-        }),
-      },
-      {
-        title: "不休息",
-        key: SnowMainOptionKey.IceMain_RestStop_3_3,
-      },
-    ],
   },
   {
     key: SnowMainEventKey.IceMain_NightLake_18,

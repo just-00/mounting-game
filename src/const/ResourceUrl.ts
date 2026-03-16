@@ -56,6 +56,12 @@ export const SELECT_EQUIPMENT_PRELOAD = {
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/1ccd47844f9c43f1ae83461cc52ddd67.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1)%20(1).png",
   EGG: "https://raw.githubusercontent.com/just-00/game-image-cdn/main/d5b7f8f6d4f94c07bbbfb305641d6d38.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
 
+  // 垃圾
+  EMPTY_SELF_HEATING_POT:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/e01bf04776c54c21b7a1fafac3dc6ece.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+  EMPTY_DRINK:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/9c474023940c41839da095d71da1582e.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
+
   // 菜肴
   // 蘑菇系列
   SCRAMBLED_MUSHROOM:
@@ -208,6 +214,8 @@ export const ACHIEVEMENT_PRELOAD = {
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/58d1b7ef63ab4e97af80aead69d42d0f.jpeg~tplv-a9rns2rl98-image_raw_b.png",
   SURVIVAL:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/76ed75a052fa40bcbbc646856109a8c6.jpeg%7Etplv-a9rns2rl98-image_raw_b.png",
+  ENVIRONMENT:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/ef60dac52725433586d4e6f6abf50fa5.jpeg_tplv-a9rns2rl98-image_raw_b-removebg-preview.png",
 };
 
 export const COMMON_PRELOAD = {
@@ -234,8 +242,10 @@ export const BIRD_PRELOAD = {
 export const AUDIO_PRELOAD = {
   [Weather.Rain]:
     "https://raw.githubusercontent.com/just-00/game-image-cdn/main/rain1.mp3",
-  [Weather.Snow]: "",
-  [Weather.Sun]: "",
+  [Weather.Snow]:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/snow1.mp3",
+  [Weather.Sun]:
+    "https://raw.githubusercontent.com/just-00/game-image-cdn/main/sun1.mp3",
 };
 
 export const ALL_RESOURCE = [

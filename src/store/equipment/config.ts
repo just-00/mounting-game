@@ -134,7 +134,7 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.Food,
     isSelectEquipmentShow: true,
-    emptyRubish: EquipmentKey.EmptyDrink,
+    emptyRubbish: EquipmentKey.EmptyDrink,
     effect: {
       san: FOOD_HUNGER.LOW,
     },
@@ -161,7 +161,7 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     disposable: true,
     type: EquipmentType.Food,
     isSelectEquipmentShow: true,
-    emptyRubish: EquipmentKey.EmptySelfHeatingPot,
+    emptyRubbish: EquipmentKey.EmptySelfHeatingPot,
     effect: {
       useTime: 10,
       warm: FOOD_WARM.MIDDLE,
@@ -695,16 +695,16 @@ export const EQUIPMENTS: Record<EquipmentKey, Equipment> = {
     name: "空瓶子",
     weight: 0.1,
     size: 0.4,
-    src: SELECT_EQUIPMENT_PRELOAD.SPORTS_DRINK,
-    type: EquipmentType.RUBISH,
+    src: SELECT_EQUIPMENT_PRELOAD.EMPTY_DRINK,
+    type: EquipmentType.RUBBISH,
   },
   [EquipmentKey.EmptySelfHeatingPot]: {
     key: EquipmentKey.EmptySelfHeatingPot,
     name: "空自热锅",
     weight: 0.2,
     size: 2,
-    src: SELECT_EQUIPMENT_PRELOAD.SELF_HEATING_POT,
-    type: EquipmentType.RUBISH,
+    src: SELECT_EQUIPMENT_PRELOAD.EMPTY_SELF_HEATING_POT,
+    type: EquipmentType.RUBBISH,
   },
   // 工具类
   [EquipmentKey.GasStove]: {

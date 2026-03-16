@@ -12,6 +12,7 @@ import {
   HungerValue,
 } from "@/store/status/type";
 import { useStatusStore } from "@/store/status/store";
+import type { EquipmentKey } from "@/store/equipment/type";
 
 const SelectEquipment = () => {
   const [page, setPage] = useState(1);
@@ -26,7 +27,7 @@ const SelectEquipment = () => {
     useEquipmentStore();
 
   const onValueChange = (key: string, count?: number | null) => {
-    setEquipmentsCount(key, count ?? 0);
+    setEquipmentsCount(key as EquipmentKey, count ?? 0, true);
   };
   const submit = () => {
     // 计算速度

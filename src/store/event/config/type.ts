@@ -127,6 +127,7 @@ export enum SnowMainOptionKey {
   IceMain_RestStop_3_1 = "IceMain_RestStop_3_1",
   IceMain_RestStop_3_2 = "IceMain_RestStop_3_2",
   IceMain_RestStop_3_3 = "IceMain_RestStop_3_3",
+  IceMain_RestStop_3_4 = "IceMain_RestStop_3_4",
   IceMain_Icefall_5_5_1 = "IceMain_Icefall_5_5_1",
   IceMain_Icefall_5_5_2 = "IceMain_Icefall_5_5_2",
 }

@@ -9,14 +9,17 @@ import {
 import classNames from "classnames";
 import { GameToast } from "../main/components/toast";
 import { useGameEffect } from "@/store/effect";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEventStore } from "@/store/event/store";
 import { useSettingStore } from "@/store/setting";
 import { TitleCom } from "@/components/title";
 import { IconFontCom } from "@/components/icon-font-com";
+import { useAchievementStore } from "@/store/achievement/store";
+import { AchievementKey } from "@/store/achievement/type";
 
 const BagManage = () => {
   const { setMounting } = useSettingStore();
+  const { addAchieved } = useAchievementStore();
   const { equipments, setEquipmentsCount } = useEquipmentStore();
   const [equipment, setEquipment] = useState<Equipment>();
   const filterEquipments = equipments.filter((item) => item.count);
@@ -24,6 +27,8 @@ const BagManage = () => {
   const navigate = useNavigate();
   const { computeEffect } = useGameEffect();
   const { setCurrentEventByKey } = useEventStore();
+  const [confirm, setConfirm] = useState<boolean>(false);
+  const routeLocation = useLocation();
 
   // toast展示1500秒
   useEffect(() => {
@@ -71,10 +76,11 @@ const BagManage = () => {
     }
   };
 
-  const onDestory = () => {
+  const handleDestory = () => {
     if (!equipment) return;
+    setConfirm(false);
     const final = equipment.count! - 1;
-    setEquipmentsCount(equipment.key, final);
+    setEquipmentsCount(equipment.key, final, true);
     setEquipment({
       ...equipment,
       count: final,
@@ -82,6 +88,25 @@ const BagManage = () => {
     if (!final) {
       setEquipment(undefined);
     }
+  };
+
+  const onDestory = () => {
+    if (!equipment) return;
+    const canRubbish = routeLocation.state?.rubbish === true;
+    if (
+      !canRubbish &&
+      (equipment.emptyRubbish || equipment.type === EquipmentType.RUBBISH)
+    ) {
+      // 新增乱扔垃圾成就
+      addAchieved([AchievementKey.LITTERING]);
+      setConfirm(true);
+      return;
+    }
+    handleDestory();
+  };
+
+  const onCancel = () => {
+    setConfirm(false);
   };
 
   return (
@@ -148,7 +173,7 @@ const BagManage = () => {
             [
               EquipmentType.DISH,
               EquipmentType.Food,
-              EquipmentType.RUBISH,
+              EquipmentType.RUBBISH,
             ].includes(equipment?.type) ? (
               <div className="button distory" onClick={onDestory}>
                 丢弃
@@ -165,6 +190,23 @@ const BagManage = () => {
           content={<div dangerouslySetInnerHTML={{ __html: toast }}></div>}
           width={220}
         />
+      )}
+      {/* 乱扔垃圾二次check */}
+      {confirm && (
+        <>
+          <div className="toastBk" />
+          <section className="destoryConfirm">
+            <div className="title">你确定要乱扔垃圾吗？</div>
+            <section className="confirmButtonWrapper">
+              <div className="button confirm" onClick={handleDestory}>
+                确定
+              </div>
+              <div className="button cancel" onClick={onCancel}>
+                不了
+              </div>
+            </section>
+          </section>
+        </>
       )}
     </section>
   );

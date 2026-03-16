@@ -52,6 +52,8 @@ export type Effect = Partial<ToastTextMap>;
 export type Action = {
   stove?: boolean;
   bag?: boolean;
+  // 扔垃圾不被罚
+  bagRubbish?: boolean;
 };
 
 // toast中各项对应的计算函数
@@ -172,9 +174,15 @@ export const useGameEffect = () => {
       if (action.stove) {
         // 使用炉子
         setIsStove(action.stove);
-      }
-      if (action.bag) {
+      } else if (action.bag) {
         navigate("/main/bag-manage");
+        // 在休息站可以扔垃圾不被惩罚
+      } else if (action.bagRubbish) {
+        navigate("/main/bag-manage", {
+          state: {
+            rubbish: true,
+          },
+        });
       }
     }
 
@@ -194,7 +202,7 @@ export const useGameEffect = () => {
     if (effect.equipments) {
       Object.entries(effect.equipments).forEach(([key, value]) => {
         const current = equipments.find((item) => item.key === key);
-        setEquipmentsCount(key, (current?.count || 0) + value);
+        setEquipmentsCount(key as EquipmentKey, (current?.count || 0) + value);
         if (
           value > 0 &&
           EQUIPMENTS[key as EquipmentKey].addedAchievement?.length
